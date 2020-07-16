@@ -129,8 +129,9 @@
       <el-table-column align="center" prop="saleProductNickname" label="产品昵称"></el-table-column>
       <el-table-column align="center" prop="tryOnUserName" label="试穿人员"></el-table-column>
       <el-table-column align="center" prop="visitTime" label="回访时间"></el-table-column>
-      <el-table-column align="center" prop="confirmBackWaitTime" label="确定时间回访"></el-table-column>
-      <el-table-column align="center" prop="backVisitUserName" label="回访人员"></el-table-column>
+      <el-table-column align="center" prop="backTimes" label="回访次数"></el-table-column>
+      <!-- <el-table-column align="center" prop="confirmBackWaitTime" label="确定时间回访"></el-table-column> -->
+      <el-table-column align="center" prop="backUser" label="回访人员"></el-table-column>
       <el-table-column align="center" prop="visitPromiseTime" label="复查到访约定时间">
         <template slot-scope="scope">
           <div :class="scope.row.red === 1 ?'color-red':''">{{scope.row.visitPromiseTime}}</div>
@@ -2899,12 +2900,12 @@
       <h3 class="b-b-p-1">复查邀约回访记录</h3>
       <el-table :data="pickupServiceInformation_back" border max-height="220">
         <el-table-column prop="orderNum" label="订单编号"></el-table-column>
-        <el-table-column prop="saleProductNickname" label="产品昵称"></el-table-column>
+        <el-table-column prop="productNickname" label="产品昵称"></el-table-column>
         <el-table-column prop="backTime" label="邀约回访时间"></el-table-column>
         <el-table-column prop="backPhone" label="回访电话"></el-table-column>
         <el-table-column prop="backPhoneStatus" label="接通状态"></el-table-column>
         <el-table-column prop="backUserName" label="回访人"></el-table-column>
-        <el-table-column prop="visitPromiseTime" label="复查预约到访时间"></el-table-column>
+        <el-table-column prop="visitWaitTime" label="复查预约到访时间"></el-table-column>
         <el-table-column prop="confirmBackWaitTime" label="确认预约应回访时间"></el-table-column>
         <el-table-column label="邀约回访详情">
           <template slot-scope="scope">
@@ -3003,7 +3004,8 @@ import {
   selectVisitDetailByVisitIdAndType,
   selectWaitReviewDetail,
   printMakeParam,
-  examinePadZb3d
+  examinePadZb3d,
+  queryWaitReviewDetail
 } from "../../api/javaApi";
 import {
   exportMethod,
@@ -3689,8 +3691,8 @@ export default {
       this.userMemberId = obj.memberId;
       this.rowObj = obj;
       // this.userPhoneList(obj.memberId);
-      let data = { visitId: obj.visitId };
-      selectWaitReviewDetail(data)
+      let data = { backVisitId: obj.backVisitId };
+      queryWaitReviewDetail(data)
         .then(res => {
           console.log(res);
           if (res.data.returnCode != 0) {
@@ -3701,9 +3703,9 @@ export default {
             });
           } else {
             let details = res.data.data;
-            this.memberDetailDto[0] = details.memberDetailDTO;
+            this.memberDetailDto[0] = details.memberDetail;
             this.pickupServiceInformation_back =
-              details.visitFinishProductDetailDTO;
+              details.reviewDetailList;
             this.dfc_Dialog = true;
           }
         })
