@@ -95,7 +95,7 @@ function threeD_func(that) {
         that.dialogEvaluationDetails = false;
         that.$message({
           type: "success",
-          message: "下单成功！",
+          message: "修改成功！",
           center: true
         });
       }

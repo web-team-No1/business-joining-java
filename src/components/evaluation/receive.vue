@@ -2142,7 +2142,7 @@ export default {
       this.bianhao = null;
     },
     addDd(obj) {
-      alert(1);
+      // alert(1);
       if (
         obj[0].doctorValue != null &&
         obj[0].prescriptionValue != null &&
