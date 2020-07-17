@@ -2901,12 +2901,12 @@
       <h3 class="b-b-p-1">复查邀约回访记录</h3>
       <el-table :data="pickupServiceInformation_back" border max-height="220">
         <el-table-column prop="orderNum" label="订单编号"></el-table-column>
-        <el-table-column prop="saleProductNickname" label="产品昵称"></el-table-column>
+        <el-table-column prop="productNickname" label="产品昵称"></el-table-column>
         <el-table-column prop="backTime" label="邀约回访时间"></el-table-column>
         <el-table-column prop="backPhone" label="回访电话"></el-table-column>
         <el-table-column prop="backPhoneStatus" label="接通状态"></el-table-column>
         <el-table-column prop="backUserName" label="回访人"></el-table-column>
-        <el-table-column prop="visitPromiseTime" label="复查预约到访时间"></el-table-column>
+        <el-table-column prop="visitWaitTime" label="复查预约到访时间"></el-table-column>
         <el-table-column prop="confirmBackWaitTime" label="确认预约应回访时间"></el-table-column>
         <el-table-column label="邀约回访详情">
           <template slot-scope="scope">
@@ -3705,7 +3705,7 @@ export default {
           } else {
             let details = res.data.data;
             this.memberDetailDto[0]=details.memberDetail;// details.memberDetailDTO;
-            this.pickupServiceInformation_back =details.prescriptionDTO
+            this.pickupServiceInformation_back =details.reviewDetailList
               // details.visitFinishProductDetailDTO;
             this.dfc_Dialog = true;
           }
