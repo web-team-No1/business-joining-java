@@ -202,7 +202,7 @@
     <div class="total">
       <span>合计：</span>
       <span>客户总数量:{{total.visitMemberCount}}</span>
-      <span>到访客户总数量:{{total.visitFlag}}</span>
+      <span>到访客户总数量:{{total.visitFlagMember}}</span>
       <span>流失客户数:{{total.outflowMemberCount}}</span>
       <span>到访次数:{{total.visitFlag}}</span>
       <span>到访率:{{total.visitFlagRatio}}</span>

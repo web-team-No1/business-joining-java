@@ -196,7 +196,7 @@
             <el-table-column prop="illness" label="新增病情"></el-table-column>
             <el-table-column prop="updateTime" label="创建时间"></el-table-column>
           </el-table>
-          <h3 class="new-title">产品信息</h3>
+          <h3 class="new-title">产品体验回访表</h3>
           <el-table
             :data="pickupServiceInformation"
             border
@@ -225,7 +225,7 @@
             </el-table-column>
           </el-table>
           <h3 class="new-title">测评记录</h3>
-<el-table
+          <el-table
             :border="true"
             :data="new_details_data.examinationInfo"
             :header-row-class-name="'headerClass-two'"
@@ -262,7 +262,7 @@
                     icon="el-icon-download"
                     @click="baogao_func(item.examinationName)"
                     size="mini"
-                  >下载报告文件</el-button> -->
+                  >下载报告文件</el-button>-->
                   <el-button
                     class="right"
                     v-if="item.examinationName=='足部3D扫描测评'"
@@ -1696,7 +1696,7 @@
         <el-button @click="td_addVisit()" type="success" icon="el-icon-circle-check">确认提交</el-button>
         <el-button @click="addPhone()" type="success" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
         <el-button @click="morePrduct_function()" type="success" icon="el-icon-tickets">更多产品信息</el-button>
-        <el-button @click="ls_save()" type="danger">确认流失</el-button>
+        <el-button @click="ls_save()" type="danger">产品流失</el-button>
       </span>
     </el-dialog>
     <!-- dialog 测评详情-->
@@ -1795,7 +1795,7 @@
         <div class="margin-t-5">
           <span>测评结果:</span>
           <span class="margin-r-20">{{item.result}}</span>
-        </div>
+        </div> 
         <div class="clearfix">
           <div
             class="margin-t-5 left margin-r-5"
@@ -3143,7 +3143,6 @@
     <el-dialog
       title="客户态度分析"
       :visible.sync="new_details_data.td_dialog"
-      :close-on-click-modal="false"
       width="30%"
       :before-close="td_cancel"
     >
@@ -3177,7 +3176,6 @@
     <el-dialog
       title="客户流失登记"
       :visible.sync="new_details_data.ls_dialog"
-      :close-on-click-modal="false"
       width="30%"
       :before-close="ls_cancel"
     >
@@ -3376,12 +3374,12 @@ export default {
     this.provinceList();
   },
   methods: {
-    ls_cancel(){
-      this.new_details_data.ls_dialog=false
-      this.new_details_data.churnRegistration=null
+    ls_cancel() {
+      this.new_details_data.ls_dialog = false;
+      this.new_details_data.churnRegistration = null;
     },
-    ls_save(){
-      this.new_details_data.ls_dialog=true
+    ls_save() {
+      this.new_details_data.ls_dialog = true;
     },
     td_cancel() {
       this.new_details_data.td_dialog = false;
@@ -3589,7 +3587,7 @@ export default {
       let data = {
         outflowPhoneStatus: this.usePhoneStatus,
         outflowPhone: this.usePhone,
-         outflowReason: this.new_details_data.churnRegistration,
+        outflowReason: this.new_details_data.churnRegistration,
         visitIds: this.multipleSelection
       };
       insertOutflow(data)
@@ -3601,7 +3599,7 @@ export default {
               center: true
             });
           } else {
-            this.ls_cancel()
+            this.ls_cancel();
             this.cancel();
             this.pageList(this.pages.currentPage, this.pages.pageSize);
             this.$message({
@@ -3635,13 +3633,13 @@ export default {
         usePhoneStatus: this.usePhoneStatus,
         usePhone: this.usePhone,
         backWaitTime: this.useWaitTime,
-  
+
         remark: this.causeOfLoss,
-        memberAttitude: this.new_details_data.value,
+        memberAttitude: this.new_details_data.value==0 ? null:this.new_details_data.value,
         memberAttitudeRemark: this.new_details_data.causeOfLoss,
         visitForms: visitFormsList //this.visitForms
       };
-      console.log(data)
+      console.log(data);
       insertUseVisit(data)
         .then(res => {
           if (res.data.returnCode != 0) {
@@ -3652,9 +3650,9 @@ export default {
             });
             this.visitForms = [];
           } else {
-            this.td_cancel()
-           this.cancel();
-            this.topItem_func(this.topActive)
+            this.td_cancel();
+            this.cancel();
+            this.topItem_func(this.topActive);
             // this.pageList();
             this.$message({
               type: "success",
@@ -3707,8 +3705,8 @@ export default {
     addSparePhone() {
       let data = {
         memberId: this.userMemberId,
-        parent:this.new_details_data.relationship,
-        backupPhone: this.backupPhone,
+        parent: this.new_details_data.relationship,
+        backupPhone: this.backupPhone
       };
       insertBackupPhone(data)
         .then(res => {
@@ -3818,11 +3816,11 @@ export default {
             useUseEffect: null,
             useNotice: [],
             useProblemHave: null,
-            useProblemDo:null,
+            useProblemDo: null,
             title: productTitle,
             productType: element.saleProductType,
-            visitId:element.visitId,
-            visitTypeInt:element.visitTypeInt,
+            visitId: element.visitId,
+            visitTypeInt: element.visitTypeInt
           };
           // obj=this.new_details_data.templateData[element.saleProductType - 1];
           // obj.title = productTitle;
@@ -3882,8 +3880,7 @@ export default {
             let details = res.data.data;
             this.memberDetailDto[0] = details.memberDetailDTO;
             this.new_details_data.prescriptionDTO = details.prescriptionDTO;
-            this.pickupServiceInformation =
-              details.experienceRecordDTO;
+            this.pickupServiceInformation = details.experienceRecordDTO;
             this.new_details_data.examinationInfo[0] =
               details.examineDetail.examinationInfo;
             this.new_details_data.detailList = details.examineDetail.detailList;

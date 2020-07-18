@@ -183,7 +183,7 @@
             <el-table-column prop="condition" label="处方病情"></el-table-column>
             <el-table-column prop="illness" label="新增病情"></el-table-column>
           </el-table>
-          <h3 class="new-title">产品信息</h3>
+          <h3 class="new-title">产品体验回访表</h3>
           <el-table
             :data="pickupServiceInformation"
             border
@@ -211,6 +211,7 @@
               </template>
             </el-table-column>
           </el-table>
+          <h3 class="new-title">产品使用回访表</h3>
           <el-table
             :data="pickupServiceInformation_use"
             border
@@ -342,7 +343,7 @@
           </el-form>
           <el-form :inline="true" size="small" id="search">
             <el-form-item label="接通状态：">
-              <el-radio-group v-model="usePhoneStatus">
+              <el-radio-group v-model="usePhoneStatus" @change="onState_func">
                 <el-radio label="接通">接通</el-radio>
                 <el-radio label="接通挂断">接通挂断</el-radio>
                 <el-radio label="多次未接通">多次未接通</el-radio>
@@ -356,188 +357,207 @@
             <el-step title="表明目的"></el-step>
             <el-step title="确定时间"></el-step>
           </el-steps>
-          <el-form :inline="true" size="small" id="search">
-            <el-form-item label="复查邀约结果：">
-              <el-radio-group v-model="backInviteResult">
-                <el-radio v-for="(item,index) in ls_fcyyjg" :key="index" :label="item"></el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-form>
-          <el-form :inline="true" size="small" id="search">
-            <el-form-item label="沟通结果：">
-              <el-radio-group v-model="backTalkResult">
-                <el-radio v-for="(item,index) in ls_gtjg" :key="index" :label="item"></el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-form>
-          <el-form :inline="true" size="small" id="search">
-            <el-form-item label="复查到访约定时间：">
-              <el-date-picker
-                size="mini"
-                v-model="visitWaitTime"
-                type="datetime"
-                value-format="yyyy-MM-dd HH:mm"
-                placeholder="选择日期时间">
-            </el-date-picker>
-            </el-form-item>
-          </el-form>
-          <el-form :inline="true" size="small" id="search">
-            <el-form-item label="确认时间回访：">
-              <el-date-picker
-                readonly
-                v-model="useWaitTime"
-                size="mini"
-                type="datetime"
-                value-format="yyyy-MM-dd h:m"
-                placeholder="选择日期"
-              ></el-date-picker>
-            </el-form-item>
-          </el-form>
-          <el-calendar id="el-step" v-model="timeValue"></el-calendar>
-          <!-- <el-row :gutter="20"> -->
-          <!-- <el-col :span="2">
-          <div class="line-h-30 text-r">接通状态：</div>
-        </el-col>
-        <el-col :span="8">
-          <div class="line-h-30">
-            <el-radio-group v-model="usePhoneStatus">
-               <el-radio label="接通">接通</el-radio>
-              <el-radio label="接通挂断">接通挂断</el-radio>
-              <el-radio label="多次未接通">多次未接通</el-radio>
-              <el-radio label="联系方式错误">联系方式错误</el-radio>
-            </el-radio-group>
-          </div>
-          </el-col>-->
-          <!-- <el-col :span="2">
-          <div class="line-h-30 text-r">回访电话：</div>
-        </el-col>
-        <el-col :span="3">
-          <div>
-            <el-select
-              style="width:100%"
-              size="mini"
-              clearable
-              v-model="usePhone"
-              placeholder="请选择"
-            >
-              <el-option v-for="item in phoneList" :key="item" :label="item" :value="item"></el-option>
-            </el-select>
-          </div>
-          </el-col>-->
-          <!-- <el-col :span="3">
-          <div class="line-h-30 text-r">确认时间回访：</div>
-        </el-col>
-        <el-col :span="3">
-          <div>
-            <el-date-picker
-              style="width:100%"
-              v-model="useWaitTime"
-              size="mini"
-              type="date"
-              value-format="yyyy-MM-dd"
-              placeholder="选择日期"
-            ></el-date-picker>
-          </div>
-        </el-col>
-          </el-row>-->
-
-          <!-- <el-row class="margin-t-20" style="background:#ecf5ff"> -->
-          <!-- <el-col :span="3">
-          <div class="line-h-30 center margin-b-10">邀约流程提示：</div>
-          <div class="line-h-30 center margin-b-10">1.表明身份</div>
-          <div class="line-h-30 center margin-b-10">2.确认身份</div>
-          <div class="line-h-30 center margin-b-10">3.表明目的</div>
-          <div class="line-h-30 center margin-b-10">4.确定时间</div>
-          </el-col>-->
-          <!-- <el-col :span="12"> -->
-          <!-- <el-row class="padding-tb-20">
-            <el-col :span="8">
-            <div class="text-r">沟通结果：</div>
-            </el-col>
-            <el-col :span="16">
-            <div>
-                
-            </div>
-            </el-col>
-          </el-row>-->
-          <!-- <el-row class="padding-tb-20">
-            <el-col :span="8">
-            <div class="text-r">复查邀约结果：</div>
-            </el-col>
-            <el-col :span="16">
-            <div>
-                <el-radio-group v-model="backInviteResult">
-                <el-radio v-for="(item,index) in ls_fcyyjg" :key="index" :label="item"></el-radio>
+          <div v-if="isShow">
+            <el-form :inline="true" size="small" id="search">
+              <el-form-item label="复查邀约结果：">
+                <el-radio-group v-model="backInviteResult" @change="backInviteResult_func">
+                  <el-radio v-for="(item,index) in ls_fcyyjg" :key="index" :label="item"></el-radio>
                 </el-radio-group>
-            </div>
+              </el-form-item>
+            </el-form>
+            <!-- <el-form :inline="true" size="small" id="search">
+              <el-form-item label="沟通结果：">
+                <el-radio-group v-model="backTalkResult">
+                  <el-radio v-for="(item,index) in ls_gtjg" :key="index" :label="item"></el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-form>-->
+            <!-- <el-form :inline="true" size="small" id="search">
+              <el-form-item label="确认时间回访：">
+                <el-date-picker
+                  size="mini"
+                  v-model="visitWaitTime"
+                  type="datetime"
+                  value-format="yyyy-MM-dd HH:mm"
+                  placeholder="选择日期时间"
+                ></el-date-picker>
+              </el-form-item>
+            </el-form>-->
+            <div v-show="backInviteResultIsShow">
+              <el-form :inline="true" size="small" id="search">
+                <el-form-item label="复查到访约定时间：">
+                  <el-date-picker
+                    readonly
+                    v-model="useWaitTime"
+                    size="mini"
+                    type="datetime"
+                    value-format="yyyy-MM-dd h:m"
+                    placeholder="选择日期"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-form>
+              <el-calendar id="el-step" v-model="timeValue"></el-calendar>
+              <!-- <el-row :gutter="20"> -->
+              <!-- <el-col :span="2">
+          <div class="line-h-30 text-r">接通状态：</div>
             </el-col>
-          </el-row>-->
-          <!-- <el-row class="padding-tb-20">
             <el-col :span="8">
-            <div class="text-r line-h-30">复查到访约定时间：</div>
+              <div class="line-h-30">
+                <el-radio-group v-model="usePhoneStatus">
+                  <el-radio label="接通">接通</el-radio>
+                  <el-radio label="接通挂断">接通挂断</el-radio>
+                  <el-radio label="多次未接通">多次未接通</el-radio>
+                  <el-radio label="联系方式错误">联系方式错误</el-radio>
+                </el-radio-group>
+              </div>
+              </el-col>-->
+              <!-- <el-col :span="2">
+              <div class="line-h-30 text-r">回访电话：</div>
             </el-col>
-            <el-col :span="16">
-            <el-date-picker
-                size="mini"
-                v-model="visitWaitTime"
-                type="datetime"
-                value-format="yyyy-MM-dd HH:mm"
-                placeholder="选择日期时间">
-            </el-date-picker>
+            <el-col :span="3">
+              <div>
+                <el-select
+                  style="width:100%"
+                  size="mini"
+                  clearable
+                  v-model="usePhone"
+                  placeholder="请选择"
+                >
+                  <el-option v-for="item in phoneList" :key="item" :label="item" :value="item"></el-option>
+                </el-select>
+              </div>
+              </el-col>-->
+              <!-- <el-col :span="3">
+              <div class="line-h-30 text-r">确认时间回访：</div>
             </el-col>
-        </el-row>
-        </el-col>
-        <el-col :span="9">
-          <div class="line-h-30 margin-b-10">流失原因：</div>
-          <div class="margin-b-10">
-            <el-input
-             style="width:80%"
-              type="textarea"
-              :autosize="{ minRows: 2, maxRows: 4}"
-              placeholder="请输入内容"
-              v-model="causeOfLoss"
-            ></el-input>
+            <el-col :span="3">
+              <div>
+                <el-date-picker
+                  style="width:100%"
+                  v-model="useWaitTime"
+                  size="mini"
+                  type="date"
+                  value-format="yyyy-MM-dd"
+                  placeholder="选择日期"
+                ></el-date-picker>
+              </div>
+            </el-col>
+              </el-row>-->
+
+              <!-- <el-row class="margin-t-20" style="background:#ecf5ff"> -->
+              <!-- <el-col :span="3">
+              <div class="line-h-30 center margin-b-10">邀约流程提示：</div>
+              <div class="line-h-30 center margin-b-10">1.表明身份</div>
+              <div class="line-h-30 center margin-b-10">2.确认身份</div>
+              <div class="line-h-30 center margin-b-10">3.表明目的</div>
+              <div class="line-h-30 center margin-b-10">4.确定时间</div>
+              </el-col>-->
+              <!-- <el-col :span="12"> -->
+              <!-- <el-row class="padding-tb-20">
+                <el-col :span="8">
+                <div class="text-r">沟通结果：</div>
+                </el-col>
+                <el-col :span="16">
+                <div>
+                    
+                </div>
+                </el-col>
+              </el-row>-->
+              <!-- <el-row class="padding-tb-20">
+                <el-col :span="8">
+                <div class="text-r">复查邀约结果：</div>
+                </el-col>
+                <el-col :span="16">
+                <div>
+                    <el-radio-group v-model="backInviteResult">
+                    <el-radio v-for="(item,index) in ls_fcyyjg" :key="index" :label="item"></el-radio>
+                    </el-radio-group>
+                </div>
+                </el-col>
+              </el-row>-->
+              <!-- <el-row class="padding-tb-20">
+                <el-col :span="8">
+                <div class="text-r line-h-30">复查到访约定时间：</div>
+                </el-col>
+                <el-col :span="16">
+                <el-date-picker
+                    size="mini"
+                    v-model="visitWaitTime"
+                    type="datetime"
+                    value-format="yyyy-MM-dd HH:mm"
+                    placeholder="选择日期时间">
+                </el-date-picker>
+                </el-col>
+            </el-row>
+            </el-col>
+            <el-col :span="9">
+              <div class="line-h-30 margin-b-10">流失原因：</div>
+              <div class="margin-b-10">
+                <el-input
+                style="width:80%"
+                  type="textarea"
+                  :autosize="{ minRows: 2, maxRows: 4}"
+                  placeholder="请输入内容"
+                  v-model="causeOfLoss"
+                ></el-input>
+              </div>
+              <div class="line-h-30">
+                
+              </div>
+            </el-col>
+              </el-row>-->
+              <el-form :inline="true" size="small" id="search">
+                <el-form-item>
+                  <el-select
+                    class="w-150"
+                    clearable
+                    v-model="fayy_data.dayValue"
+                    placeholder="请选择上下午"
+                  >
+                    <el-option
+                      v-for="item in fayy_data.dayList"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.name"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item>
+                  <el-select
+                    class="w-150"
+                    clearable
+                    v-model="fayy_data.timeValue"
+                    placeholder="请选择时"
+                  >
+                    <el-option
+                      v-for="item in fayy_data.timeList"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item>
+                  <el-select
+                    class="w-150"
+                    clearable
+                    v-model="fayy_data.minuteValue"
+                    placeholder="请选择分"
+                  >
+                    <el-option
+                      v-for="item in fayy_data.minuteList"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item>
+                  <el-button @click="seveTime()" type="primary" icon="el-icon-circle-check">确认</el-button>
+                </el-form-item>
+              </el-form>
+            </div>
           </div>
-          <div class="line-h-30">
-            
-          </div>
-        </el-col>
-          </el-row>-->
-          <el-form :inline="true" size="small" id="search">
-            <el-form-item>
-              <el-select class="w-150" clearable v-model="fayy_data.dayValue" placeholder="请选择上下午">
-                <el-option
-                  v-for="item in fayy_data.dayList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.name"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-select class="w-150" clearable v-model="fayy_data.timeValue" placeholder="请选择时">
-                <el-option
-                  v-for="item in fayy_data.timeList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-select class="w-150" clearable v-model="fayy_data.minuteValue" placeholder="请选择分">
-                <el-option
-                  v-for="item in fayy_data.minuteList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-button @click="seveTime()" type="primary" icon="el-icon-circle-check">确认</el-button>
-            </el-form-item>
-          </el-form>
           <h3 class="new-title">备注</h3>
           <div>
             <el-input
@@ -551,14 +571,10 @@
       </div>
       <span slot="footer">
         <el-button @click="cancel()" type="primary" icon="el-icon-circle-close">取消</el-button>
-        <el-button
-          @click="td_addVisit()"
-          type="success"
-          icon="el-icon-circle-check"
-        >确认提交</el-button>
+        <el-button @click="td_addVisit()" type="success" icon="el-icon-circle-check">确认提交</el-button>
         <el-button @click="addPhone()" type="success" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
         <el-button @click="morePrduct_function()" type="success" icon="el-icon-tickets">更多产品信息</el-button>
-        <el-button @click="ls_save()" type="danger">确认流失</el-button>
+        <el-button @click="ls_save()" type="danger">客户流失</el-button>
       </span>
     </el-dialog>
     <!-- dialog 测评详情-->
@@ -3246,7 +3262,6 @@
     <el-dialog
       title="客户流失登记"
       :visible.sync="new_details_data.ls_dialog"
-      :close-on-click-modal="false"
       width="30%"
       :before-close="ls_cancel"
     >
@@ -3267,7 +3282,6 @@
     <el-dialog
       title="客户态度分析"
       :visible.sync="new_details_data.td_dialog"
-      :close-on-click-modal="false"
       width="30%"
       :before-close="td_cancel"
     >
@@ -3341,6 +3355,7 @@ export default {
     return {
       //新的date
       timeValue: new Date(),
+      isShow: false,
       /****数据指派数据 */
       data_assignment: return_variable.data_assignment,
       fayy_data: return_variable.fayy_data,
@@ -3447,7 +3462,7 @@ export default {
       isQK: ["鼓励", "警告"],
       isNLD: ["粘", "不沾"],
       ls_gtjg: ["配合", "不配合"],
-      ls_fcyyjg: ["拒绝不来", "没时间", "时间不定", "时间确定"],
+      ls_fcyyjg: ["拒绝不来", "时间不定", "时间确定"],
       zysx_1: ["运动", "皮肤护理", "鞋垫保养"],
       zysx_2: ["运动", "皮肤护理", "按摩"],
       zysx_3: ["运动", "皮肤护理", "生活习惯"],
@@ -3675,7 +3690,8 @@ export default {
         list: []
       },
       threeDDialg: false,
-      only_recordId: null
+      only_recordId: null,
+      backInviteResultIsShow:false
     };
   },
   components: {
@@ -3688,6 +3704,24 @@ export default {
     this.provinceList();
   },
   methods: {
+    backInviteResult_func(val) {
+      if (val == "拒绝不来") {
+        this.ls_save();
+        this.new_details_data.churnRegistration = val;
+        this.backInviteResultIsShow = false;
+      } else if (val == "时间不定") {
+        this.backInviteResultIsShow = false;
+      } else {
+        this.backInviteResultIsShow = true;
+      }
+    },
+    onState_func(e) {
+      if (e != "接通") {
+        this.isShow = false;
+      } else {
+        this.isShow = true;
+      }
+    },
     td_cancel() {
       this.new_details_data.td_dialog = false;
       this.new_details_data.value = 0;
@@ -3696,17 +3730,23 @@ export default {
     td_addVisit() {
       this.new_details_data.td_dialog = true;
     },
-    ls_cancel(){
-      this.new_details_data.ls_dialog=false
-      this.new_details_data.churnRegistration=null
+    ls_cancel() {
+      this.new_details_data.ls_dialog = false;
+      this.new_details_data.churnRegistration = null;
     },
-    ls_save(){
-      this.new_details_data.ls_dialog=true
+    ls_save() {
+      this.new_details_data.ls_dialog = true;
     },
     seveTime() {
       let date = date_zh(this.timeValue);
-      let a=this.fayy_data.timeValue<10?"0"+this.fayy_data.timeValue:this.fayy_data.timeValue;
-      let b=this.fayy_data.minuteValue<10?"0"+this.fayy_data.minuteValue:this.fayy_data.minuteValue;
+      let a =
+        this.fayy_data.timeValue < 10
+          ? "0" + this.fayy_data.timeValue
+          : this.fayy_data.timeValue;
+      let b =
+        this.fayy_data.minuteValue < 10
+          ? "0" + this.fayy_data.minuteValue
+          : this.fayy_data.minuteValue;
       let time = `${a}:${b}`;
       this.useWaitTime = `${date} ${time}`;
       // console.log(date_zh(this.timeValue))
@@ -3952,7 +3992,7 @@ export default {
               center: true
             });
           } else {
-            this.ls_cancel()
+            this.ls_cancel();
             this.cancel();
             this.pageList(this.pages.currentPage, this.pages.pageSize);
             this.$message({
@@ -3975,9 +4015,10 @@ export default {
       //   console.log(this.data_box);
       let data = {
         visitWaitTimePeriod: this.fayy_data.dayValue,
-        backRemark:this.causeOfLoss,
+        backRemark: this.causeOfLoss,
         remark: this.causeOfLoss,
-        memberAttitude: this.new_details_data.value,
+        memberAttitude:
+          this.new_details_data.value == 0 ? null : this.new_details_data.value,
         memberAttitudeRemark: this.new_details_data.causeOfLoss,
 
         visitIds: list, //this.multipleSelection,
@@ -3998,7 +4039,7 @@ export default {
             });
             // this.visitForms=[]
           } else {
-            this.td_cancel()
+            this.td_cancel();
             this.cancel();
             this.pageList(this.pages.currentPage, this.pages.pageSize);
             this.$message({
@@ -4015,7 +4056,7 @@ export default {
     addSparePhone() {
       let data = {
         memberId: this.userMemberId,
-        parent:this.new_details_data.relationship,
+        parent: this.new_details_data.relationship,
         backupPhone: this.backupPhone
       };
       insertBackupPhone(data)

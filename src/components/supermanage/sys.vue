@@ -1017,16 +1017,23 @@ export default {
                 deleteUser(deleteData)
                   .then(res => {
                     // debugger
-                    const loading = this.$loading({
-                      lock: true,
-                      text: "加载中",
-                      spinner: "el-icon-loading",
-                      background: "rgba(0, 0, 0, 0.7)"
-                    });
+                    // const loading = this.$loading({
+                    //   lock: true,
+                    //   text: "加载中",
+                    //   spinner: "el-icon-loading",
+                    //   background: "rgba(0, 0, 0, 0.7)"
+                    // });
                     resolve(res);
                     if (!res.Error) {
+                        if (res.data.returnCode != 0) {
+                this.$message({
+                  type: "warning",
+                  message: res.data.returnMsg,
+                  center: true
+                });
+              } else {
                       setTimeout(() => {
-                        loading.close();
+                        // loading.close();
                         this.$message({
                           type: "success",
                           message: "删除成功！",
@@ -1037,6 +1044,7 @@ export default {
                           this.pages.pageSize
                         );
                       }, 500);
+              }
                     }
                   })
                   .catch(err => {

@@ -341,7 +341,7 @@
           </el-form>
           <el-form :inline="true" size="small" id="search">
             <el-form-item label="接通状态：">
-              <el-radio-group v-model="experiencePhoneStatus">
+              <el-radio-group v-model="experiencePhoneStatus" @change="onState_func">
                 <el-radio label="接通">接通</el-radio>
                 <el-radio label="接通挂断">接通挂断</el-radio>
                 <el-radio label="多次未接通">多次未接通</el-radio>
@@ -1468,7 +1468,7 @@
         <el-button @click="td_addVisit()" type="success" icon="el-icon-circle-check">确认提交</el-button>
         <el-button @click="addPhone()" type="success" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
         <el-button @click="morePrduct_function()" type="success" icon="el-icon-tickets">更多产品信息</el-button>
-        <el-button @click="ls_save()" type="danger">确认流失</el-button>
+        <el-button @click="ls_save()" type="danger">产品流失</el-button>
       </span>
     </el-dialog>
     <!-- dialog 测评详情-->
@@ -1859,7 +1859,6 @@
     <el-dialog
       title="客户态度分析"
       :visible.sync="new_details_data.td_dialog"
-      :close-on-click-modal="false"
       width="30%"
       :before-close="td_cancel"
     >
@@ -1893,7 +1892,6 @@
     <el-dialog
       title="客户流失登记"
       :visible.sync="new_details_data.ls_dialog"
-      :close-on-click-modal="false"
       width="30%"
       :before-close="ls_cancel"
     >
@@ -2086,6 +2084,13 @@ export default {
     this.topItem_func(1);
   },
   methods: {
+    onState_func(e){
+      if(e != "接通"){
+        this.productItem_box=false
+      }else{
+        this.productItem_box=true
+      }    
+    },
     ls_cancel(){
       this.new_details_data.ls_dialog=false
       this.new_details_data.churnRegistration=null
@@ -2274,7 +2279,7 @@ export default {
         experiencePhone: this.experiencePhone,
         useWaitTime: this.useWaitTime,
         remark: this.causeOfLoss,
-        memberAttitude: this.new_details_data.value,
+        memberAttitude: this.new_details_data.value == 0 ? null:this.new_details_data.value,
         memberAttitudeRemark: this.new_details_data.causeOfLoss,
         visitForms: visitFormsList //this.visitForms
       };
@@ -2398,6 +2403,7 @@ export default {
           obj.list = [];
         });
         val.forEach(element => {
+          
           this.productItem["item_" + element.saleProductType] = true;
           myType.push(element.saleProductType);
           // debugger;

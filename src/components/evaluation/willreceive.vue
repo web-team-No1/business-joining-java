@@ -1509,6 +1509,7 @@ import {
   allSite,
   getBase64Image,
   img_base64,
+  hospital,
   personnel
 } from "../../utils/public";
 import { Promise, all, async } from "q";
