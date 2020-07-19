@@ -336,8 +336,23 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto" size="mini">
           <h3 class="new-title">基本信息</h3>
           <el-col :span="11">
+            <el-form-item label="就诊类型" prop="memberType">
+              <el-radio-group
+                v-model="ruleForm.memberType"
+                @change="isRequired(ruleForm.memberType)"
+              >
+                <el-radio label="2">固定类</el-radio>
+                <el-radio label="1">矫形类</el-radio>
+              </el-radio-group>
+            </el-form-item>
             <el-form-item label="客户姓名:" prop="name">
               <el-input v-model="ruleForm.name" placeholder="请输入客户姓名"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" prop="sex">
+              <el-radio-group v-model="ruleForm.sex">
+                <el-radio label="1">男</el-radio>
+                <el-radio label="0">女</el-radio>
+              </el-radio-group>
             </el-form-item>
             <el-form-item label="联系方式:" prop="phone">
               <el-input v-model.number="ruleForm.phone" placeholder="请输入联系方式"></el-input>
@@ -355,17 +370,13 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="性别" prop="sex">
-              <el-radio-group v-model="ruleForm.sex">
-                <el-radio label="1">男</el-radio>
-                <el-radio label="0">女</el-radio>
-              </el-radio-group>
-            </el-form-item>
+            
+            
+          </el-col>
+          <el-col :span="12" :offset="1">
             <el-form-item label="地址">
               <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入家庭住址地址"></el-input>
             </el-form-item>
-          </el-col>
-          <el-col :span="12" :offset="1">
             <el-form-item v-if="modefiy" label="治疗周期:">
               <span>{{modfiyTreatmentCycle}}</span>
             </el-form-item>
@@ -394,15 +405,7 @@
                 <el-radio label="4">儿保</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="就诊类型" prop="memberType">
-              <el-radio-group
-                v-model="ruleForm.memberType"
-                @change="isRequired(ruleForm.memberType)"
-              >
-                <el-radio label="2">固定类</el-radio>
-                <el-radio label="1">矫形类</el-radio>
-              </el-radio-group>
-            </el-form-item>
+            
           </el-col>
         </el-form>
       </el-row>

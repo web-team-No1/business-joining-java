@@ -145,7 +145,7 @@
     <!-- 选择用户弹框 -->
     <el-dialog
       title="试穿通知"
-      width="70%"
+      width="90%"
       :visible.sync="userDialog"
       :close-on-click-modal="false"
       :before-close="cancel"
@@ -166,13 +166,64 @@
             value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择日期时间"
           ></el-date-picker>
+        <el-calendar id="el-step" v-model="timeValue"></el-calendar>
+        <el-form :inline="true" size="small" id="search">
+                <el-form-item>
+                  <el-select
+                    class="w-150"
+                    clearable
+                    v-model="fayy_data.dayValue"
+                    placeholder="请选择上下午"
+                  >
+                    <el-option
+                      v-for="item in fayy_data.dayList"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.name"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item>
+                  <el-select
+                    class="w-150"
+                    clearable
+                    v-model="fayy_data.timeValue"
+                    placeholder="请选择时"
+                  >
+                    <el-option
+                      v-for="item in fayy_data.timeList"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item>
+                  <el-select
+                    class="w-150"
+                    clearable
+                    v-model="fayy_data.minuteValue"
+                    placeholder="请选择分"
+                  >
+                    <el-option
+                      v-for="item in fayy_data.minuteList"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item>
+                  <el-button @click="seveTime()" type="primary" icon="el-icon-circle-check">确认</el-button>
+                </el-form-item>
+              </el-form>
         </div>
         <div class="left fp_box">
           <h3 class="b-b-p-1">其他情况</h3>
           <el-input
-            style="width:50%"
+            style="width:100%"
             type="textarea"
-            :autosize="{ minRows: 1.3, maxRows: 4}"
+            :autosize="{ minRows: 34, maxRows: 15}"
             placeholder="请输入内容"
             v-model="textarea"
           ></el-input>
@@ -201,14 +252,17 @@ import {
   city,
   site,
   hospital,
-  allSite
+  allSite,
+  date_zh
 } from "../../utils/public";
 import { Promise, all, async } from "q";
 import session from "../../utils/session";
+import return_variable from "../return/return_variable";
 export default {
   name: "App",
   data() {
     return {
+      fayy_data: return_variable.fayy_data,
       tryOnDate: null,
       clientData: [],
       //分页
@@ -237,7 +291,8 @@ export default {
       memberId: null,
       textarea: null,
       tryOnProductData: [],
-      loading: true
+      loading: true,
+       timeValue: new Date(),
     };
   },
   mounted() {
@@ -246,6 +301,25 @@ export default {
     this.provinceList();
   },
   methods: {
+    seveTime() {
+      let date = date_zh(this.timeValue);
+      let a =
+        this.fayy_data.timeValue < 10
+          ? "0" + this.fayy_data.timeValue
+          : this.fayy_data.timeValue;
+      let b =
+        this.fayy_data.minuteValue < 10
+          ? "0" + this.fayy_data.minuteValue
+          : this.fayy_data.minuteValue;
+      let time = `${a}:${b}`;
+      this.tryOnDate = `${date} ${time}`;
+      // console.log(date_zh(this.timeValue))
+      // console.log(this.timeValue)
+      console.log(this.tryOnDate);
+      console.log(this.fayy_data);
+      console.log(this.fayy_data.timeValue);
+      console.log(this.fayy_data.minuteValue);
+    },
     noticeToTryOn(id) {
       this.memberId = id;
       let data = {
@@ -390,6 +464,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#el-step .el-calendar-table .el-calendar-day{
+height: 30px;
+}
 .fp_box {
   width: 50%;
 }

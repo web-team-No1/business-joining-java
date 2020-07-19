@@ -197,6 +197,7 @@
           </el-table>
           <h3 class="new-title">产品信息</h3>
           <el-table
+            ref="multipleTable" 
             :data="pickupServiceInformation"
             border
             @selection-change="handleSelectionChange"
@@ -2471,18 +2472,31 @@ export default {
             this.new_details_data.prescriptionDTO = details.prescriptionDTO;
             this.pickupServiceInformation =
               details.experienceWaitProductDetailDTO;
+
             this.new_details_data.examinationInfo[0] =
               details.examineDetail.examinationInfo;
             this.new_details_data.detailList = details.examineDetail.detailList;
             // this.evaluates = details.evaluates;
 
             this.productDetailsForReturnVisitDialog = true;
+            this.toggleSelection(details.experienceWaitProductDetailDTO)
           }
         })
         .catch(err => {
           console.log(err);
         });
     },
+    toggleSelection(rows) {
+      console.log(rows)
+        if (rows) {
+          rows.forEach(row => {
+            // debugger
+            this.$refs.multipleTable.toggleRowSelection(row);
+          });
+        } else {
+          this.$refs.multipleTable.clearSelection();
+        }
+      },
     evaluationDetails(id) {
       this.only_recordId = id;
       let data = {

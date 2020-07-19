@@ -121,6 +121,7 @@
       border
       :data="clientData"
       max-height="650"
+      :span-method="objectSpanMethod"
       v-loading="loading"
       element-loading-text="加载中..."
       element-loading-spinner="el-icon-loading"
@@ -3233,6 +3234,7 @@ export default {
   name: "App",
   data() {
     return {
+      spanArr: [],
       /****数据指派数据 */
       data_assignment: return_variable.data_assignment,
       /**新的回访弹框数据 */
@@ -3374,6 +3376,40 @@ export default {
     this.provinceList();
   },
   methods: {
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 0) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 1) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 2) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 3) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+    },
     ls_cancel() {
       this.new_details_data.ls_dialog = false;
       this.new_details_data.churnRegistration = null;

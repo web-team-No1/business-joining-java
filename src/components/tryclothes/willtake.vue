@@ -268,7 +268,7 @@
         >开始铆接</el-button>
         <el-button type="success" v-if="tryOn[0].rivetStatus === 2" @click="rivetOver()">完成铆接</el-button>
         <el-button type="info" v-if="tryOn[0].rivetStatus === 0">已铆接</el-button>
-        <el-button type="success" @click="trialComplete()">试穿完成</el-button>
+        <el-button type="success" :loading="isScwc" @click="trialComplete()">试穿完成</el-button>
         <el-button
           type="warning"
           @click="express_func(pickupServiceInformation[0].saleProductId)"
@@ -467,6 +467,7 @@ export default {
   name: "App",
   data() {
     return {
+      isScwc:false,
       //上传图片
       productId: null,
       isJPG: true,
@@ -615,6 +616,7 @@ export default {
         type: "warning"
       })
         .then(() => {
+          this.isScwc=true
           let data = {
             saleProductId: this.saleProductId
           };
@@ -627,6 +629,7 @@ export default {
                   center: true
                 });
               } else {
+                this.isScwc=false
                 this.detailsReturn();
                 this.pageList(this.pages.currentPage, this.pages.pageSize);
                 this.$message({
