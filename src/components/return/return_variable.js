@@ -97,6 +97,40 @@ const data_box_use = [
     experienceProblemDo: null
   }
 ]
+const data_box_ty = [
+  {
+    productType: 1,
+    list: [{}]
+  },
+  {
+    productType: 2,
+    list: [{}]
+  },
+  {
+    productType: 3,
+    list: [{}]
+  },
+  {
+    productType: 4,
+    list: [{}]
+  },
+  {
+    productType: 5,
+    list: [{}]
+  },
+  {
+    productType: 6,
+    list: [{}]
+  },
+  {
+    productType: 7,
+    list: [{}]
+  },
+  {
+    productType: 8,
+    list: [{}]
+  }
+]
 const data_box = [
   {
     productType: 1,
@@ -395,6 +429,7 @@ const fayy_data={
 export default {
   data_box,
   data_box_use,
+  data_box_ty,
   productItem,
   productItemUse,
   data_assignment,

@@ -756,1063 +756,723 @@
       :close-on-click-modal="false"
       width="1042px"
     >
-      <div class="product_box">
-        <div class="my_box clearfix" ref="my_box">
-          <div v-show="productItemUse.item_1" class="item">
-            <h4 class="center border-b-1 product_title">足弓垫</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">每天使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[0].experienceUseTime">
-                        <el-radio v-for="(item,index) in isSYSJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[0].experienceSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">目测使用效果：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[0].experienceUseEffect">
-                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box_use[0].experienceNotice">
-                        <el-checkbox v-for="item in zysx_1" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box_use[0].experienceNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                        <el-radio label="鞋垫保养">鞋垫保养</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="border-b-1">
-                  <el-col :span="12" class="border-r-1">
-                    <h5 class="center border-b-1">C系列</h5>
-                    <el-row class="padding-tb-15">
-                      <el-col :span="10">
-                        <div class="text-r">足弓有无塌陷：</div>
-                      </el-col>
-                      <el-col :span="12">
-                        <div>
-                          <el-radio-group v-model="data_box_use[0].experienceCTaxian">
-                            <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                          </el-radio-group>
-                        </div>
-                      </el-col>
-                    </el-row>
-                    <el-row class="padding-tb-15">
-                      <el-col :span="10">
-                        <div class="text-r">表层有无开胶：</div>
-                      </el-col>
-                      <el-col :span="12">
-                        <div>
-                          <el-radio-group v-model="data_box_use[0].experienceCKaijiao">
-                            <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                          </el-radio-group>
-                        </div>
-                      </el-col>
-                    </el-row>
-                  </el-col>
-                  <el-col :span="12" class="border-r-1">
-                    <h5 class="center border-b-1">Z系列</h5>
-                    <el-row class="padding-tb-15">
-                      <el-col :span="10">
-                        <div class="text-r">有无开胶：</div>
-                      </el-col>
-                      <el-col :span="12">
-                        <div>
-                          <el-radio-group v-model="data_box_use[0].experienceZKaijiao">
-                            <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                          </el-radio-group>
-                        </div>
-                      </el-col>
-                    </el-row>
-                    <el-row class="padding-tb-15">
-                      <el-col :span="10">
-                        <div class="text-r">有无断层：</div>
-                      </el-col>
-                      <el-col :span="12">
-                        <div>
-                          <el-radio-group v-model="data_box_use[0].experienceZDuanceng">
-                            <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                          </el-radio-group>
-                        </div>
-                      </el-col>
-                    </el-row>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-10">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[0].experienceProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-10">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box_use[0].experienceProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItemUse.item_2" class="item">
-            <h4 class="center border-b-1 product_title">长腿类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">每天使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[1].experienceUseTime">
+    <div
+            class="product_box"
+            v-show="productItem_box"
+            style="max-height: 475px;overflow-x: hidden;"
+          >
+            <div v-show="productItemUse.item_1" class="item">
+              <div v-for="(item,index) in data_box_use[0].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">足弓垫</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:90px">
+                      <el-radio-group v-model="item.experienceUseTime" style="width:100%;">
                         <el-radio
-                          v-for="(item,index) in isSYSJ_L"
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ"
                           :key="index"
                           :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
                         ></el-radio>
                       </el-radio-group>
                     </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[1].experienceSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">目测使用效果：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[1].experienceUseEffect">
-                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box_use[1].experienceNotice">
-                        <el-checkbox v-for="item in zysx_2" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box_use[1].experienceNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                        <el-radio label="按摩">按摩</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">磨皮肤：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[1].experienceMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">子母扣翘起：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[1].experienceZimukouqiaoqi">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">关节灵活度：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[1].experienceGuanjielinghuodu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[1].experienceProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box_use[1].experienceProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItemUse.item_3" class="item">
-            <h4 class="center border-b-1 product_title">膝外翻</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">每天使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[2].experienceUseTime">
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">C系列足弓有无塌陷</h5>
+                    <h5 class="center border-b-1">C系列表层有无开胶</h5>
+                    <h5 class="center border-b-1">z系列足弓有无塌陷</h5>
+                    <h5 class="center border-b-1">z系列表层有无开胶</h5>
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.experienceProblemHave" style="width:100%;">
                         <el-radio
-                          v-for="(item,index) in isSYSJ_L"
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
                           :key="index"
                           :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
                         ></el-radio>
                       </el-radio-group>
                     </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
                   </el-col>
                   <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[2].experienceSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:90px">
+                      <el-checkbox-group v-model="item.experienceNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_1"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
                     </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">目测使用效果：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[2].experienceUseEffect">
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.experienceUseEffect">
                         <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
                       </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box_use[2].experienceNotice">
-                        <el-checkbox v-for="item in zysx_3" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box_use[2].experienceNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="生活习惯">生活习惯</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">支具下滑：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[2].experienceZhijuxiahua">
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceCTaxian">
                         <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
                       </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">子母扣翘起：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[2].experienceZimukouqiaoqi">
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceCKaijiao">
                         <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
                       </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">磨皮肤：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[2].experienceMopifu">
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceZKaijiao">
                         <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
                       </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[2].experienceProblemHave">
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceZDuanceng">
                         <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
                       </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
+                    </h5>
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
                       <el-input
                         type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
                         placeholder="请输入内容"
-                        v-model="data_box_use[2].experienceProblemDo"
+                        v-model="item.experienceProblemDo"
                       ></el-input>
                     </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItemUse.item_4" class="item">
-            <h4 class="center border-b-1 product_title">踝足类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">每天使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[3].experienceUseTime">
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.experienceSatisfaction">
                         <el-radio
-                          v-for="(item,index) in isSYSJ_L"
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
                           :key="index"
                           :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
                         ></el-radio>
                       </el-radio-group>
-                    </div>
+                    </h5>
                   </el-col>
                 </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[3].experienceSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">目测使用效果：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[3].experienceUseEffect">
-                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box_use[3].experienceNotice">
-                        <el-checkbox v-for="item in zysx_1" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box_use[3].experienceNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="鞋垫保养">鞋垫保养</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">螺丝松动：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[3].experienceLuosisongdong">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">子母扣翘起：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[3].experienceZimukouqiaoqi">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">磨皮肤：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[3].experienceMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[3].experienceProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box_use[3].experienceProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItemUse.item_5" class="item">
-            <h4 class="center border-b-1 product_title">脊柱类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">每天使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[4].experienceUseTime">
-                        <el-radio
-                          v-for="(item,index) in isSYSJ_L"
-                          :key="index"
-                          :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
-                        ></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[4].experienceSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">目测使用效果：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[4].experienceUseEffect">
-                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box_use[4].experienceNotice">
-                        <el-checkbox v-for="item in zysx_2" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box_use[4].experienceNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="按摩">按摩</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">磨皮肤：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[4].experienceMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">支具下滑：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[4].experienceZhijuxiahua">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">子母扣翘起：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[4].experienceZimukouqiaoqi">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[4].experienceProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box_use[4].experienceProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItemUse.item_6" class="item">
-            <h4 class="center border-b-1 product_title">丹尼类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">每天使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[5].experienceUseTime">
-                        <el-radio v-for="(item,index) in isSYSJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[5].experienceSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">目测使用效果：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[5].experienceUseEffect">
-                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box_use[5].experienceNotice">
-                        <el-checkbox v-for="item in zysx_1" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box_use[5].experienceNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                        <el-radio label="鞋垫保养">鞋垫保养</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">角度松动：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[5].experienceJiaodusongdong">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">磨皮肤：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[5].experienceMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[5].experienceProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box_use[5].experienceProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItemUse.item_7" class="item">
-            <h4 class="center border-b-1 product_title">扭转类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">每天使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[6].experienceUseTime">
-                        <el-radio v-for="(item,index) in isSYSJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[6].experienceSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">目测使用效果：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[6].experienceUseEffect">
-                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box_use[6].experienceNotice">
-                        <el-checkbox v-for="item in zysx_1" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box_use[6].experienceNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                        <el-radio label="鞋垫保养">鞋垫保养</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">磨皮肤：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[6].experienceMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">角度变化：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[6].experienceJiaodubianhua">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">步态：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[6].experienceButai">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[6].experienceProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box_use[6].experienceProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItemUse.item_8" class="item">
-            <h4 class="center border-b-1 product_title">其他产品</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">每天使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[7].experienceUseTime">
-                        <el-radio
-                          v-for="(item,index) in isSYSJ_L"
-                          :key="index"
-                          :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
-                        ></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[7].experienceSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">目测使用效果：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box_use[7].experienceUseEffect">
-                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-30">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box_use[7].experienceNotice">
-                        <el-checkbox v-for="item in zysx_2" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box_use[7].experienceNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="按摩">按摩</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
+              </div>
+            </div>
+            <div v-show="productItemUse.item_2" class="item">
+              <div v-for="(item,index) in data_box_use[1].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">长腿类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
 
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">子母扣翘起：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[7].experienceZimukouqiaoqi">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.experienceUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
                       </el-radio-group>
                     </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">磨皮肤：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[7].experienceMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">磨皮肤</h5>
+                    <h5 class="center border-b-1">子母扣翘起</h5>
+                    <h5 class="center border-b-1">关节灵活度</h5>
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.experienceProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
                       </el-radio-group>
                     </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
                   </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">其他：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.experienceNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_2"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.experienceUseEffect">
+                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceZimukouqiaoqi">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceGuanjielinghuodu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
                       <el-input
                         type="textarea"
-                        :autosize="{ minRows: 1, maxRows: 2}"
                         placeholder="请输入内容"
-                        v-model="data_box_use[7].experienceQita"
+                        v-model="item.experienceProblemDo"
                       ></el-input>
                     </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.experienceSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
                   </el-col>
                 </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box_use[7].experienceProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+              </div>
+            </div>
+            <div v-show="productItemUse.item_3" class="item">
+              <div v-for="(item,index) in data_box_use[2].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">膝外翻</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.experienceUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
                       </el-radio-group>
                     </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">支具下滑</h5>
+                    <h5 class="center border-b-1">子母扣翘起</h5>
+                    <h5 class="center border-b-1">磨皮肤</h5>
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.experienceProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
                   </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.experienceNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_3"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.experienceUseEffect">
+                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceZhijuxiahua">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceZimukouqiaoqi">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
                       <el-input
                         type="textarea"
-                        :autosize="{ minRows: 2, maxRows: 2}"
                         placeholder="请输入内容"
-                        v-model="data_box_use[7].experienceProblemDo"
+                        v-model="item.experienceProblemDo"
                       ></el-input>
                     </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.experienceSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
                   </el-col>
                 </el-row>
-              </el-col>
-            </el-row>
+              </div>
+            </div>
+            <div v-show="productItemUse.item_4" class="item">
+              <div v-for="(item,index) in data_box_use[3].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">踝足类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.experienceUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">螺丝松动</h5>
+                    <h5 class="center border-b-1">子母扣翘起</h5>
+                    <h5 class="center border-b-1">磨皮肤</h5>
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.experienceProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.experienceNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_1"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.experienceUseEffect">
+                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceLuosisongdong">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceZimukouqiaoqi">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.experienceProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.experienceSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItemUse.item_5" class="item">
+              <div v-for="(item,index) in data_box_use[4].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">脊柱类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.experienceUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">磨皮肤</h5>
+                    <h5 class="center border-b-1">支具下滑</h5>
+                    <h5 class="center border-b-1">磨皮肤</h5>
+                    <h5 class="center border-b-1">子母扣翘起</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.experienceProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.experienceNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_2"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.experienceUseEffect">
+                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceZhijuxiahua">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceZimukouqiaoqi">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.experienceProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.experienceSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItemUse.item_6" class="item">
+              <div v-for="(item,index) in data_box_use[5].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">丹尼类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:90px">
+                      <el-radio-group v-model="item.experienceUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">角度松动</h5>
+                    <h5 class="center border-b-1">磨皮肤</h5>
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.experienceProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:90px">
+                      <el-checkbox-group v-model="item.experienceNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_1"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.experienceUseEffect">
+                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceJiaodusongdong">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.experienceProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.experienceSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItemUse.item_7" class="item">
+              <div v-for="(item,index) in data_box_use[6].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">扭转类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:90px">
+                      <el-radio-group v-model="item.experienceUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">磨皮肤</h5>
+                    <h5 class="center border-b-1">角度变化</h5>
+                    <h5 class="center border-b-1">步态</h5>
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.experienceProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:90px">
+                      <el-checkbox-group v-model="item.experienceNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_1"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.experienceUseEffect">
+                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceJiaodubianhua">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceButai">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.experienceProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.experienceSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItemUse.item_8" class="item">
+              <div v-for="(item,index) in data_box_use[7].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">其他产品</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.experienceUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">子母扣翘起</h5>
+                    <h5 class="center border-b-1">磨皮肤</h5>
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.experienceProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.experienceNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_2"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.experienceUseEffect">
+                        <el-radio v-for="(item,index) in isXG" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceZimukouqiaoqi">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.experienceMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.experienceProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.experienceSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
     </el-dialog>
     <!-- 产品待使用回访详情 -->
     <el-dialog
@@ -1821,1244 +1481,834 @@
       :close-on-click-modal="false"
       width="1042px"
     >
-      <div class="product_box">
-        <div class="my_box clearfix" ref="my_box">
-          <div v-show="productItem.item_1" class="item">
-            <h4 class="center border-b-1 product_title">足弓垫</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[0].useUseTime">
-                        <el-radio v-for="(item,index) in isSYSJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[0].useSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">身高体重有无变化：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[0].useHeightWeight">
-                        <el-radio v-for="(item,index) in isST" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">支具干净程度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[0].useClean">
-                        <el-radio v-for="(item,index) in isGJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用情况：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[0].useUseEffect">
-                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box[0].useNotice">
-                        <el-checkbox v-for="item in zysx_1" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box[0].useNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                        <el-radio label="鞋垫保养">鞋垫保养</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="8">
-                    <div class="text-r">C系列足弓有无塌陷：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[0].useCTaxian">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">底层开裂：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[0].useDicengkailie">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">皮肤有无磨损：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[0].useMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-10">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[0].useProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-10">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box[0].useProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItem.item_2" class="item">
-            <h4 class="center border-b-1 product_title">长腿类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[1].useUseTime">
+    <div
+            class="product_box"
+            v-show="productItem_box"
+            style="max-height: 475px;overflow-x: hidden;"
+          >
+            <div v-show="productItem.item_1" class="item">
+              <div v-for="(item,index) in data_box[0].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">足弓垫</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:90px">
+                      <el-radio-group v-model="item.useUseTime" style="width:100%;">
                         <el-radio
-                          v-for="(item,index) in isSYSJ_L"
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ"
                           :key="index"
                           :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
                         ></el-radio>
                       </el-radio-group>
                     </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[1].useSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">身高体重有无变化：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[1].useHeightWeight">
-                        <el-radio v-for="(item,index) in isST" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">支具干净程度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[1].useClean">
-                        <el-radio v-for="(item,index) in isGJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用情况：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[1].useUseEffect">
-                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box[1].useNotice">
-                        <el-checkbox v-for="item in zysx_1" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box[1].useNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                        <el-radio label="按摩">鞋垫保养</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">皮肤有无磨损：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[1].useMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">尼龙带：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[1].useNilongdai">
-                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">支具形变：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[1].useZhijubianxing">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[1].useProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box[1].useProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItem.item_3" class="item">
-            <h4 class="center border-b-1 product_title">膝外翻</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[2].useUseTime">
-                        <el-radio
-                          v-for="(item,index) in isSYSJ_L"
-                          :key="index"
-                          :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
-                        ></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[2].useSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">身高体重有无变化：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[2].useHeightWeight">
-                        <el-radio v-for="(item,index) in isST" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">支具干净程度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[2].useClean">
-                        <el-radio v-for="(item,index) in isGJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用情况：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[2].useUseEffect">
-                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box[2].useNotice">
-                        <el-checkbox v-for="item in zysx_3" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box[2].useNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="生活习惯">生活习惯</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">支具变形：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[2].useZhijubianxing">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">尼龙带：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[2].useNilongdai">
-                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">皮肤有无磨损：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[2].useMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[2].useProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box[2].useProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItem.item_4" class="item">
-            <h4 class="center border-b-1 product_title">踝足类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[3].useUseTime">
-                        <el-radio
-                          v-for="(item,index) in isSYSJ_L"
-                          :key="index"
-                          :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
-                        ></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">身高体重有无变化：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[3].useHeightWeight">
-                        <el-radio v-for="(item,index) in isST" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">支具干净程度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[3].useClean">
-                        <el-radio v-for="(item,index) in isGJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[3].useSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用情况：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[3].useUseEffect">
-                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box[3].useNotice">
-                        <el-checkbox v-for="item in zysx_2" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box[3].useNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="按摩">按摩</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">螺丝松动：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[3].useLuosisongdong">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">尼龙带：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[3].useNilongdai">
-                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">皮肤有无磨损：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[3].useMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[3].useProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box[3].useProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItem.item_5" class="item">
-            <h4 class="center border-b-1 product_title">脊柱类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[4].useUseTime">
-                        <el-radio
-                          v-for="(item,index) in isSYSJ_L"
-                          :key="index"
-                          :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
-                        ></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">身高体重有无变化：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[4].useHeightWeight">
-                        <el-radio v-for="(item,index) in isST" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">支具干净程度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[4].useClean">
-                        <el-radio v-for="(item,index) in isGJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[4].useSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用情况：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[4].useUseEffect">
-                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box[4].useNotice">
-                        <el-checkbox v-for="item in zysx_2" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box[4].useNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="按摩">按摩</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">皮肤有无磨损：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[4].useMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">尼龙带：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[4].useNilongdai">
-                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">支具变形：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[4].useZhijubianxing">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[4].useProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box[4].useProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItem.item_6" class="item">
-            <h4 class="center border-b-1 product_title">丹尼类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[5].useUseTime">
-                        <el-radio v-for="(item,index) in isSYSJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">身高体重有无变化：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[5].useHeightWeight">
-                        <el-radio v-for="(item,index) in isST" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">支具干净程度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[5].useClean">
-                        <el-radio v-for="(item,index) in isGJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[5].useSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用情况：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[5].useUseEffect">
-                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box[5].useNotice">
-                        <el-checkbox v-for="item in zysx_1" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box[5].useNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                        <el-radio label="鞋垫保养">鞋垫保养</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">角度松动：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[5].useJiaodusongdong">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">尼龙带：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[5].useNilongdai">
-                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">皮肤有无磨损：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[5].useMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[5].useProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box[5].useProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItem.item_7" class="item">
-            <h4 class="center border-b-1 product_title">扭转类</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[6].useUseTime">
-                        <el-radio v-for="(item,index) in isSYSJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">身高体重有无变化：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[6].useHeightWeight">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">支具干净程度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[6].useClean">
-                        <el-radio v-for="(item,index) in isGJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[6].useSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用情况：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[6].useUseEffect">
-                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box[6].useNotice">
-                        <el-checkbox v-for="item in zysx_3" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box[6].useNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                        <el-radio label="生活习惯">生活习惯</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">皮肤有无磨损：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[6].useMopifu">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">连接处脱开：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[6].useLianjiechutuokai">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">步态有无变化：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[6].useButai">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[6].useProblemHave">
-                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
-                        placeholder="请输入内容"
-                        v-model="data_box[6].useProblemDo"
-                      ></el-input>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </div>
-          <div v-show="productItem.item_8" class="item">
-            <h4 class="center border-b-1 product_title">其他产品</h4>
-            <el-row class="margin-t-20 margin-b-20">
-              <el-col :span="12" class="border-r-1">
-                <h5 class="center border-b-1">使用调查</h5>
-                <el-row class="padding-special">
-                  <el-col :span="8">
-                    <div class="text-r">使用时间：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[7].useUseTime">
-                        <el-radio
-                          v-for="(item,index) in isSYSJ_L"
-                          :key="index"
-                          :label="item"
-                          :class="index == 3 || index == 4 ?'margin-t-10':''"
-                        ></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">身高体重有无变化：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[7].useHeightWeight">
-                        <el-radio v-for="(item,index) in isST" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">支具干净程度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[7].useClean">
-                        <el-radio v-for="(item,index) in isGJ" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">产品满意度：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[7].useSatisfaction">
-                        <el-radio v-for="(item,index) in isMY" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">使用情况：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[7].useUseEffect">
-                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-20">
-                  <el-col :span="8">
-                    <div class="text-r">注意事项：</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>
-                      <el-checkbox-group v-model="data_box[7].useNotice">
-                        <el-checkbox v-for="item in zysx_2" :label="item" :key="item">{{item}}</el-checkbox>
-                      </el-checkbox-group>
-                      <!-- <el-radio-group v-model="data_box[7].useNotice">
-                        <el-radio label="运动">运动</el-radio>
-                        <el-radio label="按摩">按摩</el-radio>
-                        <el-radio label="皮肤护理">皮肤护理</el-radio>
-                      </el-radio-group>-->
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="12">
-                <h5 class="center border-b-1">产品问题</h5>
+                    <h5 class="center border-tb-1">使用效果</h5>
 
-                <el-row class="padding-tb-15">
-                  <el-col :span="8">
-                    <div class="text-r">子母扣有无生锈：</div>
+                    <h5 class="center border-b-1">身高体重有无变化</h5>
+                    <h5 class="center border-b-1">支具干净程度</h5>
+                    <h5 class="center border-b-1">C系列足弓有无塌陷</h5>
+                    <h5 class="center border-b-1">底层开裂</h5>
+                    <h5 class="center border-b-1">皮肤有无磨损</h5>
+
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.useProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
                   </el-col>
                   <el-col :span="16">
-                    <div>
-                      <el-radio-group v-model="data_box[7].useZimukoushengxiu">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:90px">
+                      <el-checkbox-group v-model="item.useNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_1"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.useUseEffect">
+                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useHeightWeight">
+                        <el-radio v-for="item in isST" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useClean">
+                        <el-radio v-for="item in isGJ" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useCTaxian">
                         <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
                       </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">皮肤有无磨损：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[7].useMopifu">
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useDicengkailie">
                         <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
                       </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">尼龙带：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
-                      <el-radio-group v-model="data_box[7].useNilongdai">
-                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">是否有问题：</div>
-                  </el-col>
-                  <el-col :span="19">
-                    <div>
-                      <el-radio-group v-model="data_box[7].useProblemHave">
+                    </h5> 
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useMopifu">
                         <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
                       </el-radio-group>
-                    </div>
-                  </el-col>
-                </el-row>
-                <el-row class="padding-tb-15">
-                  <el-col :span="5">
-                    <div class="text-r">问题处理：</div>
-                  </el-col>
-                  <el-col :span="18">
-                    <div>
+                    </h5>
+
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
                       <el-input
                         type="textarea"
-                        :autosize="{ minRows: 3, maxRows: 3}"
                         placeholder="请输入内容"
-                        v-model="data_box[7].useProblemDo"
+                        v-model="item.useProblemDo"
                       ></el-input>
                     </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.useSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
                   </el-col>
                 </el-row>
-              </el-col>
-            </el-row>
+              </div>
+            </div>
+            <div v-show="productItem.item_2" class="item">
+              <div v-for="(item,index) in data_box[1].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">长腿类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.useUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">身高体重有无变化</h5>
+
+                    <h5 class="center border-b-1">支具干净程度</h5>
+                    <h5 class="center border-b-1">尼龙带</h5>
+                    <h5 class="center border-b-1">支具形变</h5>
+
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.useProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.useNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_2"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.useUseEffect">
+                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useHeightWeight">
+                        <el-radio v-for="item in isST" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useClean">
+                        <el-radio v-for="item in isGJ" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useNilongdai">
+                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useZhijubianxing">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.useProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.useSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItem.item_3" class="item">
+              <div v-for="(item,index) in data_box[2].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">膝外翻</h4>
+                 <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.useUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">身高体重有无变化</h5>
+
+                    <h5 class="center border-b-1">支具干净程度</h5>
+                    <h5 class="center border-b-1">尼龙带</h5>
+                    <h5 class="center border-b-1">支具形变</h5>
+                    <h5 class="center border-b-1">皮肤有无磨损</h5>
+
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.useProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.useNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_2"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.useUseEffect">
+                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useHeightWeight">
+                        <el-radio v-for="item in isST" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useClean">
+                        <el-radio v-for="item in isGJ" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useNilongdai">
+                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useZhijubianxing">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.useProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.useSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItem.item_4" class="item">
+              <div v-for="(item,index) in data_box[3].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">踝足类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.useUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">身高体重有无变化</h5>
+
+                    <h5 class="center border-b-1">支具干净程度</h5>
+                    <h5 class="center border-b-1">尼龙带</h5>
+                    <h5 class="center border-b-1">螺丝松动</h5>
+                    <h5 class="center border-b-1">皮肤有无磨损</h5>
+
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.useProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.useNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_2"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.useUseEffect">
+                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useHeightWeight">
+                        <el-radio v-for="item in isST" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useClean">
+                        <el-radio v-for="item in isGJ" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useNilongdai">
+                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useLuosisongdong">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.useProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.useSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItem.item_5" class="item">
+              <div v-for="(item,index) in data_box[4].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">脊柱类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.useUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">身高体重有无变化</h5>
+
+                    <h5 class="center border-b-1">支具干净程度</h5>
+                    <h5 class="center border-b-1">尼龙带</h5>
+                    <h5 class="center border-b-1">支具形变</h5>
+                    <h5 class="center border-b-1">皮肤有无磨损</h5>
+
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.useProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.useNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_2"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.useUseEffect">
+                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useHeightWeight">
+                        <el-radio v-for="item in isST" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useClean">
+                        <el-radio v-for="item in isGJ" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useNilongdai">
+                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useZhijubianxing">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.useProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.useSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItem.item_6" class="item">
+              <div v-for="(item,index) in data_box[5].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">丹尼类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:90px">
+                      <el-radio-group v-model="item.useUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">身高体重有无变化</h5>
+
+                    <h5 class="center border-b-1">支具干净程度</h5>
+                    <h5 class="center border-b-1">角度松动</h5>
+                    <h5 class="center border-b-1">尼龙带</h5>
+                    <h5 class="center border-b-1">皮肤有无磨损</h5>
+
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.useProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:90px">
+                      <el-checkbox-group v-model="item.useNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_1"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.useUseEffect">
+                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useHeightWeight">
+                        <el-radio v-for="item in isST" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useClean">
+                        <el-radio v-for="item in isGJ" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useJiaodusongdong">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useNilongdai">
+                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5> 
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.useProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.useSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItem.item_7" class="item">
+              <div v-for="(item,index) in data_box[6].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">扭转类</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:90px">
+                      <el-radio-group v-model="item.useUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">身高体重有无变化</h5>
+                    <h5 class="center border-b-1">支具干净程度</h5>
+
+                    <h5 class="center border-b-1">连接处脱开</h5>
+                    <h5 class="center border-b-1">步态有无变化</h5>
+                    <h5 class="center border-b-1">皮肤有无磨损</h5>
+
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.useProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:90px">
+                      <el-checkbox-group v-model="item.useNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_3"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.useUseEffect">
+                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useHeightWeight">
+                        <el-radio v-for="item in isST" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useClean">
+                        <el-radio v-for="item in isGJ" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useLianjiechutuokai">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useButai">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5> 
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.useProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.useSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <div v-show="productItem.item_8" class="item">
+              <div v-for="(item,index) in data_box[7].list" :key="index" class="margin-b-10">
+                <h4 class="center border-b-1 product_title">其他产品</h4>
+                <el-row>
+                  <el-col :span="8" class="border-r-1">
+                    <h5 class="center border-b-1">每天使用时间</h5>
+                    <div style="height:130px">
+                      <el-radio-group v-model="item.useUseTime" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isSYSJ_L"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1">使用效果</h5>
+                    <h5 class="center border-b-1">身高体重有无变化</h5>
+                    <h5 class="center border-b-1">支具干净程度</h5>
+
+                    <h5 class="center border-b-1">尼龙带</h5>
+                    <h5 class="center border-b-1">子母扣有无生锈</h5>
+                    <h5 class="center border-b-1">皮肤有无磨损</h5>
+
+                    <h5 class="center border-b-1">有无问题</h5>
+                    <div style="height:52px">
+                      <el-radio-group v-model="item.useProblemHave" style="width:100%;">
+                        <el-radio
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="(item,index) in isYW"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </div>
+                    <h5 class="center border-tb-1 bgColor-red">产品满意度</h5>
+                  </el-col>
+                  <el-col :span="16">
+                    <h5 class="center border-b-1">注意事项</h5>
+                    <div style="height:130px">
+                      <el-checkbox-group v-model="item.useNotice" style="width:100%;">
+                        <el-checkbox
+                          style="display:block;padding: 5px 30% ;"
+                          v-for="item in zysx_2"
+                          :label="item"
+                          :key="item"
+                        >{{item}}</el-checkbox>
+                      </el-checkbox-group>
+                    </div>
+                    <h5 class="center border-tb-1">
+                      <el-radio-group v-model="item.useUseEffect">
+                        <el-radio v-for="(item,index) in isQK" :key="index" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useHeightWeight">
+                        <el-radio v-for="item in isST" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useClean">
+                        <el-radio v-for="item in isGJ" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useNilongdai">
+                        <el-radio v-for="item in isNLD" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useZimukoushengxiu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+                    <h5 class="center border-b-1">
+                      <el-radio-group v-model="item.useMopifu">
+                        <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
+                      </el-radio-group>
+                    </h5>
+
+                    <h5 class="center border-b-1">问题处理</h5>
+                    <div style="height:52px;">
+                      <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="item.useProblemDo"
+                      ></el-input>
+                    </div>
+                    <h5 class="center border-b-1 bgColor-red">
+                      <el-radio-group v-model="item.useSatisfaction">
+                        <el-radio
+                          class="color-fff"
+                          v-for="(item,index) in isMY"
+                          :key="index"
+                          :label="item"
+                        ></el-radio>
+                      </el-radio-group>
+                    </h5>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
     </el-dialog>
     <!-- dialog 打印检测报告-->
     <el-dialog
@@ -3471,214 +2721,69 @@ export default {
       data_box_use: [
         {
           productType: 1,
-          experienceUseTime: null,
-          experienceSatisfaction: null,
-          experienceUseEffect: null,
-          experienceNotice: [],
-          experienceCTaxian: null,
-          experienceCKaijiao: null,
-          experienceZKaijiao: null,
-          experienceZDuanceng: null,
-          experienceProblemHave: null,
-          experienceProblemDo: null
+          list: []
         },
         {
           productType: 2,
-          experienceUseTime: null,
-          experienceSatisfaction: null,
-          experienceUseEffect: null,
-          experienceNotice: [],
-          experienceMopifu: null,
-          experienceZimukouqiaoqi: null,
-          experienceGuanjielinghuodu: null,
-          experienceProblemHave: null,
-          experienceProblemDo: null
+          list: []
         },
         {
           productType: 3,
-          experienceUseTime: null,
-          experienceSatisfaction: null,
-          experienceUseEffect: null,
-          experienceNotice: [],
-          experienceZhijuxiahua: null,
-          experienceLuosisongdong: null,
-          experienceZimukouqiaoqi: null,
-          experienceMopifu: null,
-          experienceProblemHave: null,
-          experienceProblemDo: null
+          list: []
         },
         {
           productType: 4,
-          experienceUseTime: null,
-          experienceSatisfaction: null,
-          experienceUseEffect: null,
-          experienceNotice: [],
-          experienceLuosisongdong: null,
-          experienceZimukouqiaoqi: null,
-          experienceMopifu: null,
-          experienceProblemHave: null,
-          experienceProblemDo: null
+          list: []
         },
         {
           productType: 5,
-          experienceUseTime: null,
-          experienceSatisfaction: null,
-          experienceUseEffect: null,
-          experienceNotice: [],
-          experienceMopifu: null,
-          experienceZhijuxiahua: null,
-          experienceZimukouqiaoqi: null,
-          experienceProblemHave: null,
-          experienceProblemDo: null
+          list: []
         },
         {
           productType: 6,
-          experienceUseTime: null,
-          experienceSatisfaction: null,
-          experienceUseEffect: null,
-          experienceNotice: [],
-          experienceJiaodusongdong: null,
-          experienceMopifu: null,
-          experienceProblemHave: null,
-          experienceProblemDo: null
+          list: []
         },
         {
           productType: 7,
-          experienceUseTime: null,
-          experienceSatisfaction: null,
-          experienceUseEffect: null,
-          experienceNotice: [],
-          experienceMopifu: null,
-          experienceJiaodubianhua: null,
-          experienceButai: null,
-          experienceProblemHave: null,
-          experienceProblemDo: null
+          list: []
         },
         {
           productType: 8,
-          experienceUseTime: null,
-          experienceSatisfaction: null,
-          experienceUseEffect: null,
-          experienceNotice: [],
-          experienceZimukouqiaoqi: null,
-          experienceMopifu: null,
-          experienceQita: null,
-          experienceProblemHave: null,
-          experienceProblemDo: null
+          list: []
         }
       ],
       data_box: [
         {
           productType: 1,
-          useUseTime: null,
-          useHeightWeight: null,
-          useSatisfaction: null,
-          useNotice: [],
-          useClean: null,
-          useDicengkailie: null,
-          useUseEffect: null,
-          useCTaxian: null,
-          useMopifu: null,
-          useProblemHave: null,
-          useProblemDo: null
+          list: []
         },
         {
           productType: 2,
-          useUseTime: null,
-          useHeightWeight: null,
-          useSatisfaction: null,
-          useNotice: [],
-          useClean: null,
-          useUseEffect: null,
-          useMopifu: null,
-          useNilongdai: null,
-          useZhijubianxing: null,
-          useProblemHave: null,
-          useProblemDo: null
+          list: []
         },
         {
           productType: 3,
-          useUseTime: null,
-          useHeightWeight: null,
-          useSatisfaction: null,
-          useNotice: [],
-          useClean: null,
-          useUseEffect: null,
-          useMopifu: null,
-          useNilongdai: null,
-          useZhijubianxing: null,
-          useProblemHave: null,
-          useProblemDo: null
+          list: []
         },
         {
           productType: 4,
-          useUseTime: null,
-          useHeightWeight: null,
-          useSatisfaction: null,
-          useNotice: [],
-          useClean: null,
-          useUseEffect: null,
-          useMopifu: null,
-          useNilongdai: null,
-          useLuosisongdong: null,
-          useProblemHave: null,
-          useProblemDo: null
+          list: []
         },
         {
           productType: 5,
-          useUseTime: null,
-          useHeightWeight: null,
-          useSatisfaction: null,
-          useNotice: [],
-          useClean: null,
-          useUseEffect: null,
-          useMopifu: null,
-          useNilongdai: null,
-          useZhijubianxing: null,
-          useProblemHave: null,
-          useProblemDo: null
+          list: []
         },
         {
           productType: 6,
-          useUseTime: null,
-          useHeightWeight: null,
-          useSatisfaction: null,
-          useNotice: [],
-          useClean: null,
-          useUseEffect: null,
-          useMopifu: null,
-          useNilongdai: null,
-          useJiaodusongdong: null,
-          useProblemHave: null,
-          useProblemDo: null
+          list: []
         },
         {
           productType: 7,
-          useUseTime: null,
-          useHeightWeight: null,
-          useSatisfaction: null,
-          useNotice: [],
-          useClean: null,
-          useUseEffect: null,
-          useMopifu: null,
-          useLianjiechutuokai: null,
-          useButai: null,
-          useProblemHave: null,
-          useProblemDo: null
+          list: []
         },
         {
           productType: 8,
-          useUseTime: null,
-          useHeightWeight: null,
-          useSatisfaction: null,
-          useNotice: [],
-          useClean: null,
-          useUseEffect: null,
-          useMopifu: null,
-          useNilongdai: null,
-          useZimukoushengxiu: null,
-          useProblemHave: null,
-          useProblemDo: null
+          list: []
         }
       ],
       //检测报告
@@ -3941,8 +3046,8 @@ export default {
               center: true
             });
           } else {
-            this.data_box[obj.saleProductType - 1] = res.data.data;
-            this.productItem["item_" + obj.saleProductType] = true;
+            this.data_box[obj.visitTypeInt - 1].list[0] = res.data.data;
+            this.productItem["item_" + obj.visitTypeInt] = true;
             this.productVisitDialog_2 = true;
           }
         })
@@ -3967,9 +3072,11 @@ export default {
               center: true
             });
           } else {
-            this.data_box_use[obj.saleProductType - 1] = res.data.data;
-            this.productItemUse["item_" + obj.saleProductType] = true;
             this.productDetailsForReturnVisitDialog = true;
+            this.data_box_use[obj.visitTypeInt - 1].list[0] = res.data.data;
+            this.productItemUse["item_" + obj.visitTypeInt] = true;
+            
+            console.log(this.productItemUse)
           }
         })
         .catch(err => {
@@ -4149,7 +3256,7 @@ export default {
         this.multipleSelection.push(element.visitId);
       });
       // let myArry = arrayDeduplication(myType);
-      // this.productItem_box = true;
+      this.productItem_box = true;
       // this.productVisitType = myArry;
       // console.log(this.productVisitType);
       // this.$refs.my_box.style.width = 1002 * myArry.length + "px";
@@ -4184,6 +3291,8 @@ export default {
 
             this.pickupServiceInformation_use = details.useRecordDTO;
             this.productVisitIds = details.visitIds;
+            console.log(this.pickupServiceInformation)
+            console.log(this.pickupServiceInformation_use)
           }
         })
         .catch(err => {
@@ -4376,5 +3485,16 @@ export default {
   //     line-height: 60px;
   //   }
   // }
+}
+
+.bgColor-red {
+  background: #df5c5c;
+  color: #ffffff;
+}
+.border-tb-1 {
+  line-height: 30px;
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+  margin: 0;
 }
 </style>
