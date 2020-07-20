@@ -114,6 +114,7 @@
       :data="clientData"
       max-height="650"
       v-loading="loading"
+      :span-method="objectSpanMethod"
       element-loading-text="加载中..."
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -197,7 +198,7 @@
           </el-table>
           <h3 class="new-title">产品信息</h3>
           <el-table
-            ref="multipleTable" 
+            ref="cpxx"
             :data="pickupServiceInformation"
             border
             @selection-change="handleSelectionChange"
@@ -295,7 +296,7 @@
                     icon="el-icon-download"
                     @click="baogao_func(item.examinationName)"
                     size="mini"
-                  >下载报告文件</el-button> -->
+                  >下载报告文件</el-button>-->
                   <el-button
                     class="right"
                     v-if="item.examinationName=='足部3D扫描测评'"
@@ -1828,7 +1829,7 @@
       :visible.sync="data_assignment.experience_details_dialog_two"
       :close-on-click-modal="false"
       width="30%"
-       :before-close="data_assignment_close_two"
+      :before-close="data_assignment_close_two"
     >
       <el-form :inline="true" size="small" id="search" class="padding-LR-p10">
         <el-form-item label="选择被指派人">
@@ -1945,10 +1946,13 @@ import session from "../../utils/session";
 import Clipboard from "clipboard";
 import Print from "../commonComponent/PrintTemplate";
 import return_variable from "./return_variable";
+import returnJs from "./page";
 export default {
   name: "App",
   data() {
     return {
+        spanArr:[],
+        position:0,
       /****数据指派数据 */
       data_assignment: return_variable.data_assignment,
       /**新的回访弹框数据 */
@@ -2396,6 +2400,7 @@ export default {
       // this.multipleSelection = val;
       console.log(val);
       let myType = [];
+
       if (val.length > 0) {
         for (let key in this.productItem) {
           this.productItem[key] = false;
@@ -2403,8 +2408,11 @@ export default {
         this.data_box.forEach(obj => {
           obj.list = [];
         });
+        /**最远时间推算*/
+       let dateList=[]
         val.forEach(element => {
-          
+          dateList.push(element.visitWaitTime)
+          /**添加模板 */
           this.productItem["item_" + element.saleProductType] = true;
           myType.push(element.saleProductType);
           // debugger;
@@ -2440,7 +2448,9 @@ export default {
           this.data_box[element.saleProductType - 1].list.push(obj);
 
           this.multipleSelection.push(element.visitId);
+
         });
+        this.useWaitTime = returnJs.compareFN2(dateList)
         // console.log(myType);
         // console.log(this.data_box);
 
@@ -2479,22 +2489,27 @@ export default {
             // this.evaluates = details.evaluates;
 
             this.productDetailsForReturnVisitDialog = true;
-            this.toggleSelection(details.experienceWaitProductDetailDTO)
+            let that=this
+            that.$nextTick(()=>{
+              this.toggleSelection(details.experienceWaitProductDetailDTO)
+            })
+            
           }
         })
         .catch(err => {
           console.log(err);
         });
     },
+    /**更改选中状态 */
     toggleSelection(rows) {
       console.log(rows)
         if (rows) {
           rows.forEach(row => {
             // debugger
-            this.$refs.multipleTable.toggleRowSelection(row);
+            this.$refs.cpxx.toggleRowSelection(row);
           });
         } else {
-          this.$refs.multipleTable.clearSelection();
+          this.$refs.cpxx.clearSelection();
         }
       },
     evaluationDetails(id) {
@@ -2549,14 +2564,57 @@ export default {
           } else {
             this.loading = false;
             let dataList = res.data.data;
-            this.clientData = dataList.data.visitDTOS;
+            this.clientData =dataList.data.visitDTOS;
             this.pages.total = dataList.total;
             this.box_top_data = dataList.data;
+            returnJs.rowspan(this)
           }
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 0) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 1) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 2) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 3) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 4) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
     },
     //数据指派统计列表 //查询
     async data_assignment_pageList() {

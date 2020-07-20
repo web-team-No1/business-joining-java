@@ -39,7 +39,34 @@ function rowspan(that) {
         that.position2 = index;
       }
     }
+
   });
+  console.log(that.spanArr)
+}
+/**
+ * 合并详情列表序号
+ * @param {*} that 
+ */
+function rowspan_a(that) {
+  that.orders.forEach((item, index) => {
+    if (index === 0) {
+      that.spanArr_a.push(1);
+      that.position_a = 0;
+    } else {
+      if (
+        that.orders[index].orderNum ===
+        that.orders[index - 1].orderNum
+      ) {
+        that.spanArr_a[that.position_a] += 1;
+        that.spanArr_a.push(0);
+      } else {
+        that.spanArr_a.push(1);
+        that.position_a = index;
+      }
+    }
+  });
+  console.log(that.orders)
+  console.log(that.spanArr_a)
 }
 function topItem_func(that, index) {
   that.topActive = index;
@@ -138,5 +165,6 @@ function topItem_func(that, index) {
 }
 export default {
   rowspan,
+  rowspan_a,
   topItem_func
 }

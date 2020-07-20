@@ -22,6 +22,7 @@ export const login = async params => axios.post(baseUrl + '/login/login', params
 export const logout = async params => axios.post(baseUrl + '/login/logout', params); //退出
 export const checkLogine = async params => axios.get(baseUrl + '/login/checkLogin', params); //验证是否登录
 export const selectMenuModuleWhenChangeRole = async params => axios.get(baseUrl + '/sys/menu/selectMenuModuleWhenChangeRole', params); //切换角色
+export const updateRole = async params => axios.post(baseUrl + '/login/updateRole', params); //切换角色
 /*
 *
 *系统管理 

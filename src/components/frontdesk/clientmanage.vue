@@ -751,7 +751,7 @@
         <el-table-column prop="gmd" label="骨密度"></el-table-column>
       </el-table>
       <h3 class="new-title">订单信息</h3>
-      <el-table :data="orders" border max-height="500" :header-row-class-name="'headerClass-two'">
+      <el-table :data="orders" border max-height="500" :header-row-class-name="'headerClass-two'" :span-method="objectSpanMethod_two">
         <el-table-column prop="orderNum" label="订单编号" min-width="100"></el-table-column>
         <el-table-column prop="name" label="产品名称"></el-table-column>
         <el-table-column prop="nickname" label="产品昵称"></el-table-column>
@@ -2428,7 +2428,11 @@ export default {
         list: []
       },
       threeDDialg: false,
-      only_recordId: null
+      only_recordId: null,
+      spanArr_a: [],
+      position_a: 0,
+      spanArr2_a: [],
+      position2_a: 0,
     };
   },
   components: {
@@ -2805,6 +2809,7 @@ export default {
     rowspan() {
       frontDesk.rowspan(this);
     },
+    
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
       if (columnIndex === 0) {
         const _row = this.spanArr[rowIndex];
@@ -3668,12 +3673,42 @@ export default {
             this.prescriptions = res.data.data.prescriptions;
             this.evaluates = res.data.data.evaluates;
             this.orders = res.data.data.orders;
+            this.$nextTick(()=>{
+                frontDesk.rowspan_a(this); 
+            })
+             
           }
         })
         .catch(err => {
           console.log(err);
         });
     },
+    objectSpanMethod_two({ row, column, rowIndex, columnIndex }) {
+        if (columnIndex === 0) {
+          const _row = this.spanArr_a[rowIndex];
+          const _col = _row > 0 ? 1 : 0;
+          return {
+            rowspan: _row,
+            colspan: _col
+          };
+        }
+        if (columnIndex === 9) {
+          const _row = this.spanArr_a[rowIndex];
+          const _col = _row > 0 ? 1 : 0;
+          return {
+            rowspan: _row,
+            colspan: _col
+          };
+        }
+        if (columnIndex === 11) {
+          const _row = this.spanArr_a[rowIndex];
+          const _col = _row > 0 ? 1 : 0;
+          return {
+            rowspan: _row,
+            colspan: _col
+          };
+        }
+      },
     //客户列表 //查询
     async pageList(pageIndex = 1, pageSize = 10) {
       this.spanArr = [];

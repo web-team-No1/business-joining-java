@@ -88,8 +88,9 @@ const actions = {
                 resolve(res);
                 if ( res.data.returnCode == "0") {
                     // 在请求成功后把document.onkeydown置为undefined
-			        // document.onkeydown = undefined;
-                    session.setUser(res.data.data.name);//保存用户id
+                    // document.onkeydown = undefined;
+                    console.log(res)
+                    session.setUser(res.data.data.id);//保存用户id
                     session.setItem('username', res.data.data.name);//保存用户名
                     session.setItem('menu', res.data.data.roleName);//保存用户菜单
                     // session.setItem('userlimit', [res.data.ResponseModel.add, res.data.ResponseModel.delete, res.data.ResponseModel.update, res.data.ResponseModel.select]);
