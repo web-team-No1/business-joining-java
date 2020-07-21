@@ -2911,14 +2911,18 @@ export default {
       //   let element = this.data_box[Number(item) - 1];
       //   this.visitForms.push(element);
       // });
+      // console.log(this.data_box)
       let visitFormsList = [];
       this.data_box.forEach(obj => {
+            // console.log(obj)
         if (obj.list.length != 0) {
           obj.list.forEach(item => {
             visitFormsList.push(item);
+
           });
         }
       });
+     
       console.log(this.visitForms);
       console.log(this.data_box);
       let data = {
@@ -2932,7 +2936,9 @@ export default {
         memberAttitudeRemark: this.new_details_data.causeOfLoss,
         visitForms: visitFormsList //this.visitForms
       };
-      console.log(data);
+
+
+
       insertUseVisit(data)
         .then(res => {
           if (res.data.returnCode != 0) {
@@ -3176,7 +3182,7 @@ export default {
             let details = res.data.data;
             this.memberDetailDto[0] = details.memberDetailDTO;
             this.new_details_data.prescriptionDTO = details.prescriptionDTO;
-            this.pickupServiceInformation = details.experienceRecordDTO;
+            this.pickupServiceInformation = details.useWaitProductDetailDTO;
             this.new_details_data.examinationInfo[0] =
               details.examineDetail.examinationInfo;
             this.new_details_data.detailList = details.examineDetail.detailList;
