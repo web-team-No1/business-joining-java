@@ -4,21 +4,21 @@
     <!-- 头部筛选box -->
     <div class="box">
       <div class="item item1" :class="{active:topActive==1}" @click="topItem_func(1)">
-        <div>今日待回访</div>
+        <div>今日待回访产品数量</div>
         <div>{{box_top_data.todayNum || 0}}</div>
       </div>
       <div class="item item2" :class="{active:topActive==2}" @click="topItem_func(2)">
-        <div>逾期未回访总数</div>
+        <div>逾期未回访产品总数</div>
         <div>{{box_top_data.overdueNum|| 0}}</div>
       </div>
       <div class="item item3" :class="{active:topActive==0}" @click="topItem_func(0)">
-        <div>全部待回访</div>
+        <div>全部待回访产品数量</div>
         <div>{{box_top_data.allNum|| 0}}</div>
       </div>
     </div>
     <!-- seach -->
     <el-form :inline="true" size="small" id="search" class="padding-LR-p10">
-      <el-form-item label="应回访日期">
+      <el-form-item v-if="topActive != 1" label="应回访日期">
         <el-date-picker
           class="w-250"
           v-model="seach.delivery"
@@ -115,13 +115,14 @@
         <el-button @click="data_assignment_func()" icon="el-icon-thumb" type="warning">数据指派</el-button>
       </el-form-item>
     </el-form>
-    <!-- pageList(pages.currentPage,pages.pageSize) :span-method="objectSpanMethod" -->
+    <!-- pageList(pages.currentPage,pages.pageSize)  -->
     <!-- table -->
     <el-table
       border
       :data="clientData"
       max-height="650"
       v-loading="loading"
+      :span-method="objectSpanMethod"
       element-loading-text="加载中..."
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -349,7 +350,7 @@
           </el-form>
           <el-form :inline="true" size="small" id="search">
             <el-form-item label="接通状态：">
-              <el-radio-group v-model="usePhoneStatus">
+              <el-radio-group v-model="usePhoneStatus" @change="onState_func">
                 <el-radio label="接通">接通</el-radio>
                 <el-radio label="接通挂断">接通挂断</el-radio>
                 <el-radio label="多次未接通">多次未接通</el-radio>
@@ -2200,7 +2201,7 @@
     <!-- dialog 数据指派-->
     <el-dialog
       title="数据指派"
-      :visible.sync="data_assignment.data_assignment_Dialg"
+      :visible.sync="data_assignment.data_assignment_syDialg"
       :close-on-click-modal="false"
       width="90%"
       :before-close="data_assignment_close"
@@ -2338,7 +2339,7 @@
     <!--选择指派人-->
     <el-dialog
       title="产品体验回访数据指派"
-      :visible.sync="data_assignment.experience_details_dialog_two"
+      :visible.sync="data_assignment.experience_details_dialog_sytwo"
       :close-on-click-modal="false"
       width="30%"
       :before-close="data_assignment_close_two"
@@ -2372,7 +2373,7 @@
     <!-- new_datails-->
     <el-dialog
       title="客户态度分析"
-      :visible.sync="new_details_data.td_dialog"
+      :visible.sync="new_details_data.td_sydialog"
       width="30%"
       :before-close="td_cancel"
     >
@@ -2405,7 +2406,7 @@
     <!-- 流失登记-->
     <el-dialog
       title="客户流失登记"
-      :visible.sync="new_details_data.ls_dialog"
+      :visible.sync="new_details_data.sycpls_dialog"
       width="30%"
       :before-close="ls_cancel"
     >
@@ -2459,11 +2460,13 @@ import session from "../../utils/session";
 import Clipboard from "clipboard";
 import Print from "../commonComponent/PrintTemplate";
 import return_variable from "./return_variable";
+import returnJs from "./page";
 export default {
   name: "App",
   data() {
     return {
-      // spanArr: [],
+      spanArr: [],
+      position: 0,
       /****数据指派数据 */
       data_assignment: return_variable.data_assignment,
       /**新的回访弹框数据 */
@@ -2606,65 +2609,88 @@ export default {
     this.provinceList();
   },
   methods: {
-    // objectSpanMethod({ row, column, rowIndex, columnIndex }) {
-    //   if (columnIndex === 0) {
-    //     const _row = this.spanArr[rowIndex];
-    //     const _col = _row > 0 ? 1 : 0;
-    //     return {
-    //       rowspan: _row,
-    //       colspan: _col
-    //     };
-    //   }
-    //   if (columnIndex === 1) {
-    //     const _row = this.spanArr[rowIndex];
-    //     const _col = _row > 0 ? 1 : 0;
-    //     return {
-    //       rowspan: _row,
-    //       colspan: _col
-    //     };
-    //   }
-    //   if (columnIndex === 2) {
-    //     const _row = this.spanArr[rowIndex];
-    //     const _col = _row > 0 ? 1 : 0;
-    //     return {
-    //       rowspan: _row,
-    //       colspan: _col
-    //     };
-    //   }
-    //   if (columnIndex === 3) {
-    //     const _row = this.spanArr[rowIndex];
-    //     const _col = _row > 0 ? 1 : 0;
-    //     return {
-    //       rowspan: _row,
-    //       colspan: _col
-    //     };
-    //   }
-    // },
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 0) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 1) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 2) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 3) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 4) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 10) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+    },
+    onState_func(e) {
+      if (e != "接通") {
+        this.productItem_box = false;
+      } else {
+        this.productItem_box = true;
+      }
+    },
     ls_cancel() {
-      this.new_details_data.ls_dialog = false;
+      this.new_details_data.sycpls_dialog = false;
       this.new_details_data.churnRegistration = null;
     },
     ls_save() {
-      this.new_details_data.ls_dialog = true;
+      this.new_details_data.sycpls_dialog = true;
     },
     td_cancel() {
-      this.new_details_data.td_dialog = false;
+      this.new_details_data.td_sydialog = false;
       this.new_details_data.value = 0;
       this.new_details_data.causeOfLoss = null;
     },
     td_addVisit() {
-      this.new_details_data.td_dialog = true;
+      this.new_details_data.td_sydialog = true;
     },
     data_assignment_close() {
-      this.data_assignment.data_assignment_Dialg = false;
+      this.data_assignment.data_assignment_syDialg = false;
       this.data_assignment.multipleSelection = [];
     },
     data_assignment_close_two() {
-      this.data_assignment.experience_details_dialog_two = false;
+      this.data_assignment.experience_details_dialog_sytwo = false;
       this.data_assignment.zpUser = null;
     },
     data_assignment_save() {
-      this.data_assignment.experience_details_dialog_two = true;
+      this.data_assignment.experience_details_dialog_sytwo = true;
     },
     data_assignment_save_two(status) {
       let visitIds = [];
@@ -2710,11 +2736,11 @@ export default {
         waitTimeBegin:
           this.data_assignment.search.time == null
             ? null
-            : data_assignment.search.time[0],
+            : this.data_assignment.search.time[0],
         waitTimeEnd:
           this.data_assignment.search.time == null
             ? null
-            : data_assignment.search.time[1],
+            : this.data_assignment.search.time[1],
         productName: this.data_assignment.search.productName
       };
       this.data_assignment.loading = true;
@@ -2750,7 +2776,7 @@ export default {
     },
     data_assignment_func() {
       this.data_assignment_pageList();
-      this.data_assignment.data_assignment_Dialg = true;
+      this.data_assignment.data_assignment_syDialg = true;
     },
     topItem_func(index) {
       this.topActive = index;
@@ -3050,7 +3076,7 @@ export default {
       this.causeOfLoss = null;
     },
     handleSelectionChange(val) {
-      // this.multipleSelection = val;
+      this.multipleSelection = []//val;
       console.log(val);
       let myType = [];
       if (val.length > 0) {
@@ -3060,7 +3086,9 @@ export default {
         this.data_box.forEach(obj => {
           obj.list = [];
         });
+        let dateList = [];
         val.forEach(element => {
+           dateList.push(element.tryOnBeginTime);
           this.productItem["item_" + element.saleProductType] = true;
           myType.push(element.saleProductType);
           // debugger;
@@ -3095,6 +3123,7 @@ export default {
           this.data_box[element.saleProductType - 1].list.push(obj);
 
           this.multipleSelection.push(element.visitId);
+          this.useWaitTime = returnJs.compareFN2(dateList);
         });
         // console.log(myType);
         // console.log(this.data_box);
@@ -3185,7 +3214,6 @@ export default {
     },
     //统计列表 //查询
     async pageList(pageIndex = 1, pageSize = 10) {
-
       let data = {
         pageNum: this.pages.currentPage,
         pageSize: this.pages.pageSize,
@@ -3216,6 +3244,7 @@ export default {
             this.clientData = dataList.data.visitDTOS;
             this.pages.total = dataList.total;
             this.box_top_data = dataList.data;
+             returnJs.rowspan_sy(this,this.clientData);
           }
         })
         .catch(err => {

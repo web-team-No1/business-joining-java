@@ -33,7 +33,7 @@ function compareFN2(arr) {
             }
         }
     }
-    let maxDate = dateChange(29, arr[arr.length - 1])
+    let maxDate = dateChange(30, arr[arr.length - 1])
     return maxDate
 }
 // console.log(compareFN2(arr))
@@ -59,8 +59,10 @@ function dateChange(num = 1, date = false) {
 * 合并列表序号
 * @param {*} that 
 */
-function rowspan(that) {
-    that.clientData.forEach((item, index) => {
+function rowspan(that, tableData) {
+    that.spanArr = [];
+    that.position = 0;
+    tableData.forEach((item, index) => {
         if (index === 0) {
             that.spanArr.push(1);
             that.position = 0;
@@ -90,7 +92,29 @@ function rowspan(that) {
         }
     });
 }
+function rowspan_sy(that, tableData) {
+    that.spanArr = [];
+    that.position = 0;
+    tableData.forEach((item, index) => {
+        if (index === 0) {
+            that.spanArr.push(1);
+            that.position = 0;
+        } else {
+            if (
+                that.clientData[index].memberId ===
+                that.clientData[index - 1].memberId && that.clientData[index].cycleTimes === that.clientData[index - 1].cycleTimes
+            ) {
+                that.spanArr[that.position] += 1;
+                that.spanArr.push(0);
+            } else {
+                that.spanArr.push(1);
+                that.position = index;
+            }
+        }
+    });
+}
 export default {
     compareFN2,
-    rowspan
+    rowspan,
+    rowspan_sy,
 }

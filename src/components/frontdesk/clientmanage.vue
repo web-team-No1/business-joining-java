@@ -2480,10 +2480,10 @@ export default {
     //       console.log(err);
     //     });
     // },
-    receptionist_func(obj, deptId = 9) {
+    receptionist_func(obj,) {
       this.assigned_reception_data.userObj = obj;
       let data = {
-        deptId: deptId,
+        deptId: obj.deptId,
         siteId: obj.siteId
       };
       userAssignListByDept(data)
@@ -2505,20 +2505,7 @@ export default {
           console.log(err);
         });
       // frontDesk.receptionist_func(this, deptId, siteId);
-
-      if (deptId == 9) {
-        let data2 = {
-          type: 201,
-          memberId: obj.memberId
-        };
-        selectAdvanceUser(data2)
-          .then(res => {
-            this.assigned_reception_data.user = res.data.data;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+      
     },
     init_two() {
       let data = {
@@ -2584,6 +2571,7 @@ export default {
       frontDesk.topItem_func(this, index);
     },
     toggle(index, name) {
+
       this.tabActive = index;
       this.assigned_reception_data.user = [];
       if (index == 0) {
@@ -2592,12 +2580,26 @@ export default {
         this.fpjd_product_func(this.assigned_reception_data.userObj, 310);
         this.receptionist_func(this.assigned_reception_data.userObj, 8);
       } else if (index == 2) {
+
+        let data2 = {
+          type: 201,
+          memberId: this.assigned_reception_data.userObj.memberId
+        };
+        selectAdvanceUser(data2)
+          .then(res => {
+            this.assigned_reception_data.user = res.data.data;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      
         this.fpjd_product_func(this.assigned_reception_data.userObj, 363);
         this.receptionist_func(this.assigned_reception_data.userObj, 6);
       } else if (index == 3) {
         this.fpjd_product_func(this.assigned_reception_data.userObj, 366);
         this.receptionist_func(this.assigned_reception_data.userObj, 12);
       }
+
     },
     assigned_reception_func() {
       this.receptionist_func(this.assigned_reception_data.userObj);
@@ -3321,7 +3323,7 @@ export default {
       this.paymentMethod.xj = 0;
     },
     orderingStart() {
-      naVComponent.orderingStart(this);
+      naVComponent.orderingStart(this,this.assigned_reception_data.userObj);
     },
     readyOrder(obj) {
       this.dialogreadyOrder = true;

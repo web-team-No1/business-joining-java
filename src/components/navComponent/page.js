@@ -184,7 +184,7 @@ function calculation(that) {
   }
 }
 // 下单确认按钮
-function orderingStart(that) {
+function orderingStart(that,myObj) {
   let priceTatol = [];
   for (let index = 0; index < that.detailFormList.length; index++) {
     const element = that.detailFormList[index];
@@ -255,7 +255,7 @@ function orderingStart(that) {
           });
         } else {
           that.readyOrderCancel();
-          that.handleInfo(that.currentNamberId);
+          that.handleInfo(myObj);
           that.$message({
             type: "success",
             message: "下单成功！",
@@ -479,7 +479,9 @@ function zkyh(that, obj) {
   that.cpIndex = obj.$index;
   that.zhekouyouhui = obj.row;
   that.favorableRemark = obj.row.favorableRemark;
+  that.discount = obj.row.discount
   that.dialogDiscount = true;
+  debugger
   that.zhekouyouhui.favorable = obj.row.actual;
   // let price = obj.row.price;
   // let actual = obj.row.actual;
@@ -536,9 +538,10 @@ function discountConfirm(that) {
       obj.favorableRemark = favorableRemark;
       obj.favorable =(Number(price) - Number(favorable)).toFixed(2); 
       obj.actual = favorable;
+      obj.discount = that.discount
     }
   });
-  // debugger;
+  debugger;
   // let Mydata=that.detailFormList;
   that.$set(
     that.detailFormList,

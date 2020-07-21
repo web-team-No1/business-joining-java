@@ -332,6 +332,8 @@ export const selectPrincipalVisitListWhenExperience = async params => axios.post
 export const updatePrincipalUser = async params => axios.post(baseUrl + '/back/visit/updatePrincipalUser', params);//数据指派
 export const selectPrincipalVisitListWhenUse = async params => axios.post(baseUrl + '/back/visit/selectPrincipalVisitListWhenUse', params);//使用数据指派列表
 export const selectPrincipalVisitListWhenBack = async params => axios.post(baseUrl + '/back/visit/selectPrincipalVisitListWhenBack', params);//邀约数据指派列表
+export const selectPrincipalVisitListWhenOutflow = async params => axios.post(baseUrl + '/back/visit/selectPrincipalVisitListWhenOutflow', params);//流失数据指派列表
+export const updatePrincipalUserWhenOutflow = async params => axios.post(baseUrl + '/back/visit/updatePrincipalUserWhenOutflow', params);//流失数据指派
 export const queryWaitReviewDetail = async params => axios.post(baseUrl + '/back/visit/queryWaitReviewDetail', params);//待复查详情&&逾期未到详情
 
 /*

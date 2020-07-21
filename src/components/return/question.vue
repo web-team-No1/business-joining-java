@@ -166,7 +166,7 @@
     <!-- dialog 数据指派-->
     <el-dialog
       title="数据指派"
-      :visible.sync="data_assignment.data_assignment_Dialg"
+      :visible.sync="data_assignment.data_assignment_lsDialg"
       :close-on-click-modal="false"
       width="90%"
       :before-close="data_assignment_close"
@@ -279,8 +279,13 @@
         <el-table-column align="center" prop="phone" label="联系电话"></el-table-column>
         <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
         <el-table-column align="center" prop="saleProductNickname" label="产品昵称"></el-table-column>
-        <el-table-column align="center" prop="reflect" label="取型家长反应"></el-table-column>
         <el-table-column align="center" prop="tryOnBeginTime" label="试穿时间"></el-table-column>
+
+        <el-table-column align="center" prop="isVip" label="是否会员"></el-table-column>
+        <el-table-column align="center" prop="examinationTime" label="上次测评时间"></el-table-column>
+        <el-table-column align="center" prop="examinationUser" label="测评人员"></el-table-column>
+
+        <el-table-column align="center" prop="phoneStatus" label="复查邀约接通状态"></el-table-column>
         <el-table-column align="center" prop="tryOnUserName" label="试穿人员"></el-table-column>
         <el-table-column align="center" prop="visitWaitTime" label="应回访时间"></el-table-column>
         <el-table-column type="selection" label="操作"></el-table-column>
@@ -303,7 +308,7 @@
     </el-dialog>
     <el-dialog
       title="产品体验回访数据指派"
-      :visible.sync="data_assignment.experience_details_dialog_two"
+      :visible.sync="data_assignment.experience_details_dialog_lstwo"
       :close-on-click-modal="false"
       width="30%"
       :before-close="data_assignment_close_two"
@@ -328,7 +333,7 @@
           icon="el-icon-circle-close"
         >取消</el-button>
         <el-button
-          @click="data_assignment_save_two(2)"
+          @click="data_assignment_save_two()"
           type="success"
           icon="el-icon-circle-check"
         >确认指派</el-button>
@@ -341,7 +346,9 @@
 import {
   selectBackVisitOutflowList,
   cancelOutflow,
-  confirmOutflow
+  confirmOutflow,
+  selectPrincipalVisitListWhenOutflow,
+  updatePrincipalUserWhenOutflow
 } from "../../api/javaApi";
 import javaApi from "../../api/javaApi";
 import {
@@ -406,27 +413,26 @@ export default {
   },
   methods: {
     data_assignment_close() {
-      this.data_assignment.data_assignment_Dialg = false;
+      this.data_assignment.data_assignment_lsDialg = false;
       this.data_assignment.multipleSelection = [];
     },
     data_assignment_close_two() {
-      this.data_assignment.experience_details_dialog_two = false;
+      this.data_assignment.experience_details_dialog_lstwo = false;
       this.data_assignment.zpUser = null;
     },
     data_assignment_save() {
-      this.data_assignment.experience_details_dialog_two = true;
+      this.data_assignment.experience_details_dialog_lstwo = true;
     },
-    data_assignment_save_two(status) {
-      let visitIds = [];
+    data_assignment_save_two() {
+      let outflowIds = [];
       this.data_assignment.multipleSelection.forEach(obj => {
-        visitIds.push(obj.visitId);
+        outflowIds.push(obj.outflowId);
       });
       let data = {
-        visitIds: visitIds,
+        outflowIds: outflowIds,
         principalUserId: this.data_assignment.zpUser,
-        backVisitStatus: status
       };
-      updatePrincipalUser(data)
+      updatePrincipalUserWhenOutflow(data)
         .then(res => {
           if (res.data.returnCode != 0) {
             this.$message({
@@ -460,15 +466,15 @@ export default {
         waitTimeBegin:
           this.data_assignment.search.time == null
             ? null
-            : data_assignment.search.time[0],
+            : this.data_assignment.search.time[0],
         waitTimeEnd:
           this.data_assignment.search.time == null
             ? null
-            : data_assignment.search.time[1],
+            : this.data_assignment.search.time[1],
         productName: this.data_assignment.search.productName
       };
       this.data_assignment.loading = true;
-      selectPrincipalVisitListWhenBack(data)
+      selectPrincipalVisitListWhenOutflow(data)
         .then(res => {
           if (res.data.returnCode != 0) {
             this.$message({
@@ -500,7 +506,7 @@ export default {
     },
      data_assignment_func() {
       this.data_assignment_pageList();
-      this.data_assignment.data_assignment_Dialg = true;
+      this.data_assignment.data_assignment_lsDialg = true;
     },
     churn_cancel_func(obj) {
       let deleteData = {

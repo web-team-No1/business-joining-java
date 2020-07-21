@@ -4,21 +4,21 @@
     <!-- 头部筛选box -->
     <div class="box">
       <div class="item item1" :class="{active:topActive==1}" @click="topItem_func(1)">
-        <div>今日待回访</div>
+        <div>今日待回访产品数量</div>
         <div>{{box_top_data.todayNum || 0}}</div>
       </div>
       <div class="item item2" :class="{active:topActive==2}" @click="topItem_func(2)">
-        <div>逾期未回访总数</div>
+        <div>逾期未回访产品总数</div>
         <div>{{box_top_data.overdueNum|| 0}}</div>
       </div>
       <div class="item item3" :class="{active:topActive==0}" @click="topItem_func(0)">
-        <div>全部待回访</div>
+        <div>全部待回访产品数量</div>
         <div>{{box_top_data.allNum|| 0}}</div>
       </div>
     </div>
     <!-- seach -->
     <el-form :inline="true" size="small" id="search" class="padding-LR-p10">
-      <el-form-item label="应回访日期">
+      <el-form-item v-if="topActive != 1" label="应回访日期">
         <el-date-picker
           v-model="seach.delivery"
           class="w-250"
@@ -1459,7 +1459,7 @@
     <!-- dialog 数据指派-->
     <el-dialog
       title="数据指派"
-      :visible.sync="data_assignment.data_assignment_Dialg"
+      :visible.sync="data_assignment.data_assignment_tyDialg"
       :close-on-click-modal="false"
       width="90%"
       :before-close="data_assignment_close"
@@ -1514,8 +1514,8 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="应回访日期">
-          <el-date-picker
+        <el-form-item  label="应回访日期">
+          <el-date-picker   
             v-model="data_assignment.search.time"
             class="w-250"
             type="daterange"
@@ -1597,7 +1597,7 @@
     <!--选择指派人-->
     <el-dialog
       title="产品体验回访数据指派"
-      :visible.sync="data_assignment.experience_details_dialog_two"
+      :visible.sync="data_assignment.experience_details_dialog_tytwo"
       :close-on-click-modal="false"
       width="30%"
       :before-close="data_assignment_close_two"
@@ -1631,7 +1631,7 @@
     <!-- new_datails-->
     <el-dialog
       title="客户态度分析"
-      :visible.sync="new_details_data.td_dialog"
+      :visible.sync="new_details_data.td_tydialog"
       width="30%"
       :before-close="td_cancel"
     >
@@ -1664,7 +1664,7 @@
     <!-- 流失登记-->
     <el-dialog
       title="客户流失登记"
-      :visible.sync="new_details_data.ls_dialog"
+      :visible.sync="new_details_data.tycpls_dialog"
       width="30%"
       :before-close="ls_cancel"
     >
@@ -1868,19 +1868,19 @@ export default {
       }
     },
     ls_cancel() {
-      this.new_details_data.ls_dialog = false;
+      this.new_details_data.tycpls_dialog = false;
       this.new_details_data.churnRegistration = null;
     },
     ls_save() {
-      this.new_details_data.ls_dialog = true;
+      this.new_details_data.tycpls_dialog = true;
     },
     td_cancel() {
-      this.new_details_data.td_dialog = false;
+      this.new_details_data.td_tydialog = false;
       this.new_details_data.value = 0;
       this.new_details_data.causeOfLoss = null;
     },
     td_addVisit() {
-      this.new_details_data.td_dialog = true;
+      this.new_details_data.td_tydialog = true;
     },
     new_details(obj) {
       this.new_details_data.obj = obj;
@@ -1890,15 +1890,15 @@ export default {
       this.data_assignment.multipleSelection = val;
     },
     data_assignment_close() {
-      this.data_assignment.data_assignment_Dialg = false;
+      this.data_assignment.data_assignment_tyDialg = false;
       this.data_assignment.multipleSelection = [];
     },
     data_assignment_close_two() {
-      this.data_assignment.experience_details_dialog_two = false;
+      this.data_assignment.experience_details_dialog_tytwo = false;
       this.data_assignment.zpUser = null;
     },
     data_assignment_save() {
-      this.data_assignment.experience_details_dialog_two = true;
+      this.data_assignment.experience_details_dialog_tytwo = true;
     },
     data_assignment_save_two(status) {
       let visitIds = [];
@@ -1931,7 +1931,7 @@ export default {
     },
     data_assignment_func() {
       this.data_assignment_pageList();
-      this.data_assignment.data_assignment_Dialg = true;
+      this.data_assignment.data_assignment_tyDialg = true;
     },
     topItem_func(index) {
       this.topActive = index;
@@ -2169,7 +2169,7 @@ export default {
       this.causeOfLoss = null;
     },
     handleSelectionChange(val) {
-      // this.multipleSelection = val;
+      this.multipleSelection = []//val;
       console.log(val);
       let myType = [];
 
@@ -2183,7 +2183,7 @@ export default {
         /**最远时间推算*/
         let dateList = [];
         val.forEach(element => {
-          dateList.push(element.visitWaitTime);
+          dateList.push(element.tryOnBeginTime);
           /**添加模板 */
           this.productItem["item_" + element.saleProductType] = true;
           myType.push(element.saleProductType);
@@ -2333,10 +2333,94 @@ export default {
           } else {
             this.loading = false;
             let dataList = res.data.data;
-            this.clientData = dataList.data.visitDTOS;
+            this.clientData = 
+//             [
+//               {birthday: "2016-08-11",
+// examinationUserName: "刘田",
+// memberId: 24491,
+// memberName: "田琛饶",
+// overdue: "已逾期",
+// phone: "13309297439",
+// red: 1,
+// reflect: "配合",
+// saleProductId: 2153,
+// saleProductName: "骨科保护支具（FYKF-J-R-FO-D-Ⅰ）",
+// saleProductNickname: "足弓垫",
+// sex: "男",
+// siteName: "15楼测评中心",
+// tryOnBeginTime: "2020-07-19 20:43",
+// tryOnUserName: "张倩",
+// vip: "是",
+// visitId: 5240,
+// visitWaitTime: "2020-07-19",
+//             },
+//               {
+//               birthday: "2018-07-16",
+// examinationUserName: "无数据",
+// memberId: 38028,
+// memberName: "黄芳",
+// overdue: "未逾期",
+// phone: "18524573324",
+// red: 0,
+// reflect: "",
+// saleProductId: 7857,
+// saleProductName: "F1发育性防护气垫",
+// saleProductNickname: "F1",
+// sex: "女",
+// siteName: "平凉市测评中心",
+// tryOnBeginTime: "2020-07-21 10:29",
+// tryOnUserName: "莎莎",
+// vip: "否",
+// visitId: 5241,
+// visitWaitTime: "2020-07-21",
+//             },
+//               {
+//               birthday: "2018-07-16",
+// examinationUserName: "无数据",
+// memberId: 38028,
+// memberName: "黄芳",
+// overdue: "未逾期",
+// phone: "18524573324",
+// red: 0,
+// reflect: "",
+// saleProductId: 7858,
+// saleProductName: "防护气垫C3",
+// saleProductNickname: "防护气垫C3",
+// sex: "女",
+// siteName: "平凉市测评中心",
+// tryOnBeginTime: "2020-07-21 11:11",
+// tryOnUserName: "莎莎",
+// vip: "否",
+// visitId: 5242,
+// visitWaitTime: "2020-07-31",
+// pageNum: 1,
+//             },
+//               {
+//               birthday: "2018-07-16",
+// examinationUserName: "无数据",
+// memberId: 38028,
+// memberName: "黄芳",
+// overdue: "未逾期",
+// phone: "18524573324",
+// red: 0,
+// reflect: "",
+// saleProductId: 7857,
+// saleProductName: "F1发育性防护气垫",
+// saleProductNickname: "F1",
+// sex: "女",
+// siteName: "平凉市测评中心",
+// tryOnBeginTime: "2020-07-21 10:29",
+// tryOnUserName: "莎莎",
+// vip: "否",
+// visitId: 5241,
+// visitWaitTime: "2020-07-21",
+//             },
+//             ]
+            dataList.data.visitDTOS;
             this.pages.total = dataList.total;
             this.box_top_data = dataList.data;
-            returnJs.rowspan(this);
+            returnJs.rowspan(this,this.clientData);
+           
           }
         })
         .catch(err => {
@@ -2397,11 +2481,11 @@ export default {
         waitTimeBegin:
           this.data_assignment.search.time == null
             ? null
-            : data_assignment.search.time[0],
+            : this.data_assignment.search.time[0],
         waitTimeEnd:
           this.data_assignment.search.time == null
             ? null
-            : data_assignment.search.time[1],
+            : this.data_assignment.search.time[1],
         productName: this.data_assignment.search.productName
       };
       this.data_assignment.loading = true;
