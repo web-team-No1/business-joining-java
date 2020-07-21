@@ -48,7 +48,7 @@
 
 <script>
 import session from "../../utils/session";
-import { logout,selectMenuModuleWhenChangeRole } from "../../api/javaApi";
+import { logout,selectMenuModuleWhenChangeRole,updateRole } from "../../api/javaApi";
 // import { viewPage_function} from "../../router/path";
 import  menuList_data from "../../router/path";
 export default {
@@ -176,6 +176,26 @@ export default {
         .catch(err => {
           console.log(err);
         });
+        let data2 = {
+            id: session.getItem("user"),
+            roleId : item.id
+          };
+      updateRole(data2)
+        .then(res => {
+          if (res.data.returnCode != 0) {
+            this.$message({
+              type: "warning",
+              message: res.data.returnMsg,
+              center: true
+            });
+          } else {
+            console.log("成功")
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+        
       // menuList_data.menuList_data.forEach(element => {
       //   if(element.text === adress){
       //     this.$router.push({ name:element.name });

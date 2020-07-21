@@ -97,6 +97,40 @@ const data_box_use = [
     experienceProblemDo: null
   }
 ]
+const data_box_ty = [
+  {
+    productType: 1,
+    list: [{}]
+  },
+  {
+    productType: 2,
+    list: [{}]
+  },
+  {
+    productType: 3,
+    list: [{}]
+  },
+  {
+    productType: 4,
+    list: [{}]
+  },
+  {
+    productType: 5,
+    list: [{}]
+  },
+  {
+    productType: 6,
+    list: [{}]
+  },
+  {
+    productType: 7,
+    list: [{}]
+  },
+  {
+    productType: 8,
+    list: [{}]
+  }
+]
 const data_box = [
   {
     productType: 1,
@@ -233,7 +267,10 @@ const productItemUse = {
   item_8: false
 }
 const data_assignment = {
-  data_assignment_Dialg: false,
+  data_assignment_tyDialg: false,
+  data_assignment_syDialg: false,
+  data_assignment_yyDialg: false,
+  data_assignment_lsDialg: false,
   loading: true,
   clientData: [],
   multipleSelection: [],
@@ -248,7 +285,10 @@ const data_assignment = {
     user: null,
     productName: null,
   },
-  experience_details_dialog_two: false,
+  experience_details_dialog_tytwo: false,
+  experience_details_dialog_sytwo: false,
+  experience_details_dialog_yytwo: false,
+  experience_details_dialog_lstwo: false,
   zpUser: null
 }
 const new_details_data = {
@@ -349,11 +389,15 @@ const new_details_data = {
       experienceProblemDo: null
     }
   ],
-  td_dialog:false,
+  td_tydialog:false,
+  td_sydialog:false,
+  td_yydialog:false,
   value:0,
   causeOfLoss:null,
   churnRegistration:null,
-  ls_dialog:false
+  tycpls_dialog:false,
+  sycpls_dialog:false,
+  khls_dialog:false,
 }
 const fayy_data={
   dayList:[
@@ -377,6 +421,7 @@ const fayy_data={
   ],
   timeValue:null,
   minuteList:[
+    {name:"0分",id:0},
     {name:"5分",id:5},
     {name:"10分",id:10},
     {name:"15分",id:15},
@@ -395,6 +440,7 @@ const fayy_data={
 export default {
   data_box,
   data_box_use,
+  data_box_ty,
   productItem,
   productItemUse,
   data_assignment,

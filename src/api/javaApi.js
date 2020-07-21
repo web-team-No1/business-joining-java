@@ -22,6 +22,7 @@ export const login = async params => axios.post(baseUrl + '/login/login', params
 export const logout = async params => axios.post(baseUrl + '/login/logout', params); //退出
 export const checkLogine = async params => axios.get(baseUrl + '/login/checkLogin', params); //验证是否登录
 export const selectMenuModuleWhenChangeRole = async params => axios.get(baseUrl + '/sys/menu/selectMenuModuleWhenChangeRole', params); //切换角色
+export const updateRole = async params => axios.post(baseUrl + '/login/updateRole', params); //切换角色
 /*
 *
 *系统管理 
@@ -331,6 +332,8 @@ export const selectPrincipalVisitListWhenExperience = async params => axios.post
 export const updatePrincipalUser = async params => axios.post(baseUrl + '/back/visit/updatePrincipalUser', params);//数据指派
 export const selectPrincipalVisitListWhenUse = async params => axios.post(baseUrl + '/back/visit/selectPrincipalVisitListWhenUse', params);//使用数据指派列表
 export const selectPrincipalVisitListWhenBack = async params => axios.post(baseUrl + '/back/visit/selectPrincipalVisitListWhenBack', params);//邀约数据指派列表
+export const selectPrincipalVisitListWhenOutflow = async params => axios.post(baseUrl + '/back/visit/selectPrincipalVisitListWhenOutflow', params);//流失数据指派列表
+export const updatePrincipalUserWhenOutflow = async params => axios.post(baseUrl + '/back/visit/updatePrincipalUserWhenOutflow', params);//流失数据指派
 export const queryWaitReviewDetail = async params => axios.post(baseUrl + '/back/visit/queryWaitReviewDetail', params);//待复查详情&&逾期未到详情
 
 /*

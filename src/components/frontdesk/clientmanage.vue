@@ -336,8 +336,23 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto" size="mini">
           <h3 class="new-title">基本信息</h3>
           <el-col :span="11">
+            <el-form-item label="就诊类型" prop="memberType">
+              <el-radio-group
+                v-model="ruleForm.memberType"
+                @change="isRequired(ruleForm.memberType)"
+              >
+                <el-radio label="2">固定类</el-radio>
+                <el-radio label="1">矫形类</el-radio>
+              </el-radio-group>
+            </el-form-item>
             <el-form-item label="客户姓名:" prop="name">
               <el-input v-model="ruleForm.name" placeholder="请输入客户姓名"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" prop="sex">
+              <el-radio-group v-model="ruleForm.sex">
+                <el-radio label="1">男</el-radio>
+                <el-radio label="0">女</el-radio>
+              </el-radio-group>
             </el-form-item>
             <el-form-item label="联系方式:" prop="phone">
               <el-input v-model.number="ruleForm.phone" placeholder="请输入联系方式"></el-input>
@@ -355,17 +370,13 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="性别" prop="sex">
-              <el-radio-group v-model="ruleForm.sex">
-                <el-radio label="1">男</el-radio>
-                <el-radio label="0">女</el-radio>
-              </el-radio-group>
-            </el-form-item>
+            
+            
+          </el-col>
+          <el-col :span="12" :offset="1">
             <el-form-item label="地址">
               <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入家庭住址地址"></el-input>
             </el-form-item>
-          </el-col>
-          <el-col :span="12" :offset="1">
             <el-form-item v-if="modefiy" label="治疗周期:">
               <span>{{modfiyTreatmentCycle}}</span>
             </el-form-item>
@@ -394,15 +405,7 @@
                 <el-radio label="4">儿保</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="就诊类型" prop="memberType">
-              <el-radio-group
-                v-model="ruleForm.memberType"
-                @change="isRequired(ruleForm.memberType)"
-              >
-                <el-radio label="2">固定类</el-radio>
-                <el-radio label="1">矫形类</el-radio>
-              </el-radio-group>
-            </el-form-item>
+            
           </el-col>
         </el-form>
       </el-row>
@@ -748,7 +751,7 @@
         <el-table-column prop="gmd" label="骨密度"></el-table-column>
       </el-table>
       <h3 class="new-title">订单信息</h3>
-      <el-table :data="orders" border max-height="500" :header-row-class-name="'headerClass-two'">
+      <el-table :data="orders" border max-height="500" :header-row-class-name="'headerClass-two'" :span-method="objectSpanMethod_two">
         <el-table-column prop="orderNum" label="订单编号" min-width="100"></el-table-column>
         <el-table-column prop="name" label="产品名称"></el-table-column>
         <el-table-column prop="nickname" label="产品昵称"></el-table-column>
@@ -1160,7 +1163,15 @@
       >
         <el-table-column align="center" prop="memberName" label="客户姓名"></el-table-column>
         <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
+        <el-table-column align="center" prop="phone" label="联系方式"></el-table-column>
+        <el-table-column align="center" prop="source" label="客户来源"></el-table-column>
+        <el-table-column align="center" prop="cognition" label="客户初始认知"></el-table-column>
         <el-table-column align="center" prop="sex" label="性别"></el-table-column>
+        <el-table-column align="center" prop="isBlack" label="黑名单"></el-table-column>
+        <el-table-column align="center" prop="address" label="家庭住址"></el-table-column>
+        <el-table-column align="center" prop="school" label="就读学校"></el-table-column>
+        <el-table-column align="center" prop="memberModeCN" label="客户当前类型"></el-table-column>
+        <el-table-column align="center" prop="memberTypeCN" label="就诊类型"></el-table-column>
       </el-table>
       <!-- <div>
         <span>客户姓名:</span>
@@ -1249,6 +1260,7 @@
               placeholder="选择日期"
               format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"
+              :picker-options="pickerOptions0"
             ></el-date-picker>
             <span v-else>--</span>
           </template>
@@ -1809,7 +1821,14 @@
         <el-table-column align="center" prop="memberName" label="客户姓名"></el-table-column>
         <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
         <el-table-column align="center" prop="phone" label="联系方式"></el-table-column>
+        <el-table-column align="center" prop="source" label="客户来源"></el-table-column>
+        <el-table-column align="center" prop="cognition" label="客户初始认知"></el-table-column>
+        <el-table-column align="center" prop="sex" label="性别"></el-table-column>
+        <el-table-column align="center" prop="isBlack" label="黑名单"></el-table-column>
         <el-table-column align="center" prop="address" label="家庭住址"></el-table-column>
+        <el-table-column align="center" prop="school" label="就读学校"></el-table-column>
+        <el-table-column align="center" prop="memberModeCN" label="客户当前类型"></el-table-column>
+        <el-table-column align="center" prop="memberTypeCN" label="就诊类型"></el-table-column>
       </el-table>
       <!-- <div>
         <span>客户姓名:</span>
@@ -2179,6 +2198,11 @@ export default {
       }
     };
     return {
+      pickerOptions0: {
+          disabledDate(time) {
+            return time.getTime() < Date.now() - 8.64e7;//如果没有后面的-8.64e7就是不可以选择今天的
+          }
+        },
       /*新增data*/
       tabList: [
         { name: "测评接待" },
@@ -2404,7 +2428,11 @@ export default {
         list: []
       },
       threeDDialg: false,
-      only_recordId: null
+      only_recordId: null,
+      spanArr_a: [],
+      position_a: 0,
+      spanArr2_a: [],
+      position2_a: 0,
     };
   },
   components: {
@@ -2452,10 +2480,10 @@ export default {
     //       console.log(err);
     //     });
     // },
-    receptionist_func(obj, deptId = 9) {
+    receptionist_func(obj,) {
       this.assigned_reception_data.userObj = obj;
       let data = {
-        deptId: deptId,
+        deptId: obj.deptId,
         siteId: obj.siteId
       };
       userAssignListByDept(data)
@@ -2477,20 +2505,7 @@ export default {
           console.log(err);
         });
       // frontDesk.receptionist_func(this, deptId, siteId);
-
-      if (deptId == 9) {
-        let data2 = {
-          type: 201,
-          memberId: obj.memberId
-        };
-        selectAdvanceUser(data2)
-          .then(res => {
-            this.assigned_reception_data.user = res.data.data;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+      
     },
     init_two() {
       let data = {
@@ -2556,6 +2571,7 @@ export default {
       frontDesk.topItem_func(this, index);
     },
     toggle(index, name) {
+
       this.tabActive = index;
       this.assigned_reception_data.user = [];
       if (index == 0) {
@@ -2564,12 +2580,26 @@ export default {
         this.fpjd_product_func(this.assigned_reception_data.userObj, 310);
         this.receptionist_func(this.assigned_reception_data.userObj, 8);
       } else if (index == 2) {
+
+        let data2 = {
+          type: 201,
+          memberId: this.assigned_reception_data.userObj.memberId
+        };
+        selectAdvanceUser(data2)
+          .then(res => {
+            this.assigned_reception_data.user = res.data.data;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      
         this.fpjd_product_func(this.assigned_reception_data.userObj, 363);
         this.receptionist_func(this.assigned_reception_data.userObj, 6);
       } else if (index == 3) {
         this.fpjd_product_func(this.assigned_reception_data.userObj, 366);
         this.receptionist_func(this.assigned_reception_data.userObj, 12);
       }
+
     },
     assigned_reception_func() {
       this.receptionist_func(this.assigned_reception_data.userObj);
@@ -2781,6 +2811,7 @@ export default {
     rowspan() {
       frontDesk.rowspan(this);
     },
+    
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
       if (columnIndex === 0) {
         const _row = this.spanArr[rowIndex];
@@ -3292,7 +3323,7 @@ export default {
       this.paymentMethod.xj = 0;
     },
     orderingStart() {
-      naVComponent.orderingStart(this);
+      naVComponent.orderingStart(this,this.assigned_reception_data.userObj);
     },
     readyOrder(obj) {
       this.dialogreadyOrder = true;
@@ -3644,12 +3675,42 @@ export default {
             this.prescriptions = res.data.data.prescriptions;
             this.evaluates = res.data.data.evaluates;
             this.orders = res.data.data.orders;
+            this.$nextTick(()=>{
+                frontDesk.rowspan_a(this); 
+            })
+             
           }
         })
         .catch(err => {
           console.log(err);
         });
     },
+    objectSpanMethod_two({ row, column, rowIndex, columnIndex }) {
+        if (columnIndex === 0) {
+          const _row = this.spanArr_a[rowIndex];
+          const _col = _row > 0 ? 1 : 0;
+          return {
+            rowspan: _row,
+            colspan: _col
+          };
+        }
+        if (columnIndex === 9) {
+          const _row = this.spanArr_a[rowIndex];
+          const _col = _row > 0 ? 1 : 0;
+          return {
+            rowspan: _row,
+            colspan: _col
+          };
+        }
+        if (columnIndex === 11) {
+          const _row = this.spanArr_a[rowIndex];
+          const _col = _row > 0 ? 1 : 0;
+          return {
+            rowspan: _row,
+            colspan: _col
+          };
+        }
+      },
     //客户列表 //查询
     async pageList(pageIndex = 1, pageSize = 10) {
       this.spanArr = [];

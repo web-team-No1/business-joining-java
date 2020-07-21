@@ -229,7 +229,7 @@
             size="small"
           >修改</el-button>
           <el-button
-            @click="handleInfo(scope.row.memberId)"
+            @click="handleInfo(scope.row)"
             type="primary"
             icon="el-icon-document"
             size="small"
@@ -261,8 +261,23 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto" size="mini">
           <h3 class="new-title">基本信息</h3>
           <el-col :span="11">
+            <el-form-item label="就诊类型" prop="memberType">
+              <el-radio-group
+                v-model="ruleForm.memberType"
+                @change="isRequired(ruleForm.memberType)"
+              >
+                <el-radio label="2">固定类</el-radio>
+                <el-radio label="1">矫形类</el-radio>
+              </el-radio-group>
+            </el-form-item>
             <el-form-item label="客户姓名:" prop="name">
               <el-input v-model="ruleForm.name" placeholder="请输入客户姓名" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" prop="sex">
+              <el-radio-group v-model="ruleForm.sex">
+                <el-radio label="1">男</el-radio>
+                <el-radio label="0">女</el-radio>
+              </el-radio-group>
             </el-form-item>
             <el-form-item label="联系方式:" prop="phone">
               <el-input v-model.number="ruleForm.phone" placeholder="请输入联系方式" autocomplete="off"></el-input>
@@ -280,12 +295,8 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="性别" prop="sex">
-              <el-radio-group v-model="ruleForm.sex">
-                <el-radio label="1">男</el-radio>
-                <el-radio label="0">女</el-radio>
-              </el-radio-group>
-            </el-form-item>
+          </el-col>
+          <el-col :span="12" :offset="1">
             <el-form-item label="地址">
               <el-input
                 type="textarea"
@@ -294,8 +305,6 @@
                 autocomplete="off"
               ></el-input>
             </el-form-item>
-          </el-col>
-          <el-col :span="12" :offset="1">
             <el-form-item v-if="modefiy" label="治疗周期:">
               <span>{{modfiyTreatmentCycle}}</span>
             </el-form-item>
@@ -324,15 +333,7 @@
                 <el-radio label="4">儿保</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="就诊类型" prop="memberType">
-              <el-radio-group
-                v-model="ruleForm.memberType"
-                @change="isRequired(ruleForm.memberType)"
-              >
-                <el-radio label="2">固定类</el-radio>
-                <el-radio label="1">矫形类</el-radio>
-              </el-radio-group>
-            </el-form-item>
+            
           </el-col>
         </el-form>
       </el-row>
@@ -975,7 +976,15 @@
       <el-table :border="true" :data="Details" :header-row-class-name="'headerClass-two'">
         <el-table-column align="center" prop="memberName" label="客户姓名"></el-table-column>
         <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
+        <el-table-column align="center" prop="phone" label="联系方式"></el-table-column>
+        <el-table-column align="center" prop="source" label="客户来源"></el-table-column>
+        <el-table-column align="center" prop="cognition" label="客户初始认知"></el-table-column>
         <el-table-column align="center" prop="sex" label="性别"></el-table-column>
+        <el-table-column align="center" prop="isBlack" label="黑名单"></el-table-column>
+        <el-table-column align="center" prop="address" label="家庭住址"></el-table-column>
+        <el-table-column align="center" prop="school" label="就读学校"></el-table-column>
+        <el-table-column align="center" prop="memberModeCN" label="客户当前类型"></el-table-column>
+        <el-table-column align="center" prop="memberTypeCN" label="就诊类型"></el-table-column>
       </el-table>
       <!-- <div>
         <span>客户姓名:</span>
@@ -1058,6 +1067,7 @@
               placeholder="选择日期"
               format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"
+              :picker-options="pickerOptions0"
             ></el-date-picker>
             <span v-else>--</span>
           </template>
@@ -1444,7 +1454,14 @@
         <el-table-column align="center" prop="memberName" label="客户姓名"></el-table-column>
         <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
         <el-table-column align="center" prop="phone" label="联系方式"></el-table-column>
+        <el-table-column align="center" prop="source" label="客户来源"></el-table-column>
+        <el-table-column align="center" prop="cognition" label="客户初始认知"></el-table-column>
+        <el-table-column align="center" prop="sex" label="性别"></el-table-column>
+        <el-table-column align="center" prop="isBlack" label="黑名单"></el-table-column>
         <el-table-column align="center" prop="address" label="家庭住址"></el-table-column>
+        <el-table-column align="center" prop="school" label="就读学校"></el-table-column>
+        <el-table-column align="center" prop="memberModeCN" label="客户当前类型"></el-table-column>
+        <el-table-column align="center" prop="memberTypeCN" label="就诊类型"></el-table-column>
       </el-table>
       <!-- <div>
         <span>客户姓名:</span>
@@ -1718,6 +1735,12 @@ export default {
       }
     };
     return {
+      pickerOptions0: {
+          disabledDate(time) {
+            return time.getTime() < Date.now() - 8.64e7;//如果没有后面的-8.64e7就是不可以选择今天的
+          }
+        },
+      myObj:null,
       dialogEvaluationDetails: false, //测评信息详情弹框
       examinationInfo: [{}], //测评详情
       detailList: [], //测评详情
@@ -2113,7 +2136,7 @@ export default {
       this.paymentMethod.xj = 0;
     },
     orderingStart() {
-      naVComponent.orderingStart(this);
+      naVComponent.orderingStart(this,this.myObj);
     },
     readyOrder(obj) {
       this.dialogreadyOrder = true;
@@ -2503,10 +2526,11 @@ export default {
           console.log(err);
         });
     },
-    handleInfo(id) {
-      this.currentNamberId = id;
+    handleInfo(obj) {
+      this.myObj=obj
+      this.currentNamberId = obj.memberId;
       let data = {
-        memberId: id
+        memberId: obj.memberId
       };
       queryMemberDetail(data)
         .then(res => {

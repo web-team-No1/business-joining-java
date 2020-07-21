@@ -1,3 +1,4 @@
+
 <!-- 订单管理 -->
 <template>
   <div>
@@ -335,27 +336,21 @@
         <el-table-column prop="illness" label="新增病情"></el-table-column>
         <el-table-column prop="pCreateTime" label="创建时间" min-width="100"></el-table-column>
       </el-table>
-      <h3 class="new-title">
-        订单信息
-        <el-button
-          type="primary"
-          icon="el-icon-plus"
-          @click="bujiaoManey()"
-          size="mini"
-          class="right"
-          id="margin-l-20"
-          v-if="orderInformation.oweMoney > 0"
-        >补交欠款</el-button>
-        <el-button
-          type="primary"
-          icon="el-icon-receiving"
-          size="mini"
-          class="right"
-          v-if="orderInformation.printAddMoney === 1"
-          @click="printTicket_bj(paymentMethod.orderNum)"
-        >打印补交小票</el-button>
-      </h3>
-      <div>
+      <h3 class="new-title">订单信息</h3>
+      <el-table :data="orderInformation" border :header-row-class-name="'headerClass-two'">
+        <el-table-column align="center" prop="orderNum" label="订单编号" min-width="100"></el-table-column>
+        <el-table-column align="center" prop="oStatus" label="订单状态"></el-table-column>
+        <el-table-column align="center" prop="oCreateUser" label="下单人员"></el-table-column>
+        <el-table-column align="center" prop="oCreateTime" label="下单时间"></el-table-column>
+        <el-table-column align="center" prop="should" label="应收金额合计"></el-table-column>
+        <el-table-column align="center" prop="oweMoney" label="下欠金额"></el-table-column>
+        <el-table-column align="center" prop="lakala" label="拉卡拉"></el-table-column>
+        <el-table-column align="center" prop="cash" label="现金"></el-table-column>
+        <el-table-column align="center" prop="transfer" label="转账"></el-table-column>
+        <el-table-column align="center" prop="quickly" label="是否加急"></el-table-column>
+        <el-table-column align="center" prop="remark" label="订单备注" min-width="100"></el-table-column>
+      </el-table>
+      <!-- <div>
         <span>订单编号:</span>
         <span class="margin-r-20">{{orderInformation.orderNum}}</span>
         <span>订单状态:</span>
@@ -382,7 +377,7 @@
         <span class="margin-r-20">{{orderInformation.quickly || "暂无数据"}}</span>
         <span>订单备注:</span>
         <span class="margin-r-20">{{orderInformation.remark || "暂无数据"}}</span>
-      </div>
+      </div> -->
       <h3 class="new-title">退款信息</h3>
       <el-table :data="refundRecordDto" border :header-row-class-name="'headerClass-two'">
         <el-table-column prop="nickname" label="产品昵称" min-width="100"></el-table-column>
@@ -445,21 +440,39 @@
           </div>
         </el-image> 
       </div>-->
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="returnOn()" type="primary" icon="el-icon-back">返回</el-button>
+      <div slot="footer" class="dialog-footer clearfix">
         <el-button
-          type="success"
+          type="info"
+          icon="el-icon-plus"
+          @click="bujiaoManey()"
+          class="left margin-r-20"
+          v-if="orderInformation[0].oweMoney > 0"
+        >补交欠款</el-button>
+        <el-button
+          type="info"
           icon="el-icon-receiving"
-          @click="printTicket(paymentMethod.orderNum)"
-        >打印小票</el-button>
-        <el-button type="warning" @click="dialogRefund=true" icon="el-icon-bank-card">退款</el-button>
+          class="left"
+          v-if="orderInformation[0].printAddMoney === 1"
+          @click="printTicket_bj(paymentMethod.orderNum)"
+        >打印补交小票</el-button>
+
+        
         <el-button
           type="primary"
+          icon="el-icon-receiving"
+           class="right"
+          @click="printTicket(paymentMethod.orderNum)"
+        >打印小票</el-button>
+        <el-button :disabled="Details[0].updateOrder === 0"  class="right margin-r-10" type="warning" @click="changeOrder()">修改订单</el-button>
+        <el-button type="danger"  class="right" @click="dialogRefund=true" icon="el-icon-bank-card">退款</el-button>
+        <el-button
+          type="danger"
+           class="right"
           :disabled="Details[0].updateOrder === 0"
           icon="el-icon-circle-close"
           @click="cancelOrder"
         >取消订单</el-button>
-        <el-button :disabled="Details[0].updateOrder === 0" type="warning" @click="changeOrder()">修改订单</el-button>
+        <el-button @click="returnOn()" class="right" type="primary" icon="el-icon-back">返回</el-button>
       </div>
     </el-dialog>
     <!-- dialog 补交欠款-->
@@ -511,7 +524,7 @@
       </el-row>
       <div class="clearfix margin-t-10">
         <span class="left">合计：{{paymentMethod.total}}</span>
-        <span class="right">当前下欠：{{orderInformation.oweMoney}}</span>
+        <span class="right">当前下欠：{{orderInformation[0].oweMoney}}</span>
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancelMakeUp()" type="primary" icon="el-icon-circle-close">取消</el-button>
@@ -1454,7 +1467,7 @@ export default {
       favorableDto: [],
       refundRecordDto: [],
       PatientInformation: [],
-      orderInformation: {
+      orderInformation: [{
         should: null,
         oStatus: null,
         oCreateUser: null,
@@ -1465,7 +1478,7 @@ export default {
         cash: null,
         transfer: null,
         remark: null
-      },
+      }],
       productSizeList: [],
       // productSize: {
       //   wc: [],
@@ -1592,7 +1605,7 @@ export default {
     },
     bujiaoManey() {
       this.dialogMakeUpTheArrears = true;
-      this.paymentMethod.totalAmountReceivable = this.orderInformation.oweMoney;
+      this.paymentMethod.totalAmountReceivable = this.orderInformation[0].oweMoney;
     },
     deliveryTimeDate(value, index) {
       this.$set(this.detailFormList, index, value);
@@ -1651,26 +1664,30 @@ export default {
     },
     changeOrder() {
       // debugger;
-      this.currentNamberId = this.orderInformation.orderId;
+      this.currentNamberId = this.orderInformation[0].orderId;
       this.currentPrescriptions = this.PatientInformation;
-      this.orderingPerson = this.orderInformation.oCreateUser;
-      this.paymentMethod.xj = this.orderInformation.cash;
-      this.paymentMethod.lkl = this.orderInformation.lakala;
+      this.orderingPerson = this.orderInformation[0].oCreateUser;
+      this.paymentMethod.xj = this.orderInformation[0].cash;
+      this.paymentMethod.lkl = this.orderInformation[0].lakala;
       console.log(this.paymentMethod.lkl);
-      this.paymentMethod.zz = this.orderInformation.transfer;
+      this.paymentMethod.zz = this.orderInformation[0].transfer;
       this.paymentMethod.total =
-        parseFloat(this.orderInformation.lakala) +
-        parseFloat(this.orderInformation.cash) +
-        parseFloat(this.orderInformation.transfer);
-      this.paymentMethod.totalAmountReceivable = this.orderInformation.should;
-      this.paymentMethod.arrears = this.orderInformation.oweMoney;
+        parseFloat(this.orderInformation[0].lakala) +
+        parseFloat(this.orderInformation[0].cash) +
+        parseFloat(this.orderInformation[0].transfer);
+
+      
+
+      this.paymentMethod.arrears = this.orderInformation[0].oweMoney;
+      
       let productObj = this.prescriptions;
       productObj.forEach(obj => {
         obj.source = obj.type;
         obj.sourceType = obj.orderType;
       });
       this.detailFormList = productObj;
-      if (this.orderInformation.quickly == "是") {
+      this.paymentMethod.totalAmountReceivable = this.ysMoney() //this.orderInformation[0].should;
+      if (this.orderInformation[0].quickly == "是") {
         this.jjChecked = true;
       } else {
         this.jjChecked = false;
@@ -1942,7 +1959,7 @@ export default {
             this.prescriptions = res.data.data.saleDetailDtos;
             this.refundData = res.data.data.saleDetailDtos;
             this.PatientInformation.push(res.data.data.orderDetailDto);
-            this.orderInformation = res.data.data.orderDetailDto;
+            this.orderInformation[0] = res.data.data.orderDetailDto;
             this.favorableDto = res.data.data.favorableDtos;
             this.refundRecordDto = res.data.data.refundDetails;
             this.paymentMethod.orderId = res.data.data.orderDetailDto.orderId;
@@ -1952,8 +1969,8 @@ export default {
               obj.amount = 0;
             });
             if (
-              this.orderInformation.oStatus == "已取消" ||
-              this.orderInformation.oStatus == "已结单"
+              this.orderInformation[0].oStatus == "已取消" ||
+              this.orderInformation[0].oStatus == "已结单"
             ) {
               this.isCancel = true;
             } else {

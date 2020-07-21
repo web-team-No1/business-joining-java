@@ -153,6 +153,7 @@
       <el-table-column align="center" prop="outflow" label="是否流失"></el-table-column>
       <el-table-column align="center" prop="backVisitUserName" label="回访人员"></el-table-column>
       <el-table-column align="center" prop="visitTime" label="回访时间"></el-table-column>
+      <el-table-column align="center" prop="memberAttitude" label="客户态度"></el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button @click="details(scope.row)" type="primary" size="small">回访详情</el-button>
