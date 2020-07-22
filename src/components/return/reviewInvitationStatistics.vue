@@ -53,7 +53,7 @@
           placeholder="请输入产品昵称"
         ></el-input>
       </el-form-item>
-      <el-form-item label="沟通结果">
+      <!-- <el-form-item label="沟通结果">
         <el-select
          class="w-150"
           clearable
@@ -67,7 +67,7 @@
             :value="item.name"
           ></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="是否到访">
          <el-select
           class="w-150"
@@ -250,7 +250,7 @@ export default {
         phoneStatus: null,
         phoneStatusList: [
           { name: "接通" },
-          { name: "未接通" },
+          { name: "多次未接通" },
           { name: "接通挂断" },
           { name: "联系方式错误" }
         ],

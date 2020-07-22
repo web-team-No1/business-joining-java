@@ -94,6 +94,7 @@
         border
         :data="left_drawer_data.clientData"
         max-height="670"
+        :span-method="objectSpanMethod_left"
         v-loading="left_drawer_data.loading"
         element-loading-text="加载中..."
         element-loading-spinner="el-icon-loading"
@@ -2433,6 +2434,8 @@ export default {
       position_a: 0,
       spanArr2_a: [],
       position2_a: 0,
+      spanArr_left: [],
+      position_left: 0,
     };
   },
   components: {
@@ -2557,6 +2560,10 @@ export default {
             ldd.pages.total = dataList.total;
             ldd.loading = false;
             ldd.isSearch = false;
+            this.$nextTick(()=>{
+              frontDesk.rowspan_left(this,ldd.clientData); 
+            })
+            
           }
         })
         .catch(err => {
@@ -3704,6 +3711,16 @@ export default {
         }
         if (columnIndex === 11) {
           const _row = this.spanArr_a[rowIndex];
+          const _col = _row > 0 ? 1 : 0;
+          return {
+            rowspan: _row,
+            colspan: _col
+          };
+        }
+      },
+    objectSpanMethod_left({ row, column, rowIndex, columnIndex }) {
+        if (columnIndex != 9) {
+          const _row = this.spanArr_left[rowIndex];
           const _col = _row > 0 ? 1 : 0;
           return {
             rowspan: _row,

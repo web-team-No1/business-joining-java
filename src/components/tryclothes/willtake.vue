@@ -155,6 +155,7 @@
           <el-button
             v-else
             @click="uploadPhotos(scope.row.saleProductId)"
+
             type="warning"
             size="small"
           >上传照片</el-button>
@@ -268,7 +269,7 @@
         >开始铆接</el-button>
         <el-button type="success" v-if="tryOn[0].rivetStatus === 2" @click="rivetOver()">完成铆接</el-button>
         <el-button type="info" v-if="tryOn[0].rivetStatus === 0">已铆接</el-button>
-        <el-button type="success" :loading="isScwc" @click="trialComplete()">试穿完成</el-button>
+        <el-button type="success"  @click="trialComplete()">试穿完成</el-button>
         <el-button
           type="warning"
           @click="express_func(pickupServiceInformation[0].saleProductId)"
@@ -424,7 +425,7 @@
       ></el-input>
       <span slot="footer">
         <el-button @click="cloPicForm()" type="primary" icon="el-icon-circle-close">取消</el-button>
-        <el-button @click="subPicForm()" type="success" icon="el-icon-circle-check">保存</el-button>
+        <el-button @click.native="subPicForm()"  :loading="isScwc" type="success" icon="el-icon-circle-check">保存</el-button>
       </span>
     </el-dialog>
     <el-dialog :visible.sync="dialogVisible">
@@ -616,7 +617,6 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.isScwc=true
           let data = {
             saleProductId: this.saleProductId
           };
@@ -629,7 +629,6 @@ export default {
                   center: true
                 });
               } else {
-                this.isScwc=false
                 this.detailsReturn();
                 this.pageList(this.pages.currentPage, this.pages.pageSize);
                 this.$message({
@@ -741,16 +740,28 @@ export default {
       this.fileListBefore = [];
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      // const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isJPG) {
-        this.$message.error("上传图片只能是 JPG 格式!");
+      console.log(file)
+      let isJPG_PNG
+      //  = file.type === "image/jpeg";
+      // const isJPGt = file.type === "image/png";
+      if(file.type === "image/png" || file.type === "image/jpeg"){
+        isJPG_PNG=true
+      }else{
+        isJPG_PNG=false
       }
+      // const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG_PNG) {
+        this.$message.error("上传图片只能是 JPG/png 格式!");
+      }
+      // if (!isJPGt) {
+      //   this.$message.error("上传图片只能是 JPG/png 格式!");
+      // }
       // if (!isLt2M) {
       //   this.$message.error('上传头像图片大小不能超过 2MB!');
       // }
-      this.isJPG = isJPG;
-      return isJPG;
+      this.isJPG = isJPG_PNG;
+      console.log(this.isJPG)
+      return isJPG_PNG;
     },
     uploadPhotos(id) {
       this.saleProductId = id;
@@ -796,6 +807,7 @@ export default {
           "Content-Type": "multipart/form-data"
         }
       };
+      this.isScwc=true
       axios
         .post(this.upImgUrl, this.formDate, config)
         .then(res => {
@@ -805,7 +817,9 @@ export default {
               message: res.data.returnMsg,
               center: true
             });
+            this.isScwc=false
           } else {
+            this.isScwc=false
             console.log(this.fileList);
             // debugger;
             if (this.isJPG) {

@@ -98,6 +98,9 @@
           ></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="联系电话">
+        <el-input v-model="seach.phone" placeholder="请输入客户电话" class="w-150"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button
           @click="topItem_func(topActive)"
@@ -124,7 +127,7 @@
       <el-table-column align="center" prop="memberName" label="客户姓名"></el-table-column>
       <el-table-column align="center" prop="phone" label="联系电话"></el-table-column>
       <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
-      <el-table-column align="center" prop="vip" label="是否会员"></el-table-column>
+      <!-- <el-table-column align="center" prop="vip" label="是否会员"></el-table-column> -->
       <el-table-column align="center" prop="saleProductNickname" label="产品昵称"></el-table-column>
       <el-table-column align="center" prop="reflect" label="取型家长反应"></el-table-column>
       <el-table-column align="center" prop="tryOnBeginTime" label="试穿时间"></el-table-column>
@@ -186,7 +189,7 @@
           <el-table
             :data="new_details_data.prescriptionDTO"
             border
-            :header-row-class-name="'headerClass-two'"
+            :header-row-class-name="'headerClass'"
           >
             <el-table-column prop="hospitalName" label="医院" min-width="100"></el-table-column>
             <el-table-column prop="departmentName" label="科室"></el-table-column>
@@ -262,7 +265,7 @@
           <el-table
             :border="true"
             :data="new_details_data.examinationInfo"
-            :header-row-class-name="'headerClass-two'"
+            :header-row-class-name="'headerClass'"
           >
             <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
             <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
@@ -338,6 +341,7 @@
                 type="date"
                 value-format="yyyy-MM-dd"
                 placeholder="选择日期"
+                :picker-options="pickerOptions"
               ></el-date-picker>
             </el-form-item>
           </el-form>
@@ -896,7 +900,7 @@
                         <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
                       </el-radio-group>
                     </h5>
-                    
+
                     <h5 class="center border-b-1">问题处理</h5>
                     <div style="height:52px;">
                       <el-input
@@ -985,7 +989,6 @@
                         <el-radio v-for="item in isYW" :key="item" :label="item"></el-radio>
                       </el-radio-group>
                     </h5>
-                    
 
                     <h5 class="center border-b-1">问题处理</h5>
                     <div style="height:52px;">
@@ -1219,8 +1222,7 @@
                       </el-col>
                     </el-row>
                   </el-col>
-                </el-row> -->
-
+                </el-row>-->
               </div>
             </div>
 
@@ -1514,8 +1516,8 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item  label="应回访日期">
-          <el-date-picker   
+        <el-form-item label="应回访日期">
+          <el-date-picker
             v-model="data_assignment.search.time"
             class="w-250"
             type="daterange"
@@ -1652,7 +1654,7 @@
         <el-input
           type="textarea"
           :autosize="{ minRows: 2, maxRows: 4}"
-          placeholder="请输入详情'非必填'"
+          placeholder="请输入内容"
           v-model="new_details_data.causeOfLoss"
         ></el-input>
       </div>
@@ -1722,6 +1724,12 @@ export default {
   name: "App",
   data() {
     return {
+      question:false,
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 8.64e7; //如果没有后面的-8.64e7就是不可以选择今天的
+        }
+      },
       spanArr: [],
       position: 0,
       /****数据指派数据 */
@@ -1751,7 +1759,8 @@ export default {
         provinceIdList: [],
         cityIdList: [],
         hospitalLists: [],
-        hospitalId: null
+        hospitalId: null,
+        phone:null
       },
       productDetailsForReturnVisitDialog: false,
       userMemberId: null,
@@ -1880,7 +1889,29 @@ export default {
       this.new_details_data.causeOfLoss = null;
     },
     td_addVisit() {
-      this.new_details_data.td_tydialog = true;
+      let isTx = false;
+      this.data_box.forEach(obj => {
+        if (obj.list.length != 0) {
+          for (var i = 0; i < obj.list.length; i++) {
+            let item = obj.list[i];
+            if (item.experienceProblemHave == "有" && !item.experienceProblemDo) {
+                isTx = true;
+                break;
+            }
+          }
+        }
+      });
+      this.question = isTx;
+      if(this.question){
+          this.$message({
+              type: "warning",
+              message: "请填写问题处理",
+              center: true
+            });
+      }else{
+          this.new_details_data.td_tydialog = true;
+      }
+     
     },
     new_details(obj) {
       this.new_details_data.obj = obj;
@@ -2169,7 +2200,7 @@ export default {
       this.causeOfLoss = null;
     },
     handleSelectionChange(val) {
-      this.multipleSelection = []//val;
+      this.multipleSelection = []; //val;
       console.log(val);
       let myType = [];
 
@@ -2251,7 +2282,8 @@ export default {
             let details = res.data.data;
             this.memberDetailDto[0] = details.memberDetailDTO;
             this.new_details_data.prescriptionDTO = details.prescriptionDTO;
-            this.pickupServiceInformation = details.experienceWaitProductDetailDTO;
+            this.pickupServiceInformation =
+              details.experienceWaitProductDetailDTO;
 
             this.new_details_data.examinationInfo[0] =
               details.examineDetail.examinationInfo;
@@ -2319,7 +2351,8 @@ export default {
         cityId: this.seach.cityId,
         siteId: this.seach.siteValue,
         hospitalId: this.seach.hospitalId,
-        timeType: this.topActive
+        timeType: this.topActive,
+        phone:this.seach.phone
       };
       this.loading = true;
       selectExperienceWaitVisitList(data)
@@ -2333,94 +2366,93 @@ export default {
           } else {
             this.loading = false;
             let dataList = res.data.data;
-            this.clientData = 
-//             [
-//               {birthday: "2016-08-11",
-// examinationUserName: "刘田",
-// memberId: 24491,
-// memberName: "田琛饶",
-// overdue: "已逾期",
-// phone: "13309297439",
-// red: 1,
-// reflect: "配合",
-// saleProductId: 2153,
-// saleProductName: "骨科保护支具（FYKF-J-R-FO-D-Ⅰ）",
-// saleProductNickname: "足弓垫",
-// sex: "男",
-// siteName: "15楼测评中心",
-// tryOnBeginTime: "2020-07-19 20:43",
-// tryOnUserName: "张倩",
-// vip: "是",
-// visitId: 5240,
-// visitWaitTime: "2020-07-19",
-//             },
-//               {
-//               birthday: "2018-07-16",
-// examinationUserName: "无数据",
-// memberId: 38028,
-// memberName: "黄芳",
-// overdue: "未逾期",
-// phone: "18524573324",
-// red: 0,
-// reflect: "",
-// saleProductId: 7857,
-// saleProductName: "F1发育性防护气垫",
-// saleProductNickname: "F1",
-// sex: "女",
-// siteName: "平凉市测评中心",
-// tryOnBeginTime: "2020-07-21 10:29",
-// tryOnUserName: "莎莎",
-// vip: "否",
-// visitId: 5241,
-// visitWaitTime: "2020-07-21",
-//             },
-//               {
-//               birthday: "2018-07-16",
-// examinationUserName: "无数据",
-// memberId: 38028,
-// memberName: "黄芳",
-// overdue: "未逾期",
-// phone: "18524573324",
-// red: 0,
-// reflect: "",
-// saleProductId: 7858,
-// saleProductName: "防护气垫C3",
-// saleProductNickname: "防护气垫C3",
-// sex: "女",
-// siteName: "平凉市测评中心",
-// tryOnBeginTime: "2020-07-21 11:11",
-// tryOnUserName: "莎莎",
-// vip: "否",
-// visitId: 5242,
-// visitWaitTime: "2020-07-31",
-// pageNum: 1,
-//             },
-//               {
-//               birthday: "2018-07-16",
-// examinationUserName: "无数据",
-// memberId: 38028,
-// memberName: "黄芳",
-// overdue: "未逾期",
-// phone: "18524573324",
-// red: 0,
-// reflect: "",
-// saleProductId: 7857,
-// saleProductName: "F1发育性防护气垫",
-// saleProductNickname: "F1",
-// sex: "女",
-// siteName: "平凉市测评中心",
-// tryOnBeginTime: "2020-07-21 10:29",
-// tryOnUserName: "莎莎",
-// vip: "否",
-// visitId: 5241,
-// visitWaitTime: "2020-07-21",
-//             },
-//             ]
-            dataList.data.visitDTOS;
+            this.clientData =
+              //             [
+              //               {birthday: "2016-08-11",
+              // examinationUserName: "刘田",
+              // memberId: 24491,
+              // memberName: "田琛饶",
+              // overdue: "已逾期",
+              // phone: "13309297439",
+              // red: 1,
+              // reflect: "配合",
+              // saleProductId: 2153,
+              // saleProductName: "骨科保护支具（FYKF-J-R-FO-D-Ⅰ）",
+              // saleProductNickname: "足弓垫",
+              // sex: "男",
+              // siteName: "15楼测评中心",
+              // tryOnBeginTime: "2020-07-19 20:43",
+              // tryOnUserName: "张倩",
+              // vip: "是",
+              // visitId: 5240,
+              // visitWaitTime: "2020-07-19",
+              //             },
+              //               {
+              //               birthday: "2018-07-16",
+              // examinationUserName: "无数据",
+              // memberId: 38028,
+              // memberName: "黄芳",
+              // overdue: "未逾期",
+              // phone: "18524573324",
+              // red: 0,
+              // reflect: "",
+              // saleProductId: 7857,
+              // saleProductName: "F1发育性防护气垫",
+              // saleProductNickname: "F1",
+              // sex: "女",
+              // siteName: "平凉市测评中心",
+              // tryOnBeginTime: "2020-07-21 10:29",
+              // tryOnUserName: "莎莎",
+              // vip: "否",
+              // visitId: 5241,
+              // visitWaitTime: "2020-07-21",
+              //             },
+              //               {
+              //               birthday: "2018-07-16",
+              // examinationUserName: "无数据",
+              // memberId: 38028,
+              // memberName: "黄芳",
+              // overdue: "未逾期",
+              // phone: "18524573324",
+              // red: 0,
+              // reflect: "",
+              // saleProductId: 7858,
+              // saleProductName: "防护气垫C3",
+              // saleProductNickname: "防护气垫C3",
+              // sex: "女",
+              // siteName: "平凉市测评中心",
+              // tryOnBeginTime: "2020-07-21 11:11",
+              // tryOnUserName: "莎莎",
+              // vip: "否",
+              // visitId: 5242,
+              // visitWaitTime: "2020-07-31",
+              // pageNum: 1,
+              //             },
+              //               {
+              //               birthday: "2018-07-16",
+              // examinationUserName: "无数据",
+              // memberId: 38028,
+              // memberName: "黄芳",
+              // overdue: "未逾期",
+              // phone: "18524573324",
+              // red: 0,
+              // reflect: "",
+              // saleProductId: 7857,
+              // saleProductName: "F1发育性防护气垫",
+              // saleProductNickname: "F1",
+              // sex: "女",
+              // siteName: "平凉市测评中心",
+              // tryOnBeginTime: "2020-07-21 10:29",
+              // tryOnUserName: "莎莎",
+              // vip: "否",
+              // visitId: 5241,
+              // visitWaitTime: "2020-07-21",
+              //             },
+              //             ]
+              dataList.data.visitDTOS;
             this.pages.total = dataList.total;
             this.box_top_data = dataList.data;
-            returnJs.rowspan(this,this.clientData);
-           
+            returnJs.rowspan(this, this.clientData);
           }
         })
         .catch(err => {

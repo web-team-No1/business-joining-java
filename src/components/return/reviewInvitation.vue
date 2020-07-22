@@ -108,6 +108,9 @@
           ></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="联系电话">
+        <el-input v-model="seach.phone" placeholder="请输入客户电话" class="w-150"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button @click="topItem_func(topActive)" icon="el-icon-search" type="primary">查询</el-button>
       </el-form-item>
@@ -139,6 +142,8 @@
       <el-table-column align="center" prop="examinationTime" label="上次测评时间"></el-table-column>
       <el-table-column align="center" prop="tryOnUserName" label="试穿人员"></el-table-column>
       <el-table-column align="center" prop="examinationUserName" label="测评人员"></el-table-column>
+      <el-table-column align="center" prop="memberAttitude" label="客户分析"></el-table-column>
+      <el-table-column align="center" prop="memberMode" label="客户类型"></el-table-column>
       <el-table-column align="center" prop="visitWaitTime" label="应回访时间">
         <template slot-scope="scope">
           <div :class="scope.row.red === 1 ?'color-red':''">{{scope.row.visitWaitTime}}</div>
@@ -146,7 +151,7 @@
       </el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
-          <el-button @click="details(scope.row)" type="primary" size="small" icon="el-icon-help">回访</el-button>
+          <el-button @click="details(scope.row)" :loading="xqBut" type="primary" size="small" icon="el-icon-help">回访</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -180,11 +185,30 @@
             <el-table-column prop="sex" label="性别"></el-table-column>
             <el-table-column prop="phone" label="联系电话"></el-table-column>
             <el-table-column prop="birthday" label="出生日期"></el-table-column>
-            <el-table-column prop="vip" label="是否会员"></el-table-column>
-            <el-table-column prop="condition" label="处方病情"></el-table-column>
-            <el-table-column prop="illness" label="新增病情"></el-table-column>
+            <!-- <el-table-column prop="vip" label="是否会员"></el-table-column> -->
+            <el-table-column prop="memberModeCN" label="客户当前类型"></el-table-column>
+            <el-table-column prop="cognition" label="客户初始认知"></el-table-column>
+            <el-table-column prop="cognition" label="换产品次数"></el-table-column>
           </el-table>
-          <h3 class="new-title">产品体验回访表</h3>
+          <h3 class="new-title">会员信息</h3>
+          <el-table :data="memberDetailDto" border :header-row-class-name="'headerClass-two'">
+            <el-table-column prop="memberName" label="是否会员" min-width="100"></el-table-column>
+            <el-table-column prop="sex" label="是否续会员"></el-table-column>
+            <el-table-column prop="phone" label="会员到期时间"></el-table-column>
+            <el-table-column prop="birthday" label="部位剩余次数"></el-table-column>
+            <el-table-column prop="vip" label="全身剩余次数"></el-table-column>
+          </el-table>
+          <h3 class="new-title">病单信息</h3>
+          <el-table :data="memberDetailDto" border :header-row-class-name="'headerClass'">
+            <el-table-column prop="memberName" label="医院" min-width="100"></el-table-column>
+            <el-table-column prop="sex" label="科室"></el-table-column>
+            <el-table-column prop="phone" label="医生"></el-table-column>
+            <el-table-column prop="birthday" label="病单类型"></el-table-column>
+            <el-table-column prop="vip" label="处方病情"></el-table-column>
+            <el-table-column prop="vip" label="新增病情"></el-table-column>
+            <el-table-column prop="vip" label="创建时间"></el-table-column>
+          </el-table>
+          <h3 class="new-title">产品体验回访</h3>
           <el-table
             :data="pickupServiceInformation"
             border
@@ -193,16 +217,17 @@
           >
             <el-table-column prop="orderNum" label="订单编号"></el-table-column>
             <el-table-column prop="saleProductNickname" label="产品昵称"></el-table-column>
-            <el-table-column prop="reflect" label="取型家长反应"></el-table-column>
+            <!-- <el-table-column prop="reflect" label="取型家长反应"></el-table-column> -->
             <el-table-column prop="tryOnUserName" label="试穿人员"></el-table-column>
             <el-table-column prop="tryOnBeginTime" label="试穿时间"></el-table-column>
             <el-table-column prop="tryOnRemark" label="试穿备注"></el-table-column>
             <el-table-column prop="experienceTime" label="体验回访时间"></el-table-column>
-            <el-table-column prop="experiencePhone" label="体验回访电话"></el-table-column>
+            <!-- <el-table-column prop="experiencePhone" label="体验回访电话"></el-table-column> -->
             <el-table-column prop="experiencePhoneStatus" label="接通状态"></el-table-column>
             <el-table-column prop="experienceUserName" label="产品体验回访人"></el-table-column>
-            <el-table-column prop="experienceSatisfaction" label="客户满意度"></el-table-column>
-            <el-table-column prop="visitType" label="回访类型"></el-table-column>
+            <el-table-column prop="experienceSatisfaction" label="客户态度"></el-table-column>
+            <el-table-column prop="experienceSatisfaction" label="穿戴时长"></el-table-column>
+            <!-- <el-table-column prop="visitType" label="回访类型"></el-table-column> -->
             <el-table-column label="产品体验问题">
               <template slot-scope="scope">
                 <el-link @click="visitIdDtails(scope.row)" type="primary">
@@ -212,7 +237,7 @@
               </template>
             </el-table-column>
           </el-table>
-          <h3 class="new-title">产品使用回访表</h3>
+          <h3 class="new-title">产品使用回访</h3>
           <el-table
             :data="pickupServiceInformation_use"
             border
@@ -222,12 +247,15 @@
           >
             <el-table-column prop="orderNum" label="订单编号"></el-table-column>
             <el-table-column prop="saleProductNickname" label="产品昵称"></el-table-column>
-            <el-table-column prop="useTime" label="回访时间"></el-table-column>
-            <el-table-column prop="usePhone" label="回访电话"></el-table-column>
+            <el-table-column prop="saleProductNickname" label="试穿备注"></el-table-column>
+            <el-table-column prop="useTime" label="使用回访时间"></el-table-column>
+            <!-- <el-table-column prop="usePhone" label="回访电话"></el-table-column> -->
             <el-table-column prop="usePhoneStatus" label="接通状态"></el-table-column>
-            <el-table-column prop="useUserName" label="回访人"></el-table-column>
-            <el-table-column prop="useSatisfaction" label="客户满意度"></el-table-column>
-            <el-table-column prop="useHeightWeight" label="身高体重有无变化"></el-table-column>
+            <el-table-column prop="useUserName" label="产品使用回访人"></el-table-column>
+            <el-table-column prop="useSatisfaction" label="产品满意度"></el-table-column>
+            <el-table-column prop="useSatisfaction" label="穿戴时长"></el-table-column>
+            <el-table-column prop="useHeightWeight" label="体格是否变化"></el-table-column>
+            <el-table-column prop="useHeightWeight" label="客户态度"></el-table-column>
             <el-table-column prop="visitType" label="回访类型"></el-table-column>
             <el-table-column label="产品使用问题">
               <template slot-scope="scope">
@@ -239,6 +267,19 @@
             </el-table-column>
           </el-table>
           <h3 class="new-title">测评记录</h3>
+          <el-table
+            :border="true"
+            :data="new_details_data.examinationInfo"
+            :header-row-class-name="'headerClass'"
+          >
+            <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
+            <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
+            <el-table-column align="center" prop="cycle" label="治疗周期"></el-table-column>
+            <el-table-column align="center" prop="createTime" label="测评日期"></el-table-column>
+            <el-table-column align="center" prop="evaluateUserName" label="测评人员"></el-table-column>
+            <el-table-column align="center" prop="memberAnalysisCN" label="客户分析"></el-table-column>
+            <el-table-column align="center" prop="recoveryCN" label="恢复情况"></el-table-column>
+          </el-table>
           <div v-for="(item,index) in new_details_data.detailList" :key="index" class="margin-t-10">
             <div class="clearfix" style="border:1px solid #E6E6E6">
               <div
@@ -2453,10 +2494,13 @@
         <el-table-column align="center" prop="phone" label="联系电话"></el-table-column>
         <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
         <el-table-column align="center" prop="saleProductNickname" label="产品昵称"></el-table-column>
-        <el-table-column align="center" prop="reflect" label="取型家长反应"></el-table-column>
         <el-table-column align="center" prop="tryOnBeginTime" label="试穿时间"></el-table-column>
         <el-table-column align="center" prop="tryOnUserName" label="试穿人员"></el-table-column>
         <el-table-column align="center" prop="visitWaitTime" label="应回访时间"></el-table-column>
+        <el-table-column align="center" prop="isVip" label="是否会员"></el-table-column>
+        <el-table-column align="center" prop="examinationTime" label="上次测评时间"></el-table-column>
+        <el-table-column align="center" prop="examinationUser" label="测评人员"></el-table-column>
+        <el-table-column align="center" prop="phoneStatus" label="产品使用接通状态"></el-table-column>
         <el-table-column type="selection" label="操作"></el-table-column>
       </el-table>
       <!-- Pagination 分页 -->
@@ -2553,7 +2597,7 @@
         <el-input
           type="textarea"
           :autosize="{ minRows: 2, maxRows: 4}"
-          placeholder="请输入详情'非必填'"
+          placeholder="请输入内容"
           v-model="new_details_data.causeOfLoss"
         ></el-input>
       </div>
@@ -2605,6 +2649,7 @@ export default {
   name: "App",
   data() {
     return {
+      xqBut:false,
       //新的date
       timeValue: new Date(),
       isShow: false,
@@ -2643,7 +2688,8 @@ export default {
         provinceIdList: [],
         cityIdList: [],
         hospitalLists: [],
-        hospitalId: null
+        hospitalId: null,
+        phone:null
       },
       productUsageDetailsDialog: false,
       productDetailsForReturnVisitDialog: false,
@@ -2885,6 +2931,22 @@ export default {
         };
       }
       if (columnIndex === 12) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 13) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 14) {
         const _row = this.spanArr[rowIndex];
         const _col = _row > 0 ? 1 : 0;
         return {
@@ -3355,6 +3417,7 @@ export default {
       //   }
     },
     details(obj) {
+      this.xqBut=true
       this.userMemberId = obj.memberId;
       this.userPhoneList(obj.memberId);
       let data = { visitId: obj.visitId };
@@ -3367,6 +3430,7 @@ export default {
               message: res.data.returnMsg,
               center: true
             });
+            this.xqBut=false
           } else {
             let details = res.data.data;
             this.memberDetailDto[0] = details.memberDetailDTO;
@@ -3383,6 +3447,7 @@ export default {
             this.productVisitIds = details.visitIds;
             console.log(this.pickupServiceInformation)
             console.log(this.pickupServiceInformation_use)
+            this.xqBut=false
           }
         })
         .catch(err => {
@@ -3427,7 +3492,8 @@ export default {
         cityId: this.seach.cityId,
         siteId: this.seach.siteValue,
         hospitalId: this.seach.hospitalId,
-        timeType: this.topActive
+        timeType: this.topActive,
+        phone:this.seach.phone
       };
       this.loading = true;
       selectBackWaitVisitList(data)

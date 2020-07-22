@@ -108,6 +108,9 @@
           ></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="联系电话">
+        <el-input v-model="seach.phone" placeholder="请输入客户电话" class="w-150"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button @click="topItem_func(topActive)" icon="el-icon-search" type="primary">查询</el-button>
       </el-form-item>
@@ -132,9 +135,10 @@
       <el-table-column align="center" prop="memberName" label="客户姓名"></el-table-column>
       <el-table-column align="center" prop="phone" label="联系电话"></el-table-column>
       <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
-      <el-table-column align="center" prop="vip" label="是否会员"></el-table-column>
+      <!-- <el-table-column align="center" prop="vip" label="是否会员"></el-table-column> -->
       <el-table-column align="center" prop="saleProductNickname" label="产品昵称"></el-table-column>
-      <el-table-column align="center" prop="phoneStatus" label="接通状态"></el-table-column>
+      <el-table-column align="center" prop="phoneStatus" label="产品体验接通状态"></el-table-column>
+      <el-table-column align="center" prop="visitUser" label="体验回访人员"></el-table-column>
       <el-table-column align="center" prop="tryOnBeginTime" label="试穿时间"></el-table-column>
       <el-table-column align="center" prop="tryOnUserName" label="试穿人员"></el-table-column>
       <el-table-column align="center" prop="examinationUserName" label="测评人员"></el-table-column>
@@ -173,21 +177,23 @@
           class="left pct-w50 padding-10 box-sizing-box"
           style="max-height: 700px;overflow-x: hidden;"
         >
-          <h3 class="new-title">客户信息</h3>
+          <h3 class="new-title">基本信息</h3>
           <el-table :data="memberDetailDto" border :header-row-class-name="'headerClass-two'">
             <el-table-column prop="memberName" label="客户姓名" min-width="100"></el-table-column>
             <el-table-column prop="sex" label="性别"></el-table-column>
             <el-table-column prop="phone" label="联系电话"></el-table-column>
             <el-table-column prop="birthday" label="出生日期"></el-table-column>
             <el-table-column prop="vip" label="是否会员"></el-table-column>
-            <el-table-column prop="condition" label="处方病情"></el-table-column>
-            <el-table-column prop="illness" label="新增病情"></el-table-column>
+            <!-- <el-table-column prop="condition" label="处方病情"></el-table-column>
+            <el-table-column prop="illness" label="新增病情"></el-table-column> -->
+            <el-table-column prop="memberModeCN" label="客户当前类型"></el-table-column>
+            <el-table-column prop="cognition" label="客户初始认知"></el-table-column>
           </el-table>
           <h3 class="new-title">病单信息</h3>
           <el-table
             :data="new_details_data.prescriptionDTO"
             border
-            :header-row-class-name="'headerClass-two'"
+            :header-row-class-name="'headerClass'"
           >
             <el-table-column prop="hospitalName" label="医院" min-width="100"></el-table-column>
             <el-table-column prop="departmentName" label="科室"></el-table-column>
@@ -197,7 +203,7 @@
             <el-table-column prop="illness" label="新增病情"></el-table-column>
             <el-table-column prop="updateTime" label="创建时间"></el-table-column>
           </el-table>
-          <h3 class="new-title">产品体验回访表</h3>
+          <h3 class="new-title">产品体验回访</h3>
           <el-table
             :data="pickupServiceInformation"
             border
@@ -206,12 +212,12 @@
           >
             <el-table-column prop="orderNum" label="订单号"></el-table-column>
             <el-table-column prop="saleProductNickname" label="产品昵称"></el-table-column>
-            <el-table-column prop="reflect" label="取型家长反应"></el-table-column>
+            <!-- <el-table-column prop="reflect" label="取型家长反应"></el-table-column> -->
             <el-table-column prop="tryOnUserName" label="试穿人员"></el-table-column>
             <el-table-column prop="tryOnBeginTime" label="试穿时间"></el-table-column>
             <el-table-column prop="tryOnRemark" label="试穿备注"></el-table-column>
             <el-table-column prop="experienceTime" label="体验回访时间"></el-table-column>
-            <el-table-column prop="experiencePhone" label="体验回访电话"></el-table-column>
+            <!-- <el-table-column prop="experiencePhone" label="体验回访电话"></el-table-column> -->
             <el-table-column prop="experiencePhoneStatus" label="接通状态"></el-table-column>
             <el-table-column prop="experienceUserName" label="产品体验回访人"></el-table-column>
             <el-table-column prop="experienceSatisfaction" label="产品满意度"></el-table-column>
@@ -229,7 +235,7 @@
           <el-table
             :border="true"
             :data="new_details_data.examinationInfo"
-            :header-row-class-name="'headerClass-two'"
+            :header-row-class-name="'headerClass'"
           >
             <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
             <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
@@ -345,6 +351,7 @@
                 type="date"
                 value-format="yyyy-MM-dd"
                 placeholder="选择日期"
+                :picker-options="pickerOptions"
               ></el-date-picker>
             </el-form-item>
           </el-form>
@@ -2309,16 +2316,19 @@
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"
       >
+
         <el-table-column align="center" type="index" label="序号" width="60"></el-table-column>
         <el-table-column align="center" prop="memberName" label="客户姓名"></el-table-column>
         <el-table-column align="center" prop="phone" label="联系电话"></el-table-column>
         <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
         <el-table-column align="center" prop="saleProductNickname" label="产品昵称"></el-table-column>
-        <el-table-column align="center" prop="reflect" label="取型家长反应"></el-table-column>
+        <el-table-column align="center" prop="experienceUser" label="体验回访人"></el-table-column>
         <el-table-column align="center" prop="tryOnBeginTime" label="试穿时间"></el-table-column>
         <el-table-column align="center" prop="tryOnUserName" label="试穿人员"></el-table-column>
         <el-table-column align="center" prop="visitWaitTime" label="应回访时间"></el-table-column>
+        <el-table-column align="center" prop="phoneStatus" label="体验回访接通状态"></el-table-column>
         <el-table-column type="selection" label="操作"></el-table-column>
+
       </el-table>
       <!-- Pagination 分页 -->
       <el-pagination
@@ -2394,7 +2404,7 @@
         <el-input
           type="textarea"
           :autosize="{ minRows: 2, maxRows: 4}"
-          placeholder="请输入详情'非必填'"
+          placeholder="请输入内容"
           v-model="new_details_data.causeOfLoss"
         ></el-input>
       </div>
@@ -2465,6 +2475,12 @@ export default {
   name: "App",
   data() {
     return {
+      question:false,
+      pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() < Date.now() - 8.64e7;//如果没有后面的-8.64e7就是不可以选择今天的
+          }
+        },
       spanArr: [],
       position: 0,
       /****数据指派数据 */
@@ -2501,7 +2517,8 @@ export default {
         provinceIdList: [],
         cityIdList: [],
         hospitalLists: [],
-        hospitalId: null
+        hospitalId: null,
+        phone:null
       },
       productUsageDetailsDialog: false,
       productDetailsForReturnVisitDialog: false,
@@ -2658,6 +2675,14 @@ export default {
           colspan: _col
         };
       }
+      if (columnIndex === 11) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
     },
     onState_func(e) {
       if (e != "接通") {
@@ -2679,7 +2704,29 @@ export default {
       this.new_details_data.causeOfLoss = null;
     },
     td_addVisit() {
-      this.new_details_data.td_sydialog = true;
+       let isTx = false;
+      this.data_box.forEach(obj => {
+        if (obj.list.length != 0) {
+          // 终止for循环，使用break
+          for (var i = 0; i < obj.list.length; i++) {
+            let item = obj.list[i];
+            if (item.useProblemHave == "有" && !item.useProblemDo) {
+                isTx = true;
+                break;
+            }
+          }
+        }
+      });
+      this.question = isTx;
+      if(this.question){
+          this.$message({
+              type: "warning",
+              message: "请填写问题处理",
+              center: true
+            });
+      }else{
+          this.new_details_data.td_sydialog = true;
+      }
     },
     data_assignment_close() {
       this.data_assignment.data_assignment_syDialg = false;
@@ -3233,7 +3280,8 @@ export default {
         cityId: this.seach.cityId,
         siteId: this.seach.siteValue,
         hospitalId: this.seach.hospitalId,
-        timeType: this.topActive
+        timeType: this.topActive,
+        phone:this.seach.phone
       };
       this.loading = true;
       selectUseWaitVisitList(data)

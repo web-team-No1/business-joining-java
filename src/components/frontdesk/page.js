@@ -65,8 +65,28 @@ function rowspan_a(that) {
       }
     }
   });
-  console.log(that.orders)
-  console.log(that.spanArr_a)
+}
+function rowspan_left(that,myData) {
+      that.spanArr_left=[];
+      that.position_left=0
+      myData.forEach((item, index) => {
+    if (index === 0) {
+      that.spanArr_left.push(1);
+      that.position_left = 0;
+    } else {
+      if (
+        myData[index].memberId ===
+        myData[index - 1].memberId && myData[index].cycleTimes===myData[index - 1].cycleTimes
+
+      ) {
+        that.spanArr_left[that.position_left] += 1;
+        that.spanArr_left.push(0);
+      } else {
+        that.spanArr_left.push(1);
+        that.position_left = index;
+      }
+    }
+  });
 }
 function topItem_func(that, index) {
   that.topActive = index;
@@ -166,5 +186,6 @@ function topItem_func(that, index) {
 export default {
   rowspan,
   rowspan_a,
-  topItem_func
+  topItem_func,
+  rowspan_left
 }

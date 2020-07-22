@@ -113,8 +113,74 @@ function rowspan_sy(that, tableData) {
         }
     });
 }
+function rowspan_yq(that, tableData) {
+    that.spanArr = [];
+    that.position = 0;
+    tableData.forEach((item, index) => {
+        if (index === 0) {
+            that.spanArr.push(1);
+            that.position = 0;
+        } else {
+            if (
+                that.clientData[index].memberId ===
+                that.clientData[index - 1].memberId && that.clientData[index].visitCycleTimes === that.clientData[index - 1].visitCycleTimes
+            ) {
+                that.spanArr[that.position] += 1;
+                that.spanArr.push(0);
+            } else {
+                that.spanArr.push(1);
+                that.position = index;
+            }
+        }
+    });
+}
+function rowspan_ls(that, tableData) {
+    that.spanArr = [];
+    that.position = 0;
+    tableData.forEach((item, index) => {
+        if (index === 0) {
+            that.spanArr.push(1);
+            that.position = 0;
+        } else {
+            if (
+                that.clientData[index].memberId ===
+                that.clientData[index - 1].memberId
+            ) {
+                that.spanArr[that.position] += 1;
+                that.spanArr.push(0);
+            } else {
+                that.spanArr.push(1);
+                that.position = index;
+            }
+        }
+    });
+}
+function rowspan_fc(that, tableData) {
+    that.spanArr = [];
+    that.position = 0;
+    tableData.forEach((item, index) => {
+        if (index === 0) {
+            that.spanArr.push(1);
+            that.position = 0;
+        } else {
+            if (
+                that.clientData[index].memberId ===
+                that.clientData[index - 1].memberId
+            ) {
+                that.spanArr[that.position] += 1;
+                that.spanArr.push(0);
+            } else {
+                that.spanArr.push(1);
+                that.position = index;
+            }
+        }
+    });
+}
 export default {
     compareFN2,
     rowspan,
     rowspan_sy,
+    rowspan_yq,
+    rowspan_ls,
+    rowspan_fc,
 }

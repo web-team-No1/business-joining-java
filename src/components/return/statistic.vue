@@ -34,7 +34,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="产品类别">
+      <!-- <el-form-item label="产品类别">
         <el-select
           class="w-150"
           clearable
@@ -48,7 +48,7 @@
             :value="item.id"
           ></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="回访时间">
          <el-date-picker
           class="w-250"
@@ -263,7 +263,7 @@ export default {
         phoneStatus: null,
         phoneStatusList: [
           { name: "接通" },
-          { name: "未接通" },
+          { name: "多次未接通" },
           { name: "接通挂断" },
           { name: "联系方式错误" }
         ],

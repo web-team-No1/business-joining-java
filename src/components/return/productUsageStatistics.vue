@@ -43,7 +43,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="产品类别">
+      <!-- <el-form-item label="产品类别">
         <el-select class="w-150" clearable v-model="seach.productTypeInt" placeholder="请选择">
           <el-option
             v-for="item in seach.productTypeIntList"
@@ -52,7 +52,7 @@
             :value="item.id"
           ></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="回访时间">
         <el-date-picker
           class="w-250"
@@ -265,7 +265,7 @@ export default {
         phoneStatus: null,
         phoneStatusList: [
           { name: "接通" },
-          { name: "未接通" },
+          { name: "多次未接通" },
           { name: "接通挂断" },
           { name: "联系方式错误" }
         ],
@@ -373,7 +373,7 @@ export default {
         phoneStatus: this.seach.phoneStatus || null,
         memberName: this.seach.memberName || null,
         satisfaction: this.seach.satisfaction || null,
-        productTypeInt: this.seach.productTypeInt || null,
+        // productTypeInt: this.seach.productTypeInt || null,
         productUseTime: this.seach.productUseTime || null,
         problemHave: this.seach.problemHave || null,
         provinceId: this.seach.provinceId,

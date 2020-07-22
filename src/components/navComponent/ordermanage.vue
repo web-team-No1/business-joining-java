@@ -394,6 +394,7 @@
         <el-table-column prop="user" label="折扣人员"></el-table-column>
         <el-table-column prop="reason" label="折扣原因"></el-table-column>
       </el-table>
+      <h3 class="new-title">产品信息</h3>
       <el-table class="margin-t-20" :data="prescriptions" border :header-row-class-name="'headerClass-two'">
         <el-table-column prop="name" label="产品名" min-width="230"></el-table-column>
         <el-table-column prop="nickname" label="产品昵称" min-width="100"></el-table-column>
@@ -414,7 +415,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="price" label="标准价格"></el-table-column>
-        <el-table-column prop="actual" label="实际价格"></el-table-column>
+        <!-- <el-table-column prop="actual" label="实际价格"></el-table-column> -->
         <el-table-column prop="favorable" label="折扣金额"></el-table-column>
         <!-- <el-table-column prop="recordActual" label="退款金额"></el-table-column> -->
         <el-table-column prop="favorableRemark" label="特殊要求"></el-table-column>

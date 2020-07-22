@@ -521,11 +521,13 @@
           v-if="modefiy"
           type="success"
           icon="el-icon-circle-check"
+          :loading="xzbcShow"
           @click="submitModfiy('ruleForm')"
         >保存</el-button>
         <el-button
           v-else
           type="success"
+          :loading="xzbcShow"
           icon="el-icon-circle-check"
           @click="submitForm('ruleForm')"
         >保存</el-button>
@@ -1911,7 +1913,8 @@ export default {
       },
       threeDDialg: false,
       only_recordId: null,
-      bdTitle: "新增病单"
+      bdTitle: "新增病单",
+      xzbcShow:false
     };
   },
   components: {
@@ -2175,6 +2178,7 @@ export default {
       //   });
     },
     submitModfiy(formName) {
+      this.xzbcShow=true
       // this.$refs[formName].validate(valid => {
       let data = {
         channel: 1,
@@ -2202,6 +2206,7 @@ export default {
               message: res.data.returnMsg,
               center: true
             });
+             this.xzbcShow=false
           } else {
             this.$message({
               type: "success",
@@ -2211,6 +2216,7 @@ export default {
             this.resetForm("ruleForm");
             this.xiangxifanhui();
             this.pageList(this.pages.currentPage, this.pages.pageSize);
+             this.xzbcShow=false
           }
         })
         .catch(err => {
@@ -2397,6 +2403,7 @@ export default {
       naVComponent.default_PCSH(this);
     },
     submitForm(formName) {
+       this.xzbcShow=true
       // this.$refs[formName].validate(valid => {
       // console.log(this.addData[0].prescriptionValue);
       // valid &&
@@ -2439,6 +2446,7 @@ export default {
                 message: res.data.returnMsg,
                 center: true
               });
+               this.xzbcShow=false
             } else {
               this.$message({
                 type: "success",
@@ -2447,6 +2455,7 @@ export default {
               });
               this.resetForm("ruleForm");
               this.pageList(this.pages.currentPage, this.pages.pageSize);
+              this.xzbcShow=false
             }
           })
           .catch(err => {
@@ -2458,6 +2467,7 @@ export default {
           message: "请填写病单信息！",
           center: true
         });
+        this.xzbcShow=false
       }
       // });
     },

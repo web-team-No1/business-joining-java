@@ -94,6 +94,7 @@
         border
         :data="left_drawer_data.clientData"
         max-height="670"
+        :span-method="objectSpanMethod_left"
         v-loading="left_drawer_data.loading"
         element-loading-text="加载中..."
         element-loading-spinner="el-icon-loading"
@@ -389,10 +390,13 @@ import { Promise, all, async } from "q";
 import session from "../../utils/session";
 import return_variable from "../return/return_variable";
 import frontDesk_variable from "../frontdesk/frontDesk_variable";
+import frontDesk from "../frontdesk/page";
 export default {
   name: "App",
   data() {
     return {
+      spanArr_left: [],
+      position_left: 0,
       /*** left抽屉*/
       left_drawer_data: frontDesk_variable.left_drawer_data,
       fayy_data: return_variable.fayy_data,
@@ -435,6 +439,16 @@ export default {
     this.init_two();
   },
   methods: {
+    objectSpanMethod_left({ row, column, rowIndex, columnIndex }) {
+        if (columnIndex != 9) {
+          const _row = this.spanArr_left[rowIndex];
+          const _col = _row > 0 ? 1 : 0;
+          return {
+            rowspan: _row,
+            colspan: _col
+          };
+        }
+      },
      init_two() {
       let data = {
         depts: [6, 9]
@@ -489,6 +503,9 @@ export default {
             ldd.pages.total = dataList.total;
             ldd.loading = false;
             ldd.isSearch = false;
+            this.$nextTick(()=>{
+            frontDesk.rowspan_left(this,ldd.clientData); 
+            })
           }
         })
         .catch(err => {

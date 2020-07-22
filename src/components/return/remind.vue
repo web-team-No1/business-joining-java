@@ -116,6 +116,7 @@
       :data="clientData"
       max-height="650"
       v-loading="loading"
+       :span-method="objectSpanMethod"
       element-loading-text="加载中..."
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -3018,10 +3019,13 @@ import { Promise, all, async } from "q";
 import session from "../../utils/session";
 import Clipboard from "clipboard";
 import Print from "../commonComponent/PrintTemplate";
+import returnJs from "./page";
 export default {
   name: "App",
   data() {
     return {
+      spanArr: [],
+      position: 0,
       //列表数据
       clientData: [],
       loading: true,
@@ -3372,6 +3376,24 @@ export default {
     this.provinceList();
   },
   methods: {
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 0) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 1) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+    },
      threeD_func() {
       let data = {
         recordId: this.only_recordId,
@@ -3810,6 +3832,7 @@ export default {
             let dataList = res.data.data;
             this.clientData = dataList.data;
             this.pages.total = dataList.total;
+            returnJs.rowspan_fc(this,this.clientData);
           }
         })
         .catch(err => {

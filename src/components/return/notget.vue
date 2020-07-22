@@ -116,6 +116,7 @@
       :data="clientData"
       max-height="650"
       v-loading="loading"
+      :span-method="objectSpanMethod"
       element-loading-text="加载中..."
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -3017,10 +3018,13 @@ import { Promise, all, async } from "q";
 import session from "../../utils/session";
 import Clipboard from "clipboard";
 import Print from "../commonComponent/PrintTemplate";
+import returnJs from "./page";
 export default {
   name: "App",
   data() {
     return {
+      spanArr: [],
+      position: 0,
       //列表数据
       clientData: [],
       loading: true,
@@ -3371,6 +3375,97 @@ export default {
     this.provinceList();
   },
   methods: {
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 0) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 1) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 2) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 3) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 4) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 6) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex ===7) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 8) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 9) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 10) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 11) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+
+    },
      threeD_func() {
       let data = {
         recordId: this.only_recordId,
@@ -3444,7 +3539,7 @@ export default {
     visitIdDtails_3(obj) {
       let data = {
         visitId: obj.visitId,
-        visitTypeInt: obj.visitTypeInt
+        visitTypeInt: 3
       };
       selectVisitDetailByVisitIdAndType(data)
         .then(res => {
@@ -3469,7 +3564,7 @@ export default {
       }
       let data = {
         visitId: obj.visitId,
-        visitTypeInt: obj.visitTypeInt
+        visitTypeInt: 3
       };
       selectVisitDetailByVisitIdAndType(data)
         .then(res => {
@@ -3495,7 +3590,7 @@ export default {
       }
       let data = {
         visitId: obj.visitId,
-        visitTypeInt: obj.visitTypeInt
+        visitTypeInt: 3
       };
       selectVisitDetailByVisitIdAndType(data)
         .then(res => {
@@ -3716,7 +3811,7 @@ export default {
     details(obj) {
       this.userMemberId = obj.memberId;
       this.userPhoneList(obj.memberId);
-      let data = { visitId: obj.visitId };
+      let data = { visitId: obj.backVisitId };
       selectUpdateBackWaitVisitDetail(data)
         .then(res => {
           console.log(res);
@@ -3809,6 +3904,7 @@ export default {
             let dataList = res.data.data;
             this.clientData = dataList.data;
             this.pages.total = dataList.total;
+             returnJs.rowspan_yq(this,this.clientData);
           }
         })
         .catch(err => {

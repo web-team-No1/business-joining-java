@@ -120,6 +120,7 @@
       :data="clientData"
       max-height="650"
       v-loading="loading"
+      :span-method="objectSpanMethod"
       element-loading-text="加载中..."
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -364,10 +365,13 @@ import {
 import { Promise, all, async } from "q";
 import session from "../../utils/session";
 import return_variable from "./return_variable";
+import returnJs from "./page";
 export default {
   name: "App",
   data() {
     return {
+      spanArr: [],
+      position: 0,
       data_assignment: return_variable.data_assignment,
       clientData: [],
       //分页
@@ -412,6 +416,96 @@ export default {
     this.provinceList();
   },
   methods: {
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 0) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 1) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 2) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 3) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 4) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 6) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 7) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 8) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 9) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 10) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+      if (columnIndex === 11) {
+        const _row = this.spanArr[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
+        return {
+          rowspan: _row,
+          colspan: _col
+        };
+      }
+    },
     data_assignment_close() {
       this.data_assignment.data_assignment_lsDialg = false;
       this.data_assignment.multipleSelection = [];
@@ -613,6 +707,7 @@ export default {
             this.clientData = dataList.data;
             this.pages.total = dataList.total;
             this.loading = false;
+             returnJs.rowspan_ls(this,this.clientData);
           }
         })
         .catch(err => {
