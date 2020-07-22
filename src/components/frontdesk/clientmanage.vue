@@ -2436,6 +2436,7 @@ export default {
       position2_a: 0,
       spanArr_left: [],
       position_left: 0,
+      xzbcShow:false
     };
   },
   components: {
