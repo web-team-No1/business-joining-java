@@ -220,7 +220,7 @@
         </el-table-column>
       </el-table>
       <h3 class="b-b-p-1">测评记录</h3>
-      <el-table :data="evaluates" border max-height="500">
+      <!-- <el-table :data="evaluates" border max-height="500">
         <el-table-column prop="evaluateUserName" label="测评人" min-width="100"></el-table-column>
         <el-table-column prop="createTime" label="测评时间"></el-table-column>
         <el-table-column prop="recoveryCN" label="恢复情况"></el-table-column>
@@ -259,7 +259,7 @@
         <el-table-column prop="sm3d" label="3d扫描 "></el-table-column>
         <el-table-column prop="zb3d" label="足部3d"></el-table-column>
         <el-table-column prop="gmd" label="骨密度"></el-table-column>
-      </el-table>
+      </el-table> -->
       <h3 class="b-b-p-1">填写产品体验回访信息</h3>
       <el-row :gutter="20">
         <el-col :span="2">
@@ -380,7 +380,7 @@
       </span>
     </el-dialog>
     <!-- dialog 测评详情-->
-    <el-dialog
+    <!-- <el-dialog
       title="测评信息详情"
       :visible.sync="dialogEvaluationDetails"
       center
@@ -493,7 +493,7 @@
         </div>
         <hr class="border-dashed" />
       </div>
-    </el-dialog>
+    </el-dialog> -->
     <!-- 更多产品 -->
     <el-dialog
       title="更多产品"
@@ -523,29 +523,6 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-dialog>
-    <!-- 添加电话 -->
-    <el-dialog
-      title="添加电话信息"
-      :visible.sync="addPhoneDialog"
-      :close-on-click-modal="false"
-      width="30%"
-      :before-close="cancelAddPhone"
-    >
-      <el-row :gutter="20">
-        <el-col :span="4">
-          <div class="line-h-30 text-r">电话号码：</div>
-        </el-col>
-        <el-col :span="20">
-          <div>
-            <el-input type="text" size="mini" placeholder="请输入电话号码" v-model="backupPhone"></el-input>
-          </div>
-        </el-col>
-      </el-row>
-      <span slot="footer">
-        <el-button type="primary" @click="cancelAddPhone" icon="el-icon-circle-close">取消</el-button>
-        <el-button @click="addSparePhone" type="success" icon="el-icon-circle-check">确认</el-button>
-      </span>
     </el-dialog>
     <!-- 添加电话 -->
     <el-dialog
@@ -2990,7 +2967,7 @@
       </div>
     </el-dialog>
     <!-- dialog 打印检测报告-->
-    <el-dialog
+    <!-- <el-dialog
       title="检测报告"
       :visible.sync="dialogTestReport"
       center
@@ -3003,9 +2980,9 @@
         <el-button type="success" icon="el-icon-receiving" @click="printpage()">打印报告</el-button>
         <el-button type="success" icon="el-icon-picture-outline" v-on:click="getPdf()">导出PDF</el-button>
       </div>
-    </el-dialog>
+    </el-dialog> -->
      <!-- dialog 足长足宽修改-->
-    <el-dialog title="足长足宽修改" :visible.sync="threeDDialg" :close-on-click-modal="false" width="30%">
+    <!-- <el-dialog title="足长足宽修改" :visible.sync="threeDDialg" :close-on-click-modal="false" width="30%">
       <el-form :model="threeD_ObjFrom" :inline="true" size="mini" label-width="80px">
         <el-form-item v-for="(item,index) in threeD_ObjFrom.list" :key="index" :label="item.name">
           <el-input v-model="item.value" size="small" placeholder="请输入"></el-input>
@@ -3014,7 +2991,7 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="threeD_func()" type="success" icon="el-icon-circle-check">提交</el-button>
       </div>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -3419,98 +3396,98 @@ export default {
         };
       }
     },
-     threeD_func() {
-      let data = {
-        recordId: this.only_recordId,
-        footLength:
-          this.threeD_ObjFrom.list[1].name == "足长"
-            ? this.threeD_ObjFrom.list[1].value
-            : this.threeD_ObjFrom.list[0].value,
-        footWidth:
-          this.threeD_ObjFrom.list[0].name == "足宽"
-            ? this.threeD_ObjFrom.list[0].value
-            : this.threeD_ObjFrom.list[1].value
-      };
-      examinePadZb3d(data)
-        .then(res => {
-          if (res.data.returnCode != 0) {
-            this.$message({
-              type: "warning",
-              message: res.data.returnMsg,
-              center: true
-            });
-          } else {
-            this.threeDDialg = false;
-            this.dialogEvaluationDetails = false;
-            this.$message({
-              type: "success",
-              message: "下单成功！",
-              center: true
-            });
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    threeD_show(obj) {
-      this.threeD_ObjFrom.list = obj;
-      this.threeDDialg = true;
-    },
-    printpage() {
-      this.$print2(this.$refs.print);
-    },
-    close_testReport() {
-      this.dialogTestReport = false;
-      this.testReport = {};
-    },
-    evaluationReport(id) {
-      let data = {
-        recordId: id
-      };
-      printMakeParam(data)
-        .then(res => {
-          if (res.data.returnCode != 0) {
-            this.$message({
-              type: "warning",
-              message: res.data.returnMsg,
-              center: true
-            });
-          } else {
-            this.testReport = res.data.data;
-            img_base64(this,res.data.data)
-            this.dialogTestReport = true;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+    //  threeD_func() {
+    //   let data = {
+    //     recordId: this.only_recordId,
+    //     footLength:
+    //       this.threeD_ObjFrom.list[1].name == "足长"
+    //         ? this.threeD_ObjFrom.list[1].value
+    //         : this.threeD_ObjFrom.list[0].value,
+    //     footWidth:
+    //       this.threeD_ObjFrom.list[0].name == "足宽"
+    //         ? this.threeD_ObjFrom.list[0].value
+    //         : this.threeD_ObjFrom.list[1].value
+    //   };
+    //   examinePadZb3d(data)
+    //     .then(res => {
+    //       if (res.data.returnCode != 0) {
+    //         this.$message({
+    //           type: "warning",
+    //           message: res.data.returnMsg,
+    //           center: true
+    //         });
+    //       } else {
+    //         this.threeDDialg = false;
+    //         this.dialogEvaluationDetails = false;
+    //         this.$message({
+    //           type: "success",
+    //           message: "下单成功！",
+    //           center: true
+    //         });
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
+    // threeD_show(obj) {
+    //   this.threeD_ObjFrom.list = obj;
+    //   this.threeDDialg = true;
+    // },
+    // printpage() {
+    //   this.$print2(this.$refs.print);
+    // },
+    // close_testReport() {
+    //   this.dialogTestReport = false;
+    //   this.testReport = {};
+    // },
+    // evaluationReport(id) {
+    //   let data = {
+    //     recordId: id
+    //   };
+    //   printMakeParam(data)
+    //     .then(res => {
+    //       if (res.data.returnCode != 0) {
+    //         this.$message({
+    //           type: "warning",
+    //           message: res.data.returnMsg,
+    //           center: true
+    //         });
+    //       } else {
+    //         this.testReport = res.data.data;
+    //         img_base64(this,res.data.data)
+    //         this.dialogTestReport = true;
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
     cancel_dfc() {
       this.dfc_Dialog = false;
     },
-    visitIdDtails_3(obj) {
-      let data = {
-        visitId: obj.visitId,
-        visitTypeInt: obj.visitTypeInt
-      };
-      selectVisitDetailByVisitIdAndType(data)
-        .then(res => {
-          if (res.data.returnCode != 0) {
-            this.$message({
-              type: "warning",
-              message: res.data.returnMsg,
-              center: true
-            });
-          } else {
-            this.ls_back = res.data.data;
-            this.productVisitDialog_3 = true;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+    // visitIdDtails_3(obj) {
+    //   let data = {
+    //     visitId: obj.visitId,
+    //     visitTypeInt: obj.visitTypeInt
+    //   };
+    //   selectVisitDetailByVisitIdAndType(data)
+    //     .then(res => {
+    //       if (res.data.returnCode != 0) {
+    //         this.$message({
+    //           type: "warning",
+    //           message: res.data.returnMsg,
+    //           center: true
+    //         });
+    //       } else {
+    //         this.ls_back = res.data.data;
+    //         this.productVisitDialog_3 = true;
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
     visitIdDtails_2(obj) {
       for (let key in this.productItem) {
         this.productItem[key] = false;
@@ -3800,29 +3777,29 @@ export default {
           console.log(err);
         });
     },
-    evaluationDetails(id) {
-      this.only_recordId = id;
-      let data = {
-        recordId: id
-      };
-      queryExamineDetail(data)
-        .then(res => {
-          if (res.data.returnCode != 0) {
-            this.$message({
-              type: "warning",
-              message: res.data.returnMsg,
-              center: true
-            });
-          } else {
-            this.examinationInfo = res.data.data.examinationInfo;
-            this.detailList = res.data.data.detailList;
-            this.dialogEvaluationDetails = true;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+    // evaluationDetails(id) {
+    //   this.only_recordId = id;
+    //   let data = {
+    //     recordId: id
+    //   };
+    //   queryExamineDetail(data)
+    //     .then(res => {
+    //       if (res.data.returnCode != 0) {
+    //         this.$message({
+    //           type: "warning",
+    //           message: res.data.returnMsg,
+    //           center: true
+    //         });
+    //       } else {
+    //         this.examinationInfo = res.data.data.examinationInfo;
+    //         this.detailList = res.data.data.detailList;
+    //         this.dialogEvaluationDetails = true;
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
     //统计列表 //查询
     async pageList(pageIndex = 1, pageSize = 10) {
       let data = {

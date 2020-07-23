@@ -194,10 +194,10 @@
           <h3 class="new-title">会员信息</h3>
           <el-table :data="memberDetailDto" border :header-row-class-name="'headerClass-two'">
             <el-table-column prop="vip" label="是否会员" min-width="100"></el-table-column>
-            <el-table-column prop="sex" label="是否续会员"></el-table-column>
-            <el-table-column prop="phone" label="会员到期时间"></el-table-column>
-            <el-table-column prop="birthday" label="部位剩余次数"></el-table-column>
-            <el-table-column prop="vip" label="全身剩余次数"></el-table-column>
+            <el-table-column prop="vipType" label="是否续会员"></el-table-column>
+            <el-table-column prop="expireDate" label="会员到期时间"></el-table-column>
+            <el-table-column prop="partsNum" label="部位剩余次数"></el-table-column>
+            <el-table-column prop="wholeNum" label="全身剩余次数"></el-table-column>
           </el-table>
           <h3 class="new-title">病单信息</h3>
           <el-table :data="new_details_data.prescriptionDTO" border :header-row-class-name="'headerClass'">
