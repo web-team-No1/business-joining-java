@@ -180,7 +180,7 @@
           class="left pct-w50 padding-10 box-sizing-box"
           style="max-height: 700px;overflow-x: hidden;"
         >
-          <h3 class="new-title">客户信息</h3>
+          <h3 class="new-title">基本信息</h3>
           <el-table :data="memberDetailDto" border :header-row-class-name="'headerClass-two'">
             <el-table-column prop="memberName" label="客户姓名" min-width="100"></el-table-column>
             <el-table-column prop="sex" label="性别"></el-table-column>
@@ -193,21 +193,21 @@
           </el-table>
           <h3 class="new-title">会员信息</h3>
           <el-table :data="memberDetailDto" border :header-row-class-name="'headerClass-two'">
-            <el-table-column prop="memberName" label="是否会员" min-width="100"></el-table-column>
+            <el-table-column prop="vip" label="是否会员" min-width="100"></el-table-column>
             <el-table-column prop="sex" label="是否续会员"></el-table-column>
             <el-table-column prop="phone" label="会员到期时间"></el-table-column>
             <el-table-column prop="birthday" label="部位剩余次数"></el-table-column>
             <el-table-column prop="vip" label="全身剩余次数"></el-table-column>
           </el-table>
           <h3 class="new-title">病单信息</h3>
-          <el-table :data="memberDetailDto" border :header-row-class-name="'headerClass'">
-            <el-table-column prop="memberName" label="医院" min-width="100"></el-table-column>
-            <el-table-column prop="sex" label="科室"></el-table-column>
-            <el-table-column prop="phone" label="医生"></el-table-column>
-            <el-table-column prop="birthday" label="病单类型"></el-table-column>
-            <el-table-column prop="vip" label="处方病情"></el-table-column>
-            <el-table-column prop="vip" label="新增病情"></el-table-column>
-            <el-table-column prop="vip" label="创建时间"></el-table-column>
+          <el-table :data="new_details_data.prescriptionDTO" border :header-row-class-name="'headerClass'">
+            <el-table-column prop="hospitalName" label="医院" min-width="100"></el-table-column>
+            <el-table-column prop="departmentName" label="科室"></el-table-column>
+            <el-table-column prop="doctorName" label="医生"></el-table-column>
+            <el-table-column prop="prescriptionType" label="病单类型"></el-table-column>
+            <el-table-column prop="condition" label="处方病情"></el-table-column>
+            <el-table-column prop="illness" label="新增病情"></el-table-column>
+            <el-table-column prop="updateTime" label="创建时间"></el-table-column>
           </el-table>
           <h3 class="new-title">产品体验回访</h3>
           <el-table
@@ -227,7 +227,7 @@
             <el-table-column prop="experiencePhoneStatus" label="接通状态"></el-table-column>
             <el-table-column prop="experienceUserName" label="产品体验回访人"></el-table-column>
             <el-table-column prop="experienceSatisfaction" label="客户态度"></el-table-column>
-            <el-table-column prop="experienceSatisfaction" label="穿戴时长"></el-table-column>
+            <el-table-column prop="experienceUseTime" label="穿戴时长"></el-table-column>
             <!-- <el-table-column prop="visitType" label="回访类型"></el-table-column> -->
             <el-table-column label="产品体验问题">
               <template slot-scope="scope">
@@ -248,15 +248,15 @@
           >
             <el-table-column prop="orderNum" label="订单编号"></el-table-column>
             <el-table-column prop="saleProductNickname" label="产品昵称"></el-table-column>
-            <el-table-column prop="saleProductNickname" label="试穿备注"></el-table-column>
+            <el-table-column prop="tryOnRemark" label="试穿备注"></el-table-column>
             <el-table-column prop="useTime" label="使用回访时间"></el-table-column>
             <!-- <el-table-column prop="usePhone" label="回访电话"></el-table-column> -->
             <el-table-column prop="usePhoneStatus" label="接通状态"></el-table-column>
             <el-table-column prop="useUserName" label="产品使用回访人"></el-table-column>
             <el-table-column prop="useSatisfaction" label="产品满意度"></el-table-column>
-            <el-table-column prop="useSatisfaction" label="穿戴时长"></el-table-column>
+            <el-table-column prop="useUseTime" label="穿戴时长"></el-table-column>
             <el-table-column prop="useHeightWeight" label="体格是否变化"></el-table-column>
-            <el-table-column prop="useHeightWeight" label="客户态度"></el-table-column>
+            <el-table-column prop="useSatisfaction" label="客户态度"></el-table-column>
             <el-table-column prop="visitType" label="回访类型"></el-table-column>
             <el-table-column label="产品使用问题">
               <template slot-scope="scope">
@@ -306,14 +306,14 @@
                     @click="baogao_func(item.examinationName)"
                     size="mini"
                   >下载报告文件</el-button>-->
-                  <el-button
+                  <!-- <el-button
                     class="right"
                     v-if="item.examinationName=='足部3D扫描测评'"
                     type="primary"
                     icon="el-icon-edit"
                     @click="threeD_show(item.detail)"
                     size="mini"
-                  >修改</el-button>
+                  >修改</el-button> -->
                 </div>
                 <div class="margin-l-5" style="height:40px;line-height:30px;">
                   <span>测评结果:</span>
@@ -3468,7 +3468,7 @@ export default {
             this.new_details_data.prescriptionDTO = details.prescriptionDTO;
             this.pickupServiceInformation = details.experienceRecordDTO;
             this.new_details_data.examinationInfo[0] =
-              details.examineDetail.examinationInfo;
+              details.examineDetail.examinationInfo ;
             this.new_details_data.detailList = details.examineDetail.detailList;
             // this.evaluates = details.evaluates;
             this.productUsageDetailsDialog = true;

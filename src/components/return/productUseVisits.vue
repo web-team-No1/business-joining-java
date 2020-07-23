@@ -271,14 +271,14 @@
                     @click="baogao_func(item.examinationName)"
                     size="mini"
                   >下载报告文件</el-button>-->
-                  <el-button
+                  <!-- <el-button
                     class="right"
                     v-if="item.examinationName=='足部3D扫描测评'"
                     type="primary"
                     icon="el-icon-edit"
                     @click="threeD_show(item.detail)"
                     size="mini"
-                  >修改</el-button>
+                  >修改</el-button> -->
                 </div>
                 <div class="margin-l-5" style="height:40px;line-height:30px;">
                   <span>测评结果:</span>

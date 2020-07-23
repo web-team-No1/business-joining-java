@@ -3835,6 +3835,7 @@ export default {
               center: true
             });
           } else {
+
             let details = res.data.data;
             this.memberDetailDto[0] = details.memberDetailDTO;
             this.pickupServiceInformation = details.useWaitProductDetailDTO;
@@ -3854,6 +3855,7 @@ export default {
             this.productVisitIds=details.visitIds
             this.productUsageDetailsDialog = true;
             this.handleSelectionChange(details.useWaitProductDetailDTO);
+            
           }
         })
         .catch(err => {
