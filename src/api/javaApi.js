@@ -26,16 +26,16 @@ export const updateRole = async params => axios.post(baseUrl + '/login/updateRol
 /*
 *
 *系统管理 
-*
-*/
-//医院管理
-export const selectSiteList = async params => axios.post(baseUrl + '/sys/site/selectSiteList', params);//查询站点清单
-//医院管理
+**/
 export const getAllProvinceList = async params => axios.get(baseUrl + '/common/getAllProvinceList', params);//新增加盟查询省清单
 export const getAllCityList = async params => axios.get(baseUrl + '/common/getAllCityList', params);//新增加盟查询市清单
 export const getProvinceList = async params => axios.get(baseUrl + '/common/getProvinceList', params);//查询省清单
 export const selectSiteListByCity = async params => axios.post(baseUrl + '/sys/site/selectSiteListByCity', params);//查询站点清单
 export const insertSite = async params => axios.post(baseUrl + '/sys/site/insertSite', params);//新增站点
+
+//医院管理
+export const selectSiteList = async params => axios.post(baseUrl + '/sys/site/selectSiteList', params);//查询站点清单
+//医院管理
 export const deleteSite = async params => axios.post(baseUrl + '/sys/site/deleteSite', params);//删除新增
 export const updateSite = async params => axios.post(baseUrl + '/sys/site/updateSite', params);//修改站点
 export const selectSiteListByCityAndUser = async params => axios.post(baseUrl + '/sys/site/selectSiteListByCityAndUser', params);//根据省市和当前登录人查询站点列表

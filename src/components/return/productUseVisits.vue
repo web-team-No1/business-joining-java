@@ -2715,14 +2715,6 @@ export default {
           colspan: _col
         };
       }
-      if (columnIndex === 4) {
-        const _row = this.spanArr[rowIndex];
-        const _col = _row > 0 ? 1 : 0;
-        return {
-          rowspan: _row,
-          colspan: _col
-        };
-      }
       if (columnIndex === 10) {
         const _row = this.spanArr[rowIndex];
         const _col = _row > 0 ? 1 : 0;

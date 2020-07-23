@@ -392,12 +392,16 @@ const new_details_data = {
   td_tydialog:false,
   td_sydialog:false,
   td_yydialog:false,
+  td_dfcdialog:false,
+  td_yqwddialog:false,
   value:0,
   causeOfLoss:null,
   churnRegistration:null,
   tycpls_dialog:false,
   sycpls_dialog:false,
   khls_dialog:false,
+  dfc_khls_dialog:false,
+  yqwd_khls_dialog:false,
 }
 const fayy_data={
   dayList:[

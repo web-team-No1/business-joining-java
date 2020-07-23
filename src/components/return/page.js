@@ -144,7 +144,8 @@ function rowspan_ls(that, tableData) {
         } else {
             if (
                 that.clientData[index].memberId ===
-                that.clientData[index - 1].memberId
+                that.clientData[index - 1].memberId && that.clientData[index].cycleTimes ===
+                that.clientData[index - 1].cycleTimes
             ) {
                 that.spanArr[that.position] += 1;
                 that.spanArr.push(0);

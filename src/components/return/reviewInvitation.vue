@@ -189,7 +189,7 @@
             <!-- <el-table-column prop="vip" label="是否会员"></el-table-column> -->
             <el-table-column prop="memberModeCN" label="客户当前类型"></el-table-column>
             <el-table-column prop="cognition" label="客户初始认知"></el-table-column>
-            <el-table-column prop="cognition" label="换产品次数"></el-table-column>
+            <el-table-column prop="updateProductTimes" label="换产品次数"></el-table-column>
           </el-table>
           <h3 class="new-title">会员信息</h3>
           <el-table :data="memberDetailDto" border :header-row-class-name="'headerClass-two'">
@@ -3616,19 +3616,25 @@ export default {
 }
 .product_box {
   width: 100%;
-  overflow-y: hidden;
-  margin-top: 20px;
+  // overflow-y: hidden;
+  // margin-top: 20px;
+  // background: #ecf5ff;
   // border: 1px solid #CDCDCD;
-  .my_box {
-    height: 413px;
-    width: 0px;
-    .item {
-      border: 1px solid #cdcdcd;
-      width: 1000px;
-      height: auto;
-      float: left;
-    }
+  // .my_box {
+  // height: 413px;
+  // width: 0px;
+  // display: -webkit-flex; /* Safari */
+  // display: flex;
+  // justify-content:center;
+  margin-bottom: 20px;
+  .item {
+    margin-top: 10px;
+    border: 1px solid #cdcdcd;
+    // width: 1000px;
+    // height: auto;
+    // float: left;
   }
+  // }
 }
 .product_title {
   background: #3a8ee6;
