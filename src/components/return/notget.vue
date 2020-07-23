@@ -1,4 +1,4 @@
-//预期未到
+//逾期未到
 <template>
   <div>
     <!-- seach -->
@@ -161,6 +161,7 @@
       class="pagination"
     ></el-pagination>
     <!-- 详情弹框 -->
+
     <el-dialog
       title="产品复查邀约回访详情"
       :visible.sync="productUsageDetailsDialog"
@@ -380,6 +381,7 @@
         <el-button @click="morePrduct_function()" type="success" icon="el-icon-tickets">更多产品信息</el-button>
       </span>
     </el-dialog>
+
     <!-- dialog 测评详情-->
     <el-dialog
       title="测评信息详情"
@@ -2888,8 +2890,8 @@
       :before-close="cancel_dfc"
       width="80%"
     >
-      <h3 class="b-b-p-1">客户信息</h3>
-      <el-table :data="memberDetailDto" border>
+      <h3 class="new-title">客户信息</h3>
+      <el-table :data="memberDetailDto" border :header-row-class-name="'headerClass'">
         <el-table-column prop="memberName" label="客户姓名" min-width="100"></el-table-column>
         <el-table-column prop="sex" label="性别"></el-table-column>
         <el-table-column prop="phone" label="联系电话"></el-table-column>
@@ -2898,10 +2900,21 @@
         <el-table-column prop="condition" label="处方病情"></el-table-column>
         <el-table-column prop="illness" label="新增病情"></el-table-column>
       </el-table>
-      <h3 class="b-b-p-1">复查邀约回访记录</h3>
-      <el-table :data="pickupServiceInformation_back" border max-height="220">
-        <el-table-column prop="orderNum" label="订单编号"></el-table-column>
+      <h3 class="new-title">复查邀约回访记录</h3>
+      <el-table :data="pickupServiceInformation_back" border max-height="220" :header-row-class-name="'headerClass-two'">
+        <!-- <el-table-column prop="orderNum" label="订单编号"></el-table-column> -->
         <el-table-column prop="productNickname" label="产品昵称"></el-table-column>
+        <el-table-column prop="backTime" label="邀约回访时间"></el-table-column>
+        <el-table-column prop="backPhone" label="回访电话"></el-table-column>
+        <el-table-column prop="backPhoneStatus" label="接通状态"></el-table-column>
+        <el-table-column prop="backUserName" label="回访人员"></el-table-column>
+        <el-table-column prop="visitPromiseTime" label="复查预约到访时间"></el-table-column>
+        <el-table-column prop="confirmBackWaitTime" label="确认预约回访时间"></el-table-column>
+        <el-table-column prop="backTalkResult" label="沟通结果"></el-table-column>
+        <el-table-column prop="backInviteResult" label="复查邀约结果"></el-table-column>
+        <el-table-column prop="remark" label="邀约备注"></el-table-column>
+
+        <!-- <el-table-column prop="productNickname" label="产品昵称"></el-table-column>
         <el-table-column prop="backTime" label="邀约回访时间"></el-table-column>
         <el-table-column prop="backPhone" label="回访电话"></el-table-column>
         <el-table-column prop="backPhoneStatus" label="接通状态"></el-table-column>
@@ -2915,7 +2928,7 @@
               <i class="el-icon-view el-icon--right"></i>
             </el-link>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
       <span slot="footer">
         <el-button @click="cancel_dfc()" type="primary" icon="el-icon-circle-close">取消</el-button>

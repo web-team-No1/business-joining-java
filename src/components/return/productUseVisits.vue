@@ -3292,7 +3292,7 @@ export default {
             this.new_details_data.detailList = details.examineDetail.detailList;
             // this.evaluates = details.evaluates;
             this.productUsageDetailsDialog = true;
-            this.handleSelectionChange(this.pickupServiceInformation);
+            this.handleSelectionChange(details.useWaitProductDetailDTO);
           }
         })
         .catch(err => {
