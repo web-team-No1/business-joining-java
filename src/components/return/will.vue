@@ -163,11 +163,11 @@
     ></el-pagination>
     <!-- 详情弹框 -->
     <el-dialog
-      title="产品体验待回访详情"
+      title="体验待回访详情"
       :visible.sync="productDetailsForReturnVisitDialog"
       :close-on-click-modal="false"
       :before-close="cancel"
-      width="90%"
+      width="95%"
       top="5vh"
     >
       <div class="clearfix">
@@ -327,7 +327,18 @@
           </div>
         </div>
         <div class="left pct-w50 padding-10 box-sizing-box">
-          <h3 class="new-title">填写产品体验回访信息</h3>
+          <div class="clearfix">
+            <div class="left">
+              <h3 class="new-title">填写产品体验回访信息</h3>
+            </div>
+            <div class="right">
+              <el-button @click="cancel()" type="primary" size="mini" icon="el-icon-circle-close">取消</el-button>
+              <el-button @click="td_addVisit()" type="success" size="mini" icon="el-icon-circle-check">确认提交</el-button>
+              <el-button @click="addPhone()" type="success" size="mini" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
+              <el-button @click="morePrduct_function()" type="success" size="mini" icon="el-icon-tickets">更多产品信息</el-button>
+              <el-button @click="ls_save()" size="mini" type="danger">产品流失</el-button>
+            </div>
+          </div>
           <el-form :inline="true" size="small" id="search">
             <el-form-item label="回访电话：">
               <el-select style="width:100%" clearable v-model="experiencePhone" placeholder="请选择">
@@ -1238,13 +1249,13 @@
           </div>
         </div>
       </div>
-      <span slot="footer">
+      <!-- <span slot="footer">
         <el-button @click="cancel()" type="primary" icon="el-icon-circle-close">取消</el-button>
         <el-button @click="td_addVisit()" type="success" icon="el-icon-circle-check">确认提交</el-button>
         <el-button @click="addPhone()" type="success" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
         <el-button @click="morePrduct_function()" type="success" icon="el-icon-tickets">更多产品信息</el-button>
         <el-button @click="ls_save()" type="danger">产品流失</el-button>
-      </span>
+      </span> -->
     </el-dialog>
     <!-- dialog 测评详情-->
     <el-dialog

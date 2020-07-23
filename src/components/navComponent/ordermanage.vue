@@ -1679,7 +1679,7 @@ export default {
 
       
 
-      this.paymentMethod.arrears = this.orderInformation[0].oweMoney;
+      
       
       let productObj = this.prescriptions;
       productObj.forEach(obj => {
@@ -1687,12 +1687,13 @@ export default {
         obj.sourceType = obj.orderType;
       });
       this.detailFormList = productObj;
-      this.paymentMethod.totalAmountReceivable = this.ysMoney() //this.orderInformation[0].should;
       if (this.orderInformation[0].quickly == "是") {
         this.jjChecked = true;
       } else {
         this.jjChecked = false;
       }
+      this.paymentMethod.totalAmountReceivable = this.ysMoney() //this.orderInformation[0].should;
+      this.paymentMethod.arrears = this.xqMoney();//this.orderInformation[0].oweMoney;
       this.dialogreadyOrder = true;
     },
     salesList(pageIndex = 1, pageSize = 10) {

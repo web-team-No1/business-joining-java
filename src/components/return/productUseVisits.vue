@@ -166,11 +166,12 @@
     ></el-pagination>
     <!-- 详情弹框 -->
     <el-dialog
-      title="产品使用待回访详情"
+      title="使用待回访详情"
       :visible.sync="productUsageDetailsDialog"
       :close-on-click-modal="false"
       :before-close="cancel"
-      width="80%"
+      width="95%"
+      top="5vh"
     >
       <div class="clearfix">
         <div
@@ -337,7 +338,19 @@
           </el-table>-->
         </div>
         <div class="left pct-w50 padding-10 box-sizing-box">
-          <h3 class="new-title">填写产品体验回访信息</h3>
+          <div class="clearfix">
+            <div class="left">
+              <h3 class="new-title">填写产品使用回访信息</h3>
+            </div>
+            <div class="right">
+              <el-button @click="cancel()" type="primary" size="mini" icon="el-icon-circle-close">取消</el-button>
+              <el-button @click="td_addVisit()" type="success" size="mini" icon="el-icon-circle-check">确认提交</el-button>
+              <el-button @click="addPhone()" type="success" size="mini" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
+              <el-button @click="morePrduct_function()" type="success" size="mini" icon="el-icon-tickets">更多产品信息</el-button>
+              <el-button @click="ls_save()" size="mini" type="danger">产品流失</el-button>
+            </div>
+          </div>
+          
           <el-form :inline="true" size="small" id="search">
             <el-form-item label="回访电话：">
               <el-select style="width:100%" clearable v-model="usePhone" placeholder="请选择">
@@ -1269,13 +1282,13 @@
           </div>
         </div>
       </div>
-      <span slot="footer">
+      <!-- <span slot="footer">
         <el-button @click="cancel()" type="primary" icon="el-icon-circle-close">取消</el-button>
         <el-button @click="td_addVisit()" type="success" icon="el-icon-circle-check">确认提交</el-button>
         <el-button @click="addPhone()" type="success" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
         <el-button @click="morePrduct_function()" type="success" icon="el-icon-tickets">更多产品信息</el-button>
         <el-button @click="ls_save()" type="danger">产品流失</el-button>
-      </span>
+      </span> -->
     </el-dialog>
     <!-- dialog 测评详情-->
     <el-dialog
@@ -1461,9 +1474,9 @@
             v-show="productItem_box"
             style="max-height: 475px;overflow-x: hidden;"
           >
-            <div v-show="productItem.item_1" class="item">
+            <div v-show="productItemUse.item_1" class="item">
               <div v-for="(item,index) in data_box_ty[0].list" :key="index" class="margin-b-10">
-                <h4 class="center border-b-1 product_title">足弓垫——{{item.title}}</h4>
+                <h4 class="center border-b-1 product_title">足弓垫</h4>
                 <el-row>
                   <el-col :span="8" class="border-r-1">
                     <h5 class="center border-b-1">每天使用时间</h5>
@@ -1554,9 +1567,9 @@
                 </el-row>
               </div>
             </div>
-            <div v-show="productItem.item_2" class="item">
+            <div v-show="productItemUse.item_2" class="item">
               <div v-for="(item,index) in data_box_ty[1].list" :key="index" class="margin-b-10">
-                <h4 class="center border-b-1 product_title">长腿类——{{item.title}}</h4>
+                <h4 class="center border-b-1 product_title">长腿类</h4>
                 <el-row>
                   <el-col :span="8" class="border-r-1">
                     <h5 class="center border-b-1">每天使用时间</h5>
@@ -1644,9 +1657,9 @@
                 </el-row>
               </div>
             </div>
-            <div v-show="productItem.item_3" class="item">
+            <div v-show="productItemUse.item_3" class="item">
               <div v-for="(item,index) in data_box_ty[2].list" :key="index" class="margin-b-10">
-                <h4 class="center border-b-1 product_title">膝外翻——{{item.title}}</h4>
+                <h4 class="center border-b-1 product_title">膝外翻</h4>
                 <el-row>
                   <el-col :span="8" class="border-r-1">
                     <h5 class="center border-b-1">每天使用时间</h5>
@@ -1734,9 +1747,9 @@
                 </el-row>
               </div>
             </div>
-            <div v-show="productItem.item_4" class="item">
+            <div v-show="productItemUse.item_4" class="item">
               <div v-for="(item,index) in data_box_ty[3].list" :key="index" class="margin-b-10">
-                <h4 class="center border-b-1 product_title">踝足类——{{item.title}}</h4>
+                <h4 class="center border-b-1 product_title">踝足类</h4>
                 <el-row>
                   <el-col :span="8" class="border-r-1">
                     <h5 class="center border-b-1">每天使用时间</h5>
@@ -1824,9 +1837,9 @@
                 </el-row>
               </div>
             </div>
-            <div v-show="productItem.item_5" class="item">
+            <div v-show="productItemUse.item_5" class="item">
               <div v-for="(item,index) in data_box_ty[4].list" :key="index" class="margin-b-10">
-                <h4 class="center border-b-1 product_title">脊柱类——{{item.title}}</h4>
+                <h4 class="center border-b-1 product_title">脊柱类</h4>
                 <el-row>
                   <el-col :span="8" class="border-r-1">
                     <h5 class="center border-b-1">每天使用时间</h5>
@@ -1914,9 +1927,9 @@
                 </el-row>
               </div>
             </div>
-            <div v-show="productItem.item_6" class="item">
+            <div v-show="productItemUse.item_6" class="item">
               <div v-for="(item,index) in data_box_ty[5].list" :key="index" class="margin-b-10">
-                <h4 class="center border-b-1 product_title">丹尼类——{{item.title}}</h4>
+                <h4 class="center border-b-1 product_title">丹尼类</h4>
                 <el-row>
                   <el-col :span="8" class="border-r-1">
                     <h5 class="center border-b-1">每天使用时间</h5>
@@ -1997,9 +2010,9 @@
                 </el-row>
               </div>
             </div>
-            <div v-show="productItem.item_7" class="item">
+            <div v-show="productItemUse.item_7" class="item">
               <div v-for="(item,index) in data_box_ty[6].list" :key="index" class="margin-b-10">
-                <h4 class="center border-b-1 product_title">扭转类——{{item.title}}</h4>
+                <h4 class="center border-b-1 product_title">扭转类</h4>
                 <el-row>
                   <el-col :span="8" class="border-r-1">
                     <h5 class="center border-b-1">每天使用时间</h5>
@@ -2087,9 +2100,9 @@
                 </el-row>
               </div>
             </div>
-            <div v-show="productItem.item_8" class="item">
+            <div v-show="productItemUse.item_8" class="item">
               <div v-for="(item,index) in data_box_ty[7].list" :key="index" class="margin-b-10">
-                <h4 class="center border-b-1 product_title">其他产品——{{item.title}}</h4>
+                <h4 class="center border-b-1 product_title">其他产品</h4>
                 <el-row>
                   <el-col :span="8" class="border-r-1">
                     <h5 class="center border-b-1">每天使用时间</h5>
@@ -2173,6 +2186,15 @@
               </div>
             </div>
           </div>
+          <div>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 2, maxRows: 4}"
+              placeholder="请输入回访备注内容，必填"
+              v-model="remark"
+            ></el-input>
+          </div>
+          
       <!-- <span slot="footer">
         <el-button type="primary" @click="cancelAddPhone" icon="el-icon-circle-close">取消</el-button>
         <el-button @click="addSparePhone" type="success" icon="el-icon-circle-check">确认</el-button>
@@ -2475,6 +2497,7 @@ export default {
   name: "App",
   data() {
     return {
+      remark:null,
       question:false,
       pickerOptions: {
           disabledDate(time) {
@@ -2569,7 +2592,40 @@ export default {
       zysx_2: ["运动", "皮肤护理", "按摩"],
       zysx_3: ["运动", "皮肤护理", "生活习惯"],
       data_box_use: return_variable.data_box_use,
-      data_box_ty: return_variable.data_box_ty,
+      data_box_ty:[
+        {
+          productType: 1,
+          list: []
+        },
+        {
+          productType: 2,
+          list: []
+        },
+        {
+          productType: 3,
+          list: []
+        },
+        {
+          productType: 4,
+          list: []
+        },
+        {
+          productType: 5,
+          list: []
+        },
+        {
+          productType: 6,
+          list: []
+        },
+        {
+          productType: 7,
+          list: []
+        },
+        {
+          productType: 8,
+          list: []
+        }
+      ],// return_variable.data_box_ty,
       data_box: [
         {
           productType: 1,
@@ -2917,6 +2973,7 @@ export default {
             this.data_box_ty[obj.saleProductType - 1].list[0] = res.data.data;
             this.productItemUse["item_" + obj.saleProductType] = true;
             this.productDetailsForReturnVisitDialog = true;
+           this.remark=res.data.data.remark
           }
         })
         .catch(err => {
@@ -3229,7 +3286,7 @@ export default {
             let details = res.data.data;
             this.memberDetailDto[0] = details.memberDetailDTO;
             this.new_details_data.prescriptionDTO = details.prescriptionDTO;
-            this.pickupServiceInformation = details.useWaitProductDetailDTO;
+            this.pickupServiceInformation = details.experienceRecordDTO;
             this.new_details_data.examinationInfo[0] =
               details.examineDetail.examinationInfo;
             this.new_details_data.detailList = details.examineDetail.detailList;

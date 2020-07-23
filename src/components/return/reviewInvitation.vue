@@ -168,11 +168,12 @@
     ></el-pagination>
     <!-- 详情弹框 -->
     <el-dialog
-      title="产品复查邀约回访详情"
+      title="复查邀约回访详情"
       :visible.sync="productUsageDetailsDialog"
       :close-on-click-modal="false"
       :before-close="cancel"
-      width="80%"
+      width="95%"
+      top="5vh"
     >
       <div class="clearfix">
         <div
@@ -375,7 +376,19 @@
           class="left pct-w50 padding-10 box-sizing-box"
           style="max-height: 700px;overflow-x: hidden;"
         >
-          <h3 class="new-title">填写产品体验回访信息</h3>
+          <div class="clearfix">
+            <div class="left">
+              <h3 class="new-title">填写复查邀约回访信息</h3>
+            </div>
+            <div class="right">
+              <el-button @click="cancel()" size="mini" type="primary" icon="el-icon-circle-close">取消</el-button>
+              <el-button @click="td_addVisit()" size="mini" type="success" icon="el-icon-circle-check">确认提交</el-button>
+              <el-button @click="addPhone()" size="mini" type="success" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
+              <el-button @click="morePrduct_function()" size="mini" type="success" icon="el-icon-tickets">更多产品信息</el-button>
+              <el-button @click="ls_save()" size="mini" type="danger">客户流失</el-button>
+            </div>
+          </div>
+          
           <el-form :inline="true" size="small" id="search">
             <el-form-item label="回访电话：">
               <el-select style="width:100%" clearable v-model="usePhone" placeholder="请选择">
@@ -611,13 +624,13 @@
           </div>
         </div>
       </div>
-      <span slot="footer">
+      <!-- <span slot="footer">
         <el-button @click="cancel()" type="primary" icon="el-icon-circle-close">取消</el-button>
         <el-button @click="td_addVisit()" type="success" icon="el-icon-circle-check">确认提交</el-button>
         <el-button @click="addPhone()" type="success" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
         <el-button @click="morePrduct_function()" type="success" icon="el-icon-tickets">更多产品信息</el-button>
         <el-button @click="ls_save()" type="danger">客户流失</el-button>
-      </span>
+      </span> -->
     </el-dialog>
     <!-- dialog 测评详情-->
     <el-dialog
@@ -1515,6 +1528,14 @@
               </div>
             </div>
           </div>
+          <div>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 2, maxRows: 4}"
+              placeholder="回访备注"
+              v-model="remark"
+            ></el-input>
+          </div>
     </el-dialog>
     <!-- 产品待使用回访详情 -->
     <el-dialog
@@ -2351,6 +2372,14 @@
               </div>
             </div>
           </div>
+          <div>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 2, maxRows: 4}"
+              placeholder="回访备注"
+              v-model="remark"
+            ></el-input>
+          </div>
     </el-dialog>
     <!-- dialog 打印检测报告-->
     <el-dialog
@@ -2649,6 +2678,7 @@ export default {
   name: "App",
   data() {
     return {
+      remark:null,
       xqBut:false,
       //新的date
       timeValue: new Date(),
@@ -3201,6 +3231,7 @@ export default {
             this.data_box[obj.visitTypeInt - 1].list[0] = res.data.data;
             this.productItem["item_" + obj.visitTypeInt] = true;
             this.productVisitDialog_2 = true;
+            this.remark=res.data.data.remark
           }
         })
         .catch(err => {
@@ -3227,7 +3258,7 @@ export default {
             this.productDetailsForReturnVisitDialog = true;
             this.data_box_use[obj.visitTypeInt - 1].list[0] = res.data.data;
             this.productItemUse["item_" + obj.visitTypeInt] = true;
-            
+            this.remark=res.data.data.remark
             console.log(this.productItemUse)
           }
         })
