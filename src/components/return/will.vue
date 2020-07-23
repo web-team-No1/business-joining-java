@@ -208,7 +208,7 @@
             max-height="220"
             :header-row-class-name="'headerClass-two'"
           >
-            <el-table-column type="selection"></el-table-column>
+            <el-table-column type="selection" v-if="selectInit"></el-table-column>
             <el-table-column prop="saleProductNickname" label="产品昵称"></el-table-column>
             <el-table-column prop="reflect" label="取型家长反应"></el-table-column>
             <el-table-column prop="tryOnUserName" label="试穿人员"></el-table-column>
@@ -1735,6 +1735,7 @@ export default {
   name: "App",
   data() {
     return {
+      selectInit:false,
       question:false,
       pickerOptions: {
         disabledDate(time) {
@@ -2291,6 +2292,7 @@ export default {
             });
           } else {
             let details = res.data.data;
+            this.selectInit=details.isChose === 0?false:true;
             this.memberDetailDto[0] = details.memberDetailDTO;
             this.new_details_data.prescriptionDTO = details.prescriptionDTO;
             this.pickupServiceInformation =
