@@ -273,13 +273,13 @@
             :data="new_details_data.examinationInfo"
             :header-row-class-name="'headerClass'"
           >
-            <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
-            <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
             <el-table-column align="center" prop="cycle" label="治疗周期"></el-table-column>
             <el-table-column align="center" prop="createTime" label="测评日期"></el-table-column>
             <el-table-column align="center" prop="evaluateUserName" label="测评人员"></el-table-column>
+            <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
             <el-table-column align="center" prop="memberAnalysisCN" label="客户分析"></el-table-column>
             <el-table-column align="center" prop="recoveryCN" label="恢复情况"></el-table-column>
+            <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
           </el-table>
           <div v-for="(item,index) in new_details_data.detailList" :key="index" class="margin-t-10">
             <div class="clearfix" style="border:1px solid #E6E6E6">
@@ -401,7 +401,7 @@
               <el-radio-group v-model="usePhoneStatus" @change="onState_func">
                 <el-radio label="接通">接通</el-radio>
                 <el-radio label="接通挂断">接通挂断</el-radio>
-                <el-radio label="多次未接通">多次未接通</el-radio>
+                <!-- <el-radio label="多次未接通">多次未接通</el-radio> -->
                 <el-radio label="联系方式错误">联系方式错误</el-radio>
               </el-radio-group>
             </el-form-item>
@@ -3016,7 +3016,11 @@ export default {
       this.new_details_data.churnRegistration = null;
     },
     ls_save() {
+      if(!this.usePhone){
+          tips(this, "请选择手机号!", "warning");
+      }else{
       this.new_details_data.khls_dialog = true;
+      }
     },
     seveTime() {
       let date = date_zh(this.timeValue);

@@ -418,7 +418,7 @@
         <!-- <el-table-column prop="actual" label="实际价格"></el-table-column> -->
         <el-table-column prop="favorable" label="折扣金额"></el-table-column>
         <!-- <el-table-column prop="recordActual" label="退款金额"></el-table-column> -->
-        <el-table-column prop="favorableRemark" label="特殊要求"></el-table-column>
+        <el-table-column prop="demand" label="特殊要求"></el-table-column>
         <el-table-column prop="deliveryTime" label="交货时间" min-width="200"></el-table-column>
         <el-table-column label="操作" min-width="130">
           <template slot-scope="scope">
@@ -1117,7 +1117,7 @@
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="readyOrderCancel()" type="primary" icon="el-icon-circle-close">取消</el-button>
-        <el-button @click="modefiy_orderingStart()" type="success" icon="el-icon-circle-check">确认</el-button>
+        <el-button @click="modefiy_orderingStart()" :disabled="xdDisabled" :loading="xdDisabled" type="success" icon="el-icon-circle-check">确认</el-button>
       </div>
     </el-dialog>
     <!-- dialog 特殊要求-->
@@ -1311,6 +1311,7 @@ import naVComponent_variable from "./page_variable";
 export default {
   data() {
     return {
+      xdDisabled:false,
       discount: null,
       discountList: naVComponent_variable.discount,
       isCancel: false, //详情中退款、取消、修改按钮状态   :disabled="isCancel" 按钮加入显示状态
@@ -1676,11 +1677,7 @@ export default {
         parseFloat(this.orderInformation[0].lakala) +
         parseFloat(this.orderInformation[0].cash) +
         parseFloat(this.orderInformation[0].transfer);
-
-      
-
-      
-      
+        
       let productObj = this.prescriptions;
       productObj.forEach(obj => {
         obj.source = obj.type;

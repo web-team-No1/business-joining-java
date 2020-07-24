@@ -3,101 +3,6 @@
   <div>
     <!-- seach -->
     <el-form :inline="true" size="mini" id="search" class="padding-LR-p10">
-      <el-form-item label="客户姓名">
-        <el-input v-model="seach.memberName" class="w-150" placeholder="请输入姓名"></el-input>
-      </el-form-item>
-      <el-form-item label="是否会员">
-        <el-select class="w-150" clearable v-model="seach.vip" placeholder="请选择">
-          <el-option
-            v-for="item in seach.vipList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="回访人员">
-        <el-input clearable class="w-150" v-model="seach.visitUserName" placeholder="请输入回访人"></el-input>
-        <!-- <el-select
-          style="width:100%"
-          size="small"
-          clearable
-          v-model="seach.visitUserId"
-          placeholder="请选择"
-        >
-          <el-option
-            v-for="item in seach.visitUserList"
-            :key="item.id"
-            :label="item.username"
-            :value="item.id"
-          ></el-option>
-        </el-select>-->
-      </el-form-item>
-      <el-form-item label="客户满意度">
-        <el-select class="w-150" clearable v-model="seach.satisfaction" placeholder="请选择">
-          <el-option
-            v-for="item in seach.satisfactionList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <!-- <el-form-item label="产品类别">
-        <el-select class="w-150" clearable v-model="seach.productTypeInt" placeholder="请选择">
-          <el-option
-            v-for="item in seach.productTypeIntList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
-        </el-select>
-      </el-form-item> -->
-      <el-form-item label="回访时间">
-        <el-date-picker
-          class="w-250"
-          v-model="seach.visitTime"
-          type="daterange"
-          format="yyyy-MM-dd"
-          value-format="yyyy-MM-dd"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
-      </el-form-item>
-      <el-form-item label="产品昵称">
-        <el-input class="w-150" v-model="seach.saleProductName" placeholder="请输入产品昵称"></el-input>
-      </el-form-item>
-      <el-form-item label="接通状态">
-        <el-select class="w-150" clearable v-model="seach.phoneStatus" placeholder="请选择">
-          <el-option
-            v-for="item in seach.phoneStatusList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="有无问题">
-        <el-select class="w-150" clearable v-model="seach.problemHave" placeholder="请选择">
-          <el-option
-            v-for="item in seach.problemHaveList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="产品使用时间">
-        <el-select class="w-150" clearable v-model="seach.productUseTime" placeholder="请选择">
-          <el-option
-            v-for="item in seach.productUseTimeList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-          ></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="省份">
         <el-select
           class="w-150"
@@ -146,7 +51,101 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="医院">
+      <el-form-item label="回访人员">
+        <!-- <el-input clearable class="w-150" v-model="seach.visitUserName" placeholder="请输入回访人"></el-input> -->
+        <el-select
+          class="w-150"
+          clearable
+          v-model="seach.visitUserId"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in seach.visitUserList"
+            :key="item.id"
+            :label="item.username"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="复查应到访日期">
+        <el-date-picker
+          class="w-250"
+          v-model="seach.visitTime"
+          type="daterange"
+          format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
+      <el-form-item label="接通状态">
+        <el-select class="w-150" clearable v-model="seach.phoneStatus" placeholder="请选择">
+          <el-option
+            v-for="item in seach.phoneStatusList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="产品名称">
+        <el-input class="w-150" v-model="seach.saleProductName" placeholder="请输入产品昵称"></el-input>
+      </el-form-item>
+      <el-form-item label="客户姓名">
+        <el-input v-model="seach.memberName" class="w-150" placeholder="请输入姓名"></el-input>
+      </el-form-item>
+      <el-form-item label="是否会员">
+        <el-select class="w-150" clearable v-model="seach.vip" placeholder="请选择">
+          <el-option
+            v-for="item in seach.vipList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="客户满意度">
+        <el-select class="w-150" clearable v-model="seach.satisfaction" placeholder="请选择">
+          <el-option
+            v-for="item in seach.satisfactionList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <!-- <el-form-item label="产品类别">
+        <el-select class="w-150" clearable v-model="seach.productTypeInt" placeholder="请选择">
+          <el-option
+            v-for="item in seach.productTypeIntList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item> -->
+      <el-form-item label="有无问题">
+        <el-select class="w-150" clearable v-model="seach.problemHave" placeholder="请选择">
+          <el-option
+            v-for="item in seach.problemHaveList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="产品使用时间">
+        <el-select class="w-150" clearable v-model="seach.productUseTime" placeholder="请选择">
+          <el-option
+            v-for="item in seach.productUseTimeList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <!-- <el-form-item label="医院">
         <el-select clearable class="w-150" v-model="seach.hospitalId" placeholder="请先选择测评中心">
           <el-option
             v-for="item in seach.hospitalLists"
@@ -155,7 +154,7 @@
             :value="item.id"
           ></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button
           @click="pageList(pages.currentPage,pages.pageSize)"
@@ -193,7 +192,6 @@
       <el-table-column align="center" prop="problemDo" label="问题详情"></el-table-column>
     </el-table>
     <div class="total">
-      <span>合计：</span>
       <span>客户数量:{{total.visitMemberCount}}</span>
       <span>客户满意度占比:{{total.satisfied}}</span>
       <span>产品数量:{{total.saleProductCount}}</span>
@@ -304,7 +302,8 @@ export default {
         provinceIdList: [],
         cityIdList: [],
         hospitalLists: [],
-        hospitalId: null
+        hospitalId: null,
+        visitUserId:null
       },
       total: {},
       loading: true
@@ -327,6 +326,7 @@ export default {
           this.seach.visitTime == null ? null : this.seach.visitTime[1],
         vip: this.seach.vip == "0" ? 0 : this.seach.vip || null,
         visitUserName: this.seach.visitUserName || null,
+        visitUserId: this.seach.visitUserId || null,
         saleProductName: this.seach.saleProductName || null,
         phoneStatus: this.seach.phoneStatus || null,
         memberName: this.seach.memberName || null,
@@ -369,6 +369,7 @@ export default {
           this.seach.visitTime == null ? null : this.seach.visitTime[1],
         vip: this.seach.vip == "0" ? 0 : this.seach.vip || null,
         visitUserName: this.seach.visitUserName || null,
+        visitUserId: this.seach.visitUserId || null,
         saleProductName: this.seach.saleProductName || null,
         phoneStatus: this.seach.phoneStatus || null,
         memberName: this.seach.memberName || null,

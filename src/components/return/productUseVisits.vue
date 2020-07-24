@@ -4,15 +4,15 @@
     <!-- 头部筛选box -->
     <div class="box">
       <div class="item item1" :class="{active:topActive==1}" @click="topItem_func(1)">
-        <div>今日待回访产品数量</div>
+        <div>今日待回访</div>
         <div>{{box_top_data.todayNum || 0}}</div>
       </div>
       <div class="item item2" :class="{active:topActive==2}" @click="topItem_func(2)">
-        <div>逾期未回访产品总数</div>
+        <div>逾期未回访</div>
         <div>{{box_top_data.overdueNum|| 0}}</div>
       </div>
       <div class="item item3" :class="{active:topActive==0}" @click="topItem_func(0)">
-        <div>全部待回访产品数量</div>
+        <div>全部待回访</div>
         <div>{{box_top_data.allNum|| 0}}</div>
       </div>
     </div>
@@ -238,13 +238,13 @@
             :data="new_details_data.examinationInfo"
             :header-row-class-name="'headerClass'"
           >
-            <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
-            <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
             <el-table-column align="center" prop="cycle" label="治疗周期"></el-table-column>
             <el-table-column align="center" prop="createTime" label="测评日期"></el-table-column>
             <el-table-column align="center" prop="evaluateUserName" label="测评人员"></el-table-column>
+            <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
             <el-table-column align="center" prop="memberAnalysisCN" label="客户分析"></el-table-column>
             <el-table-column align="center" prop="recoveryCN" label="恢复情况"></el-table-column>
+            <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
           </el-table>
           <div v-for="(item,index) in new_details_data.detailList" :key="index" class="margin-t-10">
             <div class="clearfix" style="border:1px solid #E6E6E6">
@@ -1291,7 +1291,7 @@
       </span> -->
     </el-dialog>
     <!-- dialog 测评详情-->
-    <el-dialog
+    <!-- <el-dialog
       title="测评信息详情"
       :visible.sync="dialogEvaluationDetails"
       center
@@ -1402,7 +1402,7 @@
         </div>
         <hr class="border-dashed" />
       </div>
-    </el-dialog>
+    </el-dialog> -->
     <!-- 更多产品 -->
     <el-dialog
       title="更多产品"
@@ -1471,7 +1471,6 @@
     >
       <div
             class="product_box"
-            v-show="productItem_box"
             style="max-height: 475px;overflow-x: hidden;"
           >
             <div v-show="productItemUse.item_1" class="item">
@@ -2744,7 +2743,11 @@ export default {
       this.new_details_data.churnRegistration = null;
     },
     ls_save() {
+      if(!this.usePhone){
+          tips(this, "请选择手机号!", "warning");
+      }else{
       this.new_details_data.sycpls_dialog = true;
+      }
     },
     td_cancel() {
       this.new_details_data.td_sydialog = false;

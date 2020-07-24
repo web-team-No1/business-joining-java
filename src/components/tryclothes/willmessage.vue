@@ -288,6 +288,7 @@
           <el-date-picker
           size="mini"
             v-model="tryOnDate"
+            readonly
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择日期时间"
@@ -360,7 +361,7 @@
       </div>
       <span slot="footer">
         <el-button @click="cancel()" type="primary" icon="el-icon-circle-close">取消</el-button>
-        <el-button @click="serve()" type="success" icon="el-icon-circle-check">保存</el-button>
+        <el-button @click="serve()" :loading="isServe" :disabled="isServe" type="success" icon="el-icon-circle-check">保存</el-button>
       </span>
     </el-dialog>
   </div>
@@ -395,6 +396,7 @@ export default {
   name: "App",
   data() {
     return {
+      isServe:false,
       spanArr_left: [],
       position_left: 0,
       /*** left抽屉*/
@@ -580,6 +582,7 @@ export default {
     },
     // 保存
     serve() {
+      this.isServe=true;
       if (!!this.tryOnDate || !!this.textarea) {
         let data = {
           memberId: this.memberId,
@@ -589,6 +592,7 @@ export default {
         };
         noticeForTryOn(data)
           .then(res => {
+            this.isServe=false;
             if (res.data.returnCode != 0) {
               this.$message({
                 type: "warning",
@@ -609,6 +613,7 @@ export default {
             console.log(err);
           });
       } else {
+        this.isServe=false;
         this.$message({
           type: "warning",
           message: "请输入任意一项！",

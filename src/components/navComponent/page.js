@@ -185,6 +185,7 @@ function calculation(that) {
 }
 // 下单确认按钮
 function orderingStart(that,myObj) {
+  that.xdDisabled=true;
   let priceTatol = [];
   for (let index = 0; index < that.detailFormList.length; index++) {
     const element = that.detailFormList[index];
@@ -238,7 +239,9 @@ function orderingStart(that,myObj) {
       message: "支付金额大于应收金额请从新输入！",
       center: true
     });
+    that.xdDisabled=false;
   } else if (jhrq === false) {
+    that.xdDisabled=false;
     that.$message({
       type: "warning",
       message: "请填写交货日期！",
@@ -253,7 +256,9 @@ function orderingStart(that,myObj) {
             message: res.data.returnMsg,
             center: true
           });
+          that.xdDisabled=false;
         } else {
+          that.xdDisabled=false;
           that.readyOrderCancel();
           that.handleInfo(myObj);
           that.$message({
@@ -273,6 +278,7 @@ function orderingStart(that,myObj) {
  * @param {*} that 
  */
 function modefiy_orderingStart(that) {
+  that.xdDisabled=true;
   let data = {
     id: that.currentNamberId,
     // prescriptionId: that.currentPrescriptions[0].prescriptionId,
@@ -305,12 +311,14 @@ function modefiy_orderingStart(that) {
     }
   });
   if (data.actual < data.lakala + data.cash + data.transfer) {
+    that.xdDisabled=false;
     that.$message({
       type: "warning",
       message: "支付金额大于应收金额请从新输入！",
       center: true
     });
   } else if (jhrq === false) {
+    that.xdDisabled=false;
     that.$message({
       type: "warning",
       message: "请填写交货日期！",
@@ -330,12 +338,14 @@ function modefiy_orderingStart(that) {
     orderUpdateNew(data)
       .then(res => {
         if (res.data.returnCode != 0) {
+          that.xdDisabled=false;
           that.$message({
             type: "warning",
             message: res.data.returnMsg,
             center: true
           });
         } else {
+          that.xdDisabled=false;
           that.readyOrderCancel();
           that.returnOn();
           that.details(that.paymentMethod.orderNum);
@@ -479,9 +489,8 @@ function zkyh(that, obj) {
   that.cpIndex = obj.$index;
   that.zhekouyouhui = obj.row;
   that.favorableRemark = obj.row.favorableRemark;
-  that.discount = obj.row.discount
+  that.discount = obj.row.discount || obj.row.favorableRate;
   that.dialogDiscount = true;
-  debugger
   that.zhekouyouhui.favorable = obj.row.actual;
   // let price = obj.row.price;
   // let actual = obj.row.actual;

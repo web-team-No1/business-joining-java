@@ -437,7 +437,6 @@ const fayy_data={
     {name:"45分",id:45},
     {name:"50分",id:50},
     {name:"55分",id:55},
-    {name:"60分",id:60},
   ],
   minuteValue:null,
 }

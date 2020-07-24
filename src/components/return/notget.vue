@@ -267,13 +267,13 @@
             :data="new_details_data.examinationInfo"
             :header-row-class-name="'headerClass'"
           >
-            <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
-            <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
             <el-table-column align="center" prop="cycle" label="治疗周期"></el-table-column>
             <el-table-column align="center" prop="createTime" label="测评日期"></el-table-column>
             <el-table-column align="center" prop="evaluateUserName" label="测评人员"></el-table-column>
+            <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
             <el-table-column align="center" prop="memberAnalysisCN" label="客户分析"></el-table-column>
             <el-table-column align="center" prop="recoveryCN" label="恢复情况"></el-table-column>
+            <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
           </el-table>
           <div v-for="(item,index) in new_details_data.detailList" :key="index" class="margin-t-10">
             <div class="clearfix" style="border:1px solid #E6E6E6">
@@ -2112,9 +2112,9 @@
         <el-table-column prop="condition" label="处方病情"></el-table-column>
         <el-table-column prop="illness" label="新增病情"></el-table-column>
       </el-table>
-      <!-- <h3 class="new-title">病单信息</h3> -->
-          <!-- <el-table
-            :data="new_details_data.prescriptionDTO"
+      <h3 class="new-title">病单信息</h3>
+          <el-table
+            :data="fcprescriptionDTO"
             border
             :header-row-class-name="'headerClass-two'"
           >
@@ -2125,11 +2125,11 @@
             <el-table-column prop="condition" label="处方病情"></el-table-column>
             <el-table-column prop="illness" label="新增病情"></el-table-column>
             <el-table-column prop="updateTime" label="创建时间"></el-table-column>
-          </el-table> -->
+          </el-table>
       <h3 class="new-title">回访信息</h3>
       <el-table :data="pickupServiceInformation_back" border max-height="220" :header-row-class-name="'headerClass-two'">
         <el-table-column prop="productNickname" label="产品昵称"></el-table-column>
-        <el-table-column prop="backTime" label="邀约回访时间"></el-table-column>
+        <el-table-column prop="backTime" label="回访时间"></el-table-column>
         <el-table-column prop="backPhone" label="回访电话"></el-table-column>
         <el-table-column prop="backPhoneStatus" label="接通状态"></el-table-column>
         <el-table-column prop="backUserName" label="回访人员"></el-table-column>
@@ -2155,7 +2155,17 @@
             </el-link>
           </template>
         </el-table-column> -->
+        </el-table>
+        <h3 class="new-title">流失信息</h3>
+      <el-table :data="fcOutflowDTOs" border :header-row-class-name="'headerClass-two'">
+        <el-table-column prop="outflowTime" label="流失时间" min-width="100"></el-table-column>
+        <el-table-column prop="visitTypeString" label="回访类型"></el-table-column>
+        <el-table-column prop="backVisitUserName" label="回访人"></el-table-column>
+        <el-table-column prop="phoneStatus" label="接通状态"></el-table-column>
+        <el-table-column prop="phone" label="回访电话"></el-table-column>
+        <el-table-column prop="outflowReason" label="流失原因"></el-table-column>
       </el-table>
+      
       <span slot="footer">
         <el-button @click="cancel_dfc()" type="primary" icon="el-icon-circle-close">取消</el-button>
         <el-button @click="details(rowObj)" type="success" icon="el-icon-circle-check">修改/确认到访时间</el-button>
@@ -2249,6 +2259,8 @@ export default {
   name: "App",
   data() {
     return {
+      fcOutflowDTOs:[],
+      fcprescriptionDTO:[],
       /**新的回访弹框数据 */
       new_details_data: return_variable.new_details_data,
       isShow: false,
@@ -2955,6 +2967,8 @@ export default {
             this.memberDetailDto[0] = details.memberDetail;
             this.pickupServiceInformation_back =
               details.reviewDetailList;
+               this.fcOutflowDTOs[0]= details.outflowDTOs
+            this.fcprescriptionDTO= details.prescriptionDTO
             this.dfc_Dialog = true;
           }
         })

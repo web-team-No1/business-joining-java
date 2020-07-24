@@ -18,28 +18,6 @@
     </div>
     <!-- seach -->
     <el-form :inline="true" size="small" id="search" class="padding-LR-p10">
-      <el-form-item v-if="topActive != 1" label="应回访日期">
-        <el-date-picker
-          v-model="seach.delivery"
-          class="w-250"
-          type="daterange"
-          format="yyyy 年 MM 月 dd 日"
-          value-format="yyyy-MM-dd"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
-      </el-form-item>
-      <el-form-item label="试穿人员">
-        <el-select class="w-150" clearable v-model="seach.repairUserId" placeholder="请选择">
-          <el-option
-            v-for="item in seach.scUserNameList"
-            :key="item.id"
-            :label="item.username"
-            :value="item.id"
-          ></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="省份">
         <el-select
           class="w-150"
@@ -88,7 +66,29 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="医院">
+      <el-form-item label="试穿人员">
+        <el-select class="w-150" clearable v-model="seach.repairUserId" placeholder="请选择">
+          <el-option
+            v-for="item in seach.scUserNameList"
+            :key="item.id"
+            :label="item.username"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item v-if="topActive != 1" label="应回访日期">
+        <el-date-picker
+          v-model="seach.delivery"
+          class="w-250"
+          type="daterange"
+          format="yyyy 年 MM 月 dd 日"
+          value-format="yyyy-MM-dd"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
+      <!-- <el-form-item label="医院">
         <el-select clearable class="w-150" v-model="seach.hospitalId" placeholder="请先选择测评中心">
           <el-option
             v-for="item in seach.hospitalLists"
@@ -97,6 +97,9 @@
             :value="item.id"
           ></el-option>
         </el-select>
+      </el-form-item>-->
+      <el-form-item label="客户姓名">
+        <el-input v-model="seach.memberName" placeholder="请输入客户姓名" class="w-150"></el-input>
       </el-form-item>
       <el-form-item label="联系电话">
         <el-input v-model="seach.phone" placeholder="请输入客户电话" class="w-150"></el-input>
@@ -132,7 +135,7 @@
       <el-table-column align="center" prop="reflect" label="取型家长反应"></el-table-column>
       <el-table-column align="center" prop="tryOnBeginTime" label="试穿时间"></el-table-column>
       <el-table-column align="center" prop="tryOnUserName" label="试穿人员"></el-table-column>
-      <el-table-column align="center" prop="examinationUserName" label="测评人员"></el-table-column>
+      <!-- <el-table-column align="center" prop="examinationUserName" label="测评人员"></el-table-column> -->
       <el-table-column align="center" prop="visitWaitTime" label="应回访时间">
         <template slot-scope="scope">
           <div :class="scope.row.red === 1 ?'color-red':''">{{scope.row.visitWaitTime}}</div>
@@ -267,13 +270,13 @@
             :data="new_details_data.examinationInfo"
             :header-row-class-name="'headerClass'"
           >
-            <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
-            <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
             <el-table-column align="center" prop="cycle" label="治疗周期"></el-table-column>
             <el-table-column align="center" prop="createTime" label="测评日期"></el-table-column>
             <el-table-column align="center" prop="evaluateUserName" label="测评人员"></el-table-column>
+            <el-table-column align="center" prop="repeatTime" label="复查日期"></el-table-column>
             <el-table-column align="center" prop="memberAnalysisCN" label="客户分析"></el-table-column>
             <el-table-column align="center" prop="recoveryCN" label="恢复情况"></el-table-column>
+            <el-table-column align="center" prop="remark" label="结果备注"></el-table-column>
           </el-table>
           <div v-for="(item,index) in new_details_data.detailList" :key="index" class="margin-t-10">
             <div class="clearfix" style="border:1px solid #E6E6E6">
@@ -307,7 +310,7 @@
                     icon="el-icon-edit"
                     @click="threeD_show(item.detail)"
                     size="mini"
-                  >修改</el-button> -->
+                  >修改</el-button>-->
                 </div>
                 <div class="margin-l-5" style="height:40px;line-height:30px;">
                   <span>测评结果:</span>
@@ -333,9 +336,24 @@
             </div>
             <div class="right">
               <el-button @click="cancel()" type="primary" size="mini" icon="el-icon-circle-close">取消</el-button>
-              <el-button @click="td_addVisit()" type="success" size="mini" icon="el-icon-circle-check">确认提交</el-button>
-              <el-button @click="addPhone()" type="success" size="mini" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
-              <el-button @click="morePrduct_function()" type="success" size="mini" icon="el-icon-tickets">更多产品信息</el-button>
+              <el-button
+                @click="td_addVisit()"
+                type="success"
+                size="mini"
+                icon="el-icon-circle-check"
+              >确认提交</el-button>
+              <el-button
+                @click="addPhone()"
+                type="success"
+                size="mini"
+                icon="el-icon-circle-plus-outline"
+              >添加联系电话</el-button>
+              <el-button
+                @click="morePrduct_function()"
+                type="success"
+                size="mini"
+                icon="el-icon-tickets"
+              >更多产品信息</el-button>
               <el-button @click="ls_save()" size="mini" type="danger">产品流失</el-button>
             </div>
           </div>
@@ -1255,7 +1273,7 @@
         <el-button @click="addPhone()" type="success" icon="el-icon-circle-plus-outline">添加联系电话</el-button>
         <el-button @click="morePrduct_function()" type="success" icon="el-icon-tickets">更多产品信息</el-button>
         <el-button @click="ls_save()" type="danger">产品流失</el-button>
-      </span> -->
+      </span>-->
     </el-dialog>
     <!-- dialog 测评详情-->
     <el-dialog
@@ -1676,7 +1694,7 @@
     </el-dialog>
     <!-- 流失登记-->
     <el-dialog
-      title="客户流失登记"
+      title="产品流失登记"
       :visible.sync="new_details_data.tycpls_dialog"
       width="30%"
       :before-close="ls_cancel"
@@ -1710,7 +1728,7 @@ import {
   printMakeParam,
   examinePadZb3d,
   selectPrincipalVisitListWhenExperience,
-  updatePrincipalUser
+  updatePrincipalUser,
 } from "../../api/javaApi";
 import {
   exportMethod,
@@ -1723,7 +1741,7 @@ import {
   site,
   hospital,
   getBase64Image,
-  img_base64
+  img_base64,
 } from "../../utils/public";
 import { Promise, all, async } from "q";
 import session from "../../utils/session";
@@ -1735,12 +1753,12 @@ export default {
   name: "App",
   data() {
     return {
-      selectInit:false,
-      question:false,
+      selectInit: false,
+      question: false,
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() < Date.now() - 8.64e7; //如果没有后面的-8.64e7就是不可以选择今天的
-        }
+        },
       },
       spanArr: [],
       position: 0,
@@ -1758,7 +1776,7 @@ export default {
       pages: {
         total: 10,
         pageSize: 10,
-        currentPage: 1
+        currentPage: 1,
       },
       seach: {
         repairUserId: null,
@@ -1772,7 +1790,8 @@ export default {
         cityIdList: [],
         hospitalLists: [],
         hospitalId: null,
-        phone:null
+        phone: null,
+        memberName: null,
       },
       productDetailsForReturnVisitDialog: false,
       userMemberId: null,
@@ -1828,36 +1847,36 @@ export default {
       data_box: [
         {
           productType: 1,
-          list: []
+          list: [],
         },
         {
           productType: 2,
-          list: []
+          list: [],
         },
         {
           productType: 3,
-          list: []
+          list: [],
         },
         {
           productType: 4,
-          list: []
+          list: [],
         },
         {
           productType: 5,
-          list: []
+          list: [],
         },
         {
           productType: 6,
-          list: []
+          list: [],
         },
         {
           productType: 7,
-          list: []
+          list: [],
         },
         {
           productType: 8,
-          list: []
-        }
+          list: [],
+        },
       ],
       //检测报告
       dialogTestReport: false,
@@ -1865,14 +1884,14 @@ export default {
       isTwo: true,
       htmlTitle: "测评报告PDF",
       threeD_ObjFrom: {
-        list: []
+        list: [],
       },
       threeDDialg: false,
-      only_recordId: null
+      only_recordId: null,
     };
   },
   components: {
-    "my-print": Print
+    "my-print": Print,
   },
   mounted() {
     // this.pageList();
@@ -1893,7 +1912,11 @@ export default {
       this.new_details_data.churnRegistration = null;
     },
     ls_save() {
-      this.new_details_data.tycpls_dialog = true;
+      if(!this.experiencePhone){
+          tips(this, "请选择手机号!", "warning");
+      }else{
+        this.new_details_data.tycpls_dialog = true;
+      }
     },
     td_cancel() {
       this.new_details_data.td_tydialog = false;
@@ -1902,28 +1925,30 @@ export default {
     },
     td_addVisit() {
       let isTx = false;
-      this.data_box.forEach(obj => {
+      this.data_box.forEach((obj) => {
         if (obj.list.length != 0) {
           for (var i = 0; i < obj.list.length; i++) {
             let item = obj.list[i];
-            if (item.experienceProblemHave == "有" && !item.experienceProblemDo) {
-                isTx = true;
-                break;
+            if (
+              item.experienceProblemHave == "有" &&
+              !item.experienceProblemDo
+            ) {
+              isTx = true;
+              break;
             }
           }
         }
       });
       this.question = isTx;
-      if(this.question){
-          this.$message({
-              type: "warning",
-              message: "请填写问题处理",
-              center: true
-            });
-      }else{
-          this.new_details_data.td_tydialog = true;
+      if (this.question) {
+        this.$message({
+          type: "warning",
+          message: "请填写问题处理",
+          center: true,
+        });
+      } else {
+        this.new_details_data.td_tydialog = true;
       }
-     
     },
     new_details(obj) {
       this.new_details_data.obj = obj;
@@ -1945,21 +1970,21 @@ export default {
     },
     data_assignment_save_two(status) {
       let visitIds = [];
-      this.data_assignment.multipleSelection.forEach(obj => {
+      this.data_assignment.multipleSelection.forEach((obj) => {
         visitIds.push(obj.visitId);
       });
       let data = {
         visitIds: visitIds,
         principalUserId: this.data_assignment.zpUser,
-        backVisitStatus: status
+        backVisitStatus: status,
       };
       updatePrincipalUser(data)
-        .then(res => {
+        .then((res) => {
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
           } else {
             tips(this, "指派成功!", "success");
@@ -1968,7 +1993,7 @@ export default {
             this.data_assignment_pageList();
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -1990,15 +2015,15 @@ export default {
         footWidth:
           this.threeD_ObjFrom.list[0].name == "足宽"
             ? this.threeD_ObjFrom.list[0].value
-            : this.threeD_ObjFrom.list[1].value
+            : this.threeD_ObjFrom.list[1].value,
       };
       examinePadZb3d(data)
-        .then(res => {
+        .then((res) => {
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
           } else {
             this.threeDDialg = false;
@@ -2006,11 +2031,11 @@ export default {
             this.$message({
               type: "success",
               message: "下单成功！",
-              center: true
+              center: true,
             });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -2027,15 +2052,15 @@ export default {
     },
     evaluationReport(id) {
       let data = {
-        recordId: id
+        recordId: id,
       };
       printMakeParam(data)
-        .then(res => {
+        .then((res) => {
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
           } else {
             this.testReport = res.data.data;
@@ -2043,7 +2068,7 @@ export default {
             this.dialogTestReport = true;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -2052,15 +2077,15 @@ export default {
         outflowPhoneStatus: this.experiencePhoneStatus,
         outflowPhone: this.experiencePhone,
         outflowReason: this.new_details_data.churnRegistration,
-        visitIds: this.multipleSelection
+        visitIds: this.multipleSelection,
       };
       insertOutflow(data)
-        .then(res => {
+        .then((res) => {
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
           } else {
             this.ls_cancel();
@@ -2069,11 +2094,11 @@ export default {
             this.$message({
               type: "success",
               message: "提交成功！",
-              center: true
+              center: true,
             });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -2083,9 +2108,9 @@ export default {
       //   this.visitForms.push(element);
       // });
       let visitFormsList = [];
-      this.data_box.forEach(obj => {
+      this.data_box.forEach((obj) => {
         if (obj.list.length != 0) {
-          obj.list.forEach(item => {
+          obj.list.forEach((item) => {
             visitFormsList.push(item);
           });
         }
@@ -2101,16 +2126,16 @@ export default {
         memberAttitude:
           this.new_details_data.value == 0 ? null : this.new_details_data.value,
         memberAttitudeRemark: this.new_details_data.causeOfLoss,
-        visitForms: visitFormsList //this.visitForms
+        visitForms: visitFormsList, //this.visitForms
       };
       console.log(data);
       insertExperienceVisit(data)
-        .then(res => {
+        .then((res) => {
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
             this.visitForms = [];
           } else {
@@ -2121,11 +2146,11 @@ export default {
             this.$message({
               type: "success",
               message: "提交成功！",
-              center: true
+              center: true,
             });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -2133,16 +2158,16 @@ export default {
       let data = {
         memberId: this.userMemberId,
         parent: this.new_details_data.relationship,
-        backupPhone: this.backupPhone
+        backupPhone: this.backupPhone,
       };
       debugger;
       insertBackupPhone(data)
-        .then(res => {
+        .then((res) => {
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
           } else {
             this.cancelAddPhone();
@@ -2150,11 +2175,11 @@ export default {
             this.$message({
               type: "success",
               message: "添加成功！",
-              center: true
+              center: true,
             });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -2169,16 +2194,16 @@ export default {
     copy(index) {
       let copyText = this.moreProducts[index].orderNum;
       let clipboard = new Clipboard(".tag-read", {
-        text: function() {
+        text: function () {
           return copyText;
-        }
+        },
       });
-      clipboard.on("success", e => {
+      clipboard.on("success", (e) => {
         tips(this, "复制成功!", "success");
         // 释放内存
         clipboard.destroy();
       });
-      clipboard.on("error", e => {
+      clipboard.on("error", (e) => {
         // 不支持复制
         tips(this, "该浏览器不支持自动复制!", "warning");
         // 释放内存
@@ -2187,15 +2212,15 @@ export default {
     },
     morePrduct_function() {
       let data = {
-        memberId: this.userMemberId
+        memberId: this.userMemberId,
       };
       selectOrderDetailByMemberId(data)
-        .then(res => {
+        .then((res) => {
           console.log(res);
           this.moreProducts = res.data.data.data;
           this.dialogMoreProducts = true;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -2220,12 +2245,12 @@ export default {
         for (let key in this.productItem) {
           this.productItem[key] = false;
         }
-        this.data_box.forEach(obj => {
+        this.data_box.forEach((obj) => {
           obj.list = [];
         });
         /**最远时间推算*/
         let dateList = [];
-        val.forEach(element => {
+        val.forEach((element) => {
           dateList.push(element.tryOnBeginTime);
           /**添加模板 */
           this.productItem["item_" + element.saleProductType] = true;
@@ -2255,7 +2280,7 @@ export default {
             title: productTitle,
             productType: element.saleProductType,
             visitId: element.visitId,
-            visitTypeInt: element.visitTypeInt
+            visitTypeInt: element.visitTypeInt,
           };
           // obj=this.new_details_data.templateData[element.saleProductType - 1];
           // obj.title = productTitle;
@@ -2282,17 +2307,17 @@ export default {
       this.userPhoneList(obj.memberId);
       let data = { visitId: obj.visitId };
       selectExperienceWaitVisitDetail(data)
-        .then(res => {
+        .then((res) => {
           console.log(res);
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
           } else {
             let details = res.data.data;
-            this.selectInit=details.isChose === 0?false:true;
+            this.selectInit = details.isChose === 0 ? false : true;
             this.memberDetailDto[0] = details.memberDetailDTO;
             this.new_details_data.prescriptionDTO = details.prescriptionDTO;
             this.pickupServiceInformation =
@@ -2310,7 +2335,7 @@ export default {
             });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -2318,7 +2343,7 @@ export default {
     toggleSelection(rows) {
       console.log(rows);
       if (rows) {
-        rows.forEach(row => {
+        rows.forEach((row) => {
           // debugger
           this.$refs.cpxx.toggleRowSelection(row);
         });
@@ -2329,15 +2354,15 @@ export default {
     evaluationDetails(id) {
       this.only_recordId = id;
       let data = {
-        recordId: id
+        recordId: id,
       };
       queryExamineDetail(data)
-        .then(res => {
+        .then((res) => {
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
           } else {
             this.examinationInfo[0] = res.data.data.examinationInfo;
@@ -2345,7 +2370,7 @@ export default {
             this.dialogEvaluationDetails = true;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -2365,16 +2390,17 @@ export default {
         siteId: this.seach.siteValue,
         hospitalId: this.seach.hospitalId,
         timeType: this.topActive,
-        phone:this.seach.phone
+        phone: this.seach.phone,
+        memberName: this.seach.memberName,
       };
       this.loading = true;
       selectExperienceWaitVisitList(data)
-        .then(res => {
+        .then((res) => {
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
           } else {
             this.loading = false;
@@ -2468,41 +2494,23 @@ export default {
             returnJs.rowspan(this, this.clientData);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
-      if (columnIndex === 0) {
+      if (
+        columnIndex === 0 ||
+        columnIndex === 1 ||
+        columnIndex === 2 ||
+        columnIndex === 3 ||
+        columnIndex === 10
+      ) {
         const _row = this.spanArr[rowIndex];
         const _col = _row > 0 ? 1 : 0;
         return {
           rowspan: _row,
-          colspan: _col
-        };
-      }
-      if (columnIndex === 1) {
-        const _row = this.spanArr[rowIndex];
-        const _col = _row > 0 ? 1 : 0;
-        return {
-          rowspan: _row,
-          colspan: _col
-        };
-      }
-      if (columnIndex === 2) {
-        const _row = this.spanArr[rowIndex];
-        const _col = _row > 0 ? 1 : 0;
-        return {
-          rowspan: _row,
-          colspan: _col
-        };
-      }
-      if (columnIndex === 3) {
-        const _row = this.spanArr[rowIndex];
-        const _col = _row > 0 ? 1 : 0;
-        return {
-          rowspan: _row,
-          colspan: _col
+          colspan: _col,
         };
       }
     },
@@ -2523,16 +2531,16 @@ export default {
           this.data_assignment.search.time == null
             ? null
             : this.data_assignment.search.time[1],
-        productName: this.data_assignment.search.productName
+        productName: this.data_assignment.search.productName,
       };
       this.data_assignment.loading = true;
       selectPrincipalVisitListWhenExperience(data)
-        .then(res => {
+        .then((res) => {
           if (res.data.returnCode != 0) {
             this.$message({
               type: "warning",
               message: res.data.returnMsg,
-              center: true
+              center: true,
             });
           } else {
             console.log(res);
@@ -2542,7 +2550,7 @@ export default {
             this.data_assignment.pages.total = dataList.total;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -2597,18 +2605,18 @@ export default {
     //电话号列表
     userPhoneList(id) {
       let data = {
-        memberId: id
+        memberId: id,
       };
       selectBackupPhoneByMemberId(data)
-        .then(res => {
+        .then((res) => {
           console.log(res);
           this.phoneList = res.data.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

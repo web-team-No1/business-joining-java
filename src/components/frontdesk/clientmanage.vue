@@ -1355,7 +1355,7 @@
       </div>
       <div slot="footer">
         <el-button @click="readyOrderCancel()" type="primary" icon="el-icon-circle-close">取消</el-button>
-        <el-button @click="orderingStart()" type="success" icon="el-icon-circle-check">确认</el-button>
+        <el-button @click="orderingStart()" :disabled="xdDisabled" :loading="xdDisabled" type="success" icon="el-icon-circle-check">确认</el-button>
       </div>
     </el-dialog>
     <!-- dialog 选择产品-->
@@ -2199,6 +2199,7 @@ export default {
       }
     };
     return {
+      xdDisabled:false,
       pickerOptions0: {
           disabledDate(time) {
             return time.getTime() < Date.now() - 8.64e7;//如果没有后面的-8.64e7就是不可以选择今天的

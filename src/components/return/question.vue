@@ -3,34 +3,6 @@
   <div>
     <!-- seach -->
     <el-form :inline="true" size="small" id="search" class="padding-LR-p10">
-      <el-form-item label="客户姓名">
-        <el-input v-model="seach.memberName" class="w-150" placeholder="请输入姓名"></el-input>
-      </el-form-item>
-      <el-form-item label="是否会员">
-        <el-select class="w-150" clearable v-model="seach.vip" placeholder="请选择">
-          <el-option
-            v-for="item in seach.vipList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="回访人员">
-        <el-input clearable class="w-150" v-model="seach.visitUserName" placeholder="请输入回访人"></el-input>
-      </el-form-item>
-      <el-form-item label="流失时间">
-        <el-date-picker
-          class="w-250"
-          v-model="seach.outflowTime"
-          type="daterange"
-          format="yyyy-MM-dd"
-          value-format="yyyy-MM-dd"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
-      </el-form-item>
       <el-form-item label="省份">
         <el-select
           class="w-150"
@@ -79,7 +51,78 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="医院">
+      <el-form-item label="回访人员">
+        <!-- <el-input clearable class="w-150" v-model="seach.visitUserName" placeholder="请输入回访人"></el-input> -->
+        <el-select
+          class="w-150"
+          clearable
+          v-model="seach.visitUserId"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in seach.visitUserList"
+            :key="item.id"
+            :label="item.username"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="流失日期">
+        <el-date-picker
+          class="w-250"
+          v-model="seach.confirmTime"
+          type="daterange"
+          format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
+      <el-form-item label="是否会员">
+        <el-select class="w-150" clearable v-model="seach.vip" placeholder="请选择">
+          <el-option
+            v-for="item in seach.vipList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="产品名称">
+        <el-input class="w-150" v-model="seach.saleProductName" placeholder="请输入产品昵称"></el-input>
+      </el-form-item>
+      <el-form-item label="客户姓名">
+        <el-input v-model="seach.memberName" class="w-150" placeholder="请输入姓名"></el-input>
+      </el-form-item>
+      <el-form-item label="回访时间">
+        <el-date-picker
+          class="w-250"
+          v-model="seach.outflowTime"
+          type="daterange"
+          format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
+      <el-form-item label="当前流失状态">
+        <el-select
+          class="w-150"
+          clearable
+          v-model="seach.outflowStatus"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in seach.outflowStatusList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <!-- <el-form-item label="医院">
         <el-select clearable class="w-150" v-model="seach.hospitalId" placeholder="请先选择测评中心">
           <el-option
             v-for="item in seach.hospitalLists"
@@ -88,10 +131,8 @@
             :value="item.id"
           ></el-option>
         </el-select>
-      </el-form-item>
-      <el-form-item label="产品昵称">
-        <el-input class="w-150" v-model="seach.saleProductName" placeholder="请输入产品昵称"></el-input>
-      </el-form-item>
+      </el-form-item> -->
+      
       <!-- <el-form-item label="回访类型">
         <el-select class="w-150" clearable v-model="seach.visitTypeInt" placeholder="请选择">
           <el-option
@@ -132,13 +173,15 @@
       <el-table-column align="center" prop="sex" label="性别"></el-table-column>
       <el-table-column align="center" prop="vip" label="是否会员"></el-table-column>
       <el-table-column align="center" prop="saleProductNickname" label="产品昵称"></el-table-column>
-      <el-table-column align="center" prop="backVisitUserName" label="回访人员"></el-table-column>
       <el-table-column align="center" prop="visitTypeString" label="回访类型"></el-table-column>
-      <el-table-column align="center"  prop="outflowStatus" label="流失状态"></el-table-column>
-      <el-table-column align="center" prop="outflowTime" label="流失时间"></el-table-column>
+      <el-table-column align="center" prop="outflowTime" label="回访时间"></el-table-column>
+      <el-table-column align="center" prop="confirmTime" label="流失时间"></el-table-column>
+      <el-table-column align="center" prop="nextTime" label="下次回访时间"></el-table-column>
+      <el-table-column align="center" prop="backVisitUserName" label="回访人员"></el-table-column>
       <el-table-column align="center" prop="outflowReason" label="流失原因"></el-table-column>
+      <el-table-column align="center"  prop="outflowStatus" label="当前流失状态"></el-table-column>
       <el-table-column align="center" label="操作" width="300">
-        <template slot-scope="scope" v-if="scope.row.outflowStatus =='待确认'">
+        <template slot-scope="scope" v-if="scope.row.outflowStatus =='待确认' && scope.row.button == 1 ">
           <el-button
             @click="churn_cancel_func(scope.row)"
             type="primary"
@@ -281,11 +324,9 @@
         <el-table-column align="center" prop="birthday" label="出生日期"></el-table-column>
         <el-table-column align="center" prop="saleProductNickname" label="产品昵称"></el-table-column>
         <el-table-column align="center" prop="tryOnBeginTime" label="试穿时间"></el-table-column>
-
         <el-table-column align="center" prop="isVip" label="是否会员"></el-table-column>
         <el-table-column align="center" prop="examinationTime" label="上次测评时间"></el-table-column>
         <el-table-column align="center" prop="examinationUser" label="测评人员"></el-table-column>
-
         <el-table-column align="center" prop="phoneStatus" label="复查邀约接通状态"></el-table-column>
         <el-table-column align="center" prop="tryOnUserName" label="试穿人员"></el-table-column>
         <el-table-column align="center" prop="visitWaitTime" label="应回访时间"></el-table-column>
@@ -349,7 +390,8 @@ import {
   cancelOutflow,
   confirmOutflow,
   selectPrincipalVisitListWhenOutflow,
-  updatePrincipalUserWhenOutflow
+  updatePrincipalUserWhenOutflow,
+  userListByDepts
 } from "../../api/javaApi";
 import javaApi from "../../api/javaApi";
 import {
@@ -381,6 +423,13 @@ export default {
         currentPage: 1
       },
       seach: {
+        outflowStatus:null,
+        outflowStatusList:[
+          {name:"待确认"},
+          {name:"已流失"},
+          {name:"已找回"},
+        ],
+        confirmTime:null,
         outflowTime: null,
         vip: null,
         vipList: [
@@ -405,14 +454,15 @@ export default {
         provinceIdList: [],
         cityIdList: [],
         hospitalLists: [],
-        hospitalId: null
+        hospitalId: null,
+        visitUserId:null
       },
       loading: true
     };
   },
   mounted() {
     this.pageList();
-    this.userList();
+    this.init_two();
     this.provinceList();
   },
   methods: {
@@ -685,13 +735,17 @@ export default {
           this.seach.outflowTime == null ? null : this.seach.outflowTime[1],
         vip: this.seach.vip == "0" ? 0 : this.seach.vip || null,
         visitUserName: this.seach.visitUserName || null,
+        visitUserId: this.seach.visitUserId || null,
         saleProductName: this.seach.saleProductName || null,
         // visitTypeInt: this.seach.visitTypeInt || null,
         memberName: this.seach.memberName || null,
         provinceId: this.seach.provinceId,
         cityId: this.seach.cityId,
         siteId: this.seach.siteValue,
-        hospitalId: this.seach.hospitalId
+        hospitalId: this.seach.hospitalId,
+        confirmTimeBegin: this.seach.confirmTime == null ? null : this.seach.confirmTime[0],
+        confirmTimeEnd: this.seach.confirmTime == null ? null : this.seach.confirmTime[1],
+        outflowStatus: this.seach.outflowStatus,
       };
       this.loading = true;
       selectBackVisitOutflowList(data)
@@ -723,13 +777,17 @@ export default {
           this.seach.outflowTime == null ? null : this.seach.outflowTime[1],
         vip: this.seach.vip == "0" ? 0 : this.seach.vip || null,
         visitUserName: this.seach.visitUserName || null,
+        visitUserId: this.seach.visitUserId || null,
         saleProductName: this.seach.saleProductName || null,
         // visitTypeInt: this.seach.visitTypeInt || null,
         memberName: this.seach.memberName || null,
         provinceId: this.seach.provinceId,
         cityId: this.seach.cityId,
         siteId: this.seach.siteValue,
-        hospitalId: this.seach.hospitalId
+        hospitalId: this.seach.hospitalId,
+        confirmTimeBegin: this.seach.confirmTime == null ? null : this.seach.confirmTime[0],
+        confirmTimeEnd: this.seach.confirmTime == null ? null : this.seach.confirmTime[1],
+        outflowStatus: this.seach.outflowStatus,
       };
       const lsyObj = {
         method: "post",
@@ -770,9 +828,29 @@ export default {
       this.seach.hospitalLists = await hospital(id);
     },
     //人员
-    async userList() {
-      this.seach.visitUserList = await personnel(6);
-    }
+    // async userList() {
+    //   this.seach.visitUserList = await personnel(6);
+    // },
+    init_two() {
+      let data = {
+        depts: [6, 9]
+      };
+      userListByDepts(data)
+        .then(res => {
+          if (res.data.returnCode != 0) {
+            this.$message({
+              type: "warning",
+              message: res.data.returnMsg,
+              center: true
+            });
+          } else {
+            this.seach.visitUserList = res.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   }
 };
 </script>

@@ -397,7 +397,7 @@
         :file-list="fileListBefore"
       >
         <i class="el-icon-plus"></i>
-        <div class="el-upload__tip" slot="tip">只能上传jpg文件</div>
+        <!-- <div class="el-upload__tip" slot="tip">只能上传jpg文件</div> -->
       </el-upload>
       <h3 class="b-b-p-1">试穿后照片（最多4张最少1张）</h3>
       <el-upload
@@ -414,7 +414,7 @@
         :file-list="fileListAfter"
       >
         <i class="el-icon-plus"></i>
-        <div class="el-upload__tip" slot="tip">只能上传jpg文件</div>
+        <!-- <div class="el-upload__tip" slot="tip">只能上传jpg文件</div> -->
       </el-upload>
       <h3 class="b-b-p-1">试穿备注</h3>
       <el-input
@@ -571,7 +571,7 @@ export default {
       this.rivetingDialog = true;
     },
     rivetOver() {
-      let timeCost = TimeDifference(this.tryOn[0].rivetBeginTime);
+      let timeCost = TimeDifference(this.tryOn[0].rivetBeginTime) || 0;
       this.$confirm("用时" + timeCost + "分钟, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消"

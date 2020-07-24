@@ -3,116 +3,6 @@
   <div>
     <!-- seach -->
     <el-form :inline="true" size="mini" id="search" class="padding-LR-p10">
-      <el-form-item label="客户姓名">
-        <el-input v-model="seach.memberName" class="w-150" placeholder="请输入姓名"></el-input>
-      </el-form-item>
-      <el-form-item label="是否会员">
-        <el-select class="w-150" clearable v-model="seach.vip" placeholder="请选择">
-          <el-option
-            v-for="item in seach.vipList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="回访人员">
-        <el-input clearable class="w-150" v-model="seach.visitUserName" placeholder="请输入回访人"></el-input>
-      </el-form-item>
-      <el-form-item label="是否流失">
-        <el-select
-          class="w-150"
-          clearable
-          v-model="seach.outflow"
-          placeholder="请选择"
-        >
-          <el-option
-            v-for="item in seach.outflowList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="回访时间">
-        <el-date-picker
-          class="w-250"
-          v-model="seach.visitTime"
-          type="daterange"
-          format="yyyy-MM-dd"
-          value-format="yyyy-MM-dd"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
-      </el-form-item>
-      <el-form-item label="产品昵称">
-        <el-input
-          class="w-150"
-          v-model="seach.saleProductName"
-          placeholder="请输入产品昵称"
-        ></el-input>
-      </el-form-item>
-      <!-- <el-form-item label="沟通结果">
-        <el-select
-         class="w-150"
-          clearable
-          v-model="seach.backTalkResult"
-          placeholder="请选择"
-        >
-          <el-option
-            v-for="item in seach.backTalkResultList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-          ></el-option>
-        </el-select>
-      </el-form-item> -->
-      <el-form-item label="是否到访">
-         <el-select
-          class="w-150"
-          clearable
-          v-model="seach.visitFlag"
-          placeholder="请选择"
-        >
-          <el-option
-            v-for="item in seach.visitFlagList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="接通状态">
-        <el-select
-          class="w-150"
-          clearable
-          v-model="seach.phoneStatus"
-          placeholder="请选择"
-        >
-          <el-option
-            v-for="item in seach.phoneStatusList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="复查邀约结果">
-        <el-select
-          class="w-150"
-          clearable
-          v-model="seach.backInviteResult"
-          placeholder="请选择"
-        >
-          <el-option
-            v-for="item in seach.backInviteResultList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-          ></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="省份">
         <el-select
          class="w-150"
@@ -155,7 +45,130 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="医院">
+      <el-form-item label="回访人员">
+        <!-- <el-input clearable class="w-150" v-model="seach.visitUserName" placeholder="请输入回访人"></el-input> -->
+        <el-select
+          class="w-150"
+          clearable
+          v-model="seach.visitUserId"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in seach.visitUserList"
+            :key="item.id"
+            :label="item.username"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="复查应到访日期">
+        <el-date-picker
+          class="w-250"
+          v-model="seach.visitTime"
+          type="daterange"
+          format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
+      <el-form-item label="接通状态">
+        <el-select
+          class="w-150"
+          clearable
+          v-model="seach.phoneStatus"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in seach.phoneStatusList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="复查邀约结果">
+        <el-select
+          class="w-150"
+          clearable
+          v-model="seach.backInviteResult"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in seach.backInviteResultList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="客户姓名">
+        <el-input v-model="seach.memberName" class="w-150" placeholder="请输入姓名"></el-input>
+      </el-form-item>
+      <el-form-item label="产品名称">
+        <el-input
+          class="w-150"
+          v-model="seach.saleProductName"
+          placeholder="请输入产品昵称"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="是否会员">
+        <el-select class="w-150" clearable v-model="seach.vip" placeholder="请选择">
+          <el-option
+            v-for="item in seach.vipList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <!-- <el-form-item label="是否流失">
+        <el-select
+          class="w-150"
+          clearable
+          v-model="seach.outflow"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in seach.outflowList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item> -->
+      <!-- <el-form-item label="沟通结果">
+        <el-select
+         class="w-150"
+          clearable
+          v-model="seach.backTalkResult"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in seach.backTalkResultList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item> -->
+      <el-form-item label="是否到访">
+         <el-select
+          class="w-150"
+          clearable
+          v-model="seach.visitFlag"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in seach.visitFlagList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <!-- <el-form-item label="医院">
         <el-select clearable class="w-150" v-model="seach.hospitalId" placeholder="请先选择测评中心">
           <el-option
             v-for="item in seach.hospitalLists"
@@ -164,7 +177,7 @@
             :value="item.id"
           ></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button
           @click="pageList(pages.currentPage,pages.pageSize)"
@@ -191,16 +204,16 @@
       <el-table-column align="center" prop="sex" label="性别"></el-table-column>
       <el-table-column align="center" prop="vip" label="是否会员"></el-table-column>
       <el-table-column align="center" prop="saleProductNickname" label="产品昵称"></el-table-column>
-      <el-table-column align="center" prop="backVisitUserName" label="回访人员"></el-table-column>
       <el-table-column align="center" prop="visitTime" label="回访时间"></el-table-column>
-      <el-table-column align="center" prop="backTalkResult" label="沟通结果"></el-table-column>
       <el-table-column align="center" prop="outflow" label="是否流失"></el-table-column>
-      <el-table-column align="center" prop="phoneStatus" label="接通状态"></el-table-column>
-      <el-table-column align="center" prop="backInviteResult" label="复查邀约结果"></el-table-column>
       <el-table-column align="center" prop="visitFlag" label="是否到访"></el-table-column>
+      <el-table-column align="center" prop="phoneStatus" label="接通状态"></el-table-column>
+      <el-table-column align="center" prop="backVisitUserName" label="回访人员"></el-table-column>
+      <!-- <el-table-column align="center" prop="backTalkResult" label="沟通结果"></el-table-column> -->
+      <el-table-column align="center" prop="backInviteResult" label="复查邀约结果"></el-table-column>
+      
     </el-table>
     <div class="total">
-      <span>合计：</span>
       <span>客户总数量:{{total.visitMemberCount}}</span>
       <span>到访客户总数量:{{total.visitFlagMember}}</span>
       <span>流失客户数:{{total.outflowMemberCount}}</span>
@@ -222,7 +235,8 @@
 </template>
 
 <script>
-import { selectBackStatistics } from "../../api/javaApi";
+import { selectBackStatistics,
+userListByDepts } from "../../api/javaApi";
 import javaApi from "../../api/javaApi";
 import { exportMethod, personnel, province, city,allSite, site,hospital } from "../../utils/public";
 import { Promise, all, async } from "q";
@@ -259,10 +273,9 @@ export default {
         outflowList: [{ name: "是", id: 1 }, { name: "否", id: "0" }],
         backInviteResult: null,
         backInviteResultList: [
-          { name: "拒绝不来" },
-          { name: "没时间" },
-          { name: "时间自己定" },
-          { name: "时间不定" }
+          { name: "时间确定" },
+          { name: "时间不定" },
+          { name: "拒绝不来" }
         ],
         visitFlag: null,
         visitFlagList: [{ name: "已到访",id:1 }, { name: "未到访",id:"0" }],
@@ -274,6 +287,7 @@ export default {
         cityIdList: [],
         hospitalLists:[],
         hospitalId:null,
+        visitUserId:null
       },
       total: {},
       loading: true
@@ -281,7 +295,7 @@ export default {
   },
   mounted() {
     this.pageList();
-    this.userList();
+    this.init_two();
     this.provinceList();
   },
   methods: {
@@ -300,6 +314,7 @@ export default {
         saleProductName: this.seach.saleProductName || null,
         phoneStatus: this.seach.phoneStatus || null,
         memberName: this.seach.memberName || null,
+        visitUserId: this.seach.visitUserId || null,
         outflow: this.seach.outflow == "0" ? 0 : this.seach.outflow || null,
         backInviteResult: this.seach.backInviteResult || null,
         visitFlag: this.seach.visitFlag== "0" ? 0 : this.seach.visitFlag || null,
@@ -338,6 +353,7 @@ export default {
           this.seach.visitTime == null ? null : this.seach.visitTime[1],
         vip: this.seach.vip == "0" ? 0 : this.seach.vip || null,
         visitUserName: this.seach.visitUserName || null,
+        visitUserId: this.seach.visitUserId || null,
         backTalkResult: this.seach.backTalkResult || null,
         saleProductName: this.seach.saleProductName || null,
         phoneStatus: this.seach.phoneStatus || null,
@@ -390,9 +406,29 @@ export default {
       this.seach.hospitalLists = await hospital(id);
     },
     //人员
-    async userList() {
-      this.seach.visitUserList = await personnel(9);
-    }
+    // async userList() {
+    //   this.seach.visitUserList = await personnel(9);
+    // },
+    init_two() {
+      let data = {
+        depts: [6, 9]
+      };
+      userListByDepts(data)
+        .then(res => {
+          if (res.data.returnCode != 0) {
+            this.$message({
+              type: "warning",
+              message: res.data.returnMsg,
+              center: true
+            });
+          } else {
+            this.seach.visitUserList = res.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   }
 };
 </script>

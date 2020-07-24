@@ -200,7 +200,7 @@
       <el-table-column align="center" prop="examinationStatus" label="测评状态"></el-table-column>
       <el-table-column align="center" prop="examinationUser" label="初次测评人员"></el-table-column>
       <el-table-column align="center" prop="memberMode" label="客户当前类型"></el-table-column>
-      <el-table-column align="center" prop="talkResult" label="沟通结果"></el-table-column>
+      <!-- <el-table-column align="center" prop="talkResult" label="沟通结果"></el-table-column> -->
       <el-table-column align="center" prop="examinationCreateTime" label="初次测评时间"></el-table-column>
     </el-table>
     <el-pagination

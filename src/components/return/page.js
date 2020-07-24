@@ -33,7 +33,7 @@ function compareFN2(arr) {
             }
         }
     }
-    let maxDate = dateChange(30, arr[arr.length - 1])
+    let maxDate =  (30, arr[arr.length - 1])
     return maxDate
 }
 // console.log(compareFN2(arr))
@@ -145,7 +145,8 @@ function rowspan_ls(that, tableData) {
             if (
                 that.clientData[index].memberId ===
                 that.clientData[index - 1].memberId && that.clientData[index].cycleTimes ===
-                that.clientData[index - 1].cycleTimes
+                that.clientData[index - 1].cycleTimes && that.clientData[index].outflowTime ===
+                that.clientData[index - 1].outflowTime
             ) {
                 that.spanArr[that.position] += 1;
                 that.spanArr.push(0);
